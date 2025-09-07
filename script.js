@@ -86,5 +86,7 @@ if (underConstruction) {
 } else {
   setTimeout(() => {
     document.querySelector(".loadings").classList.add("fade-out");
+    document.getElementById("loading-text").innerText = "Welcome!";
+    document.getElementById("loading-text").style.fontFamily = "Mojang";
   }, 4000);
 }
