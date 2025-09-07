@@ -1,0 +1,115 @@
+@font-face {
+  font-family: "MinecraftiaRegular";
+  src: url("fonts/Minecraftia-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Mojang";
+  src: url("fonts/mojang.otf") format("truetype");
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+canvas {
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("textures/panorama_overlay.png") no-repeat center;
+  background-size: cover;
+  pointer-events: none;
+}
+
+.mlogo {
+  background: url("Assets/Logo.png") no-repeat center;
+  background-size: contain;
+  width: 100%;
+  max-width: 90vh;
+  aspect-ratio: 2 / 1;
+  height: fit-content;
+  display: inline-block;
+  border: none;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.splash {
+  position: absolute;
+  top: 75%;
+  left: 95%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  width: auto;
+  max-width: 80%;
+  text-align: center;
+  pointer-events: none;
+  animation: splashAnimation 1.5s infinite;
+}
+@keyframes splashAnimation {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(-20deg) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(-20deg) scale(1.1);
+  }
+}
+
+.loadings {
+  z-index: 10;
+  background-color: rgba(239, 46, 59, 1);
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* loading fadeout effect */
+.loadings.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+  pointer-events: none;
+}
+
+.mcbutton {
+  background: url("Assets/button.png") no-repeat center;
+  background-size: contain;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.mcbutton:hover {
+  background: url("Assets/button_highlighted.png") no-repeat center;
+  background-size: contain;
+  filter: brightness(1.2);
+}
+
+.mcbutton a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: whitesmoke;
+  text-decoration: none;
+  font-family: "MinecraftiaRegular", sans-serif;
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 4px #000000;
+  background: none; /* Important! */
+}

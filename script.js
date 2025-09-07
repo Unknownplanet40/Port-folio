@@ -20,7 +20,7 @@ const texture = loader.load([
   "textures/panorama_4.png", // +y (top)
   "textures/panorama_5.png", // -y (bottom)
   "textures/panorama_2.png", // +z
-  "textures/panorama_0.png"  // -z
+  "textures/panorama_0.png", // -z
 ]);
 
 scene.background = texture;
@@ -60,7 +60,7 @@ const splashTexts = [
   "Minecraft vibes",
   "Three.js magic",
   "WebGL wonder",
-];  
+];
 
 function getRandomSplashText() {
   const index = Math.floor(Math.random() * splashTexts.length);
@@ -69,28 +69,33 @@ function getRandomSplashText() {
 
 document.getElementById("splash-text").innerText = getRandomSplashText();
 const underConstruction = true; // Change to false if the portfolio is finished
-if (underConstruction) {
-  document.getElementById("loading-text").innerText = "Loading...";
-  document.getElementById("loading-text").style.fontFamily = "Mojang";
-  setTimeout(() => {
-    document.getElementById("loading-text").style.fontFamily = "MinecraftiaRegular";
-    document.getElementById("loading-text").innerText = "Ready!";
-    setTimeout(() => {
-      document.getElementById("loading-text").innerText =
-        "This Portfolio is not finished yet!";
-      setTimeout(() => {
-        document.querySelector(".loadings").classList.add("fade-out");
-      }, 4000);
-    }, 1000);
-  }, 2500);
-} else {
-  setTimeout(() => {
-    document.querySelector(".loadings").classList.add("fade-out");
-    document.getElementById("loading-text").innerText = "Welcome!";
+const enableLoading = true; // Set to false to disable loading screen
+if (enableLoading) {
+  if (underConstruction) {
+    document.getElementById("loading-text").innerText = "Loading...";
     document.getElementById("loading-text").style.fontFamily = "Mojang";
-  }, 4000);
+    setTimeout(() => {
+      document.getElementById("loading-text").style.fontFamily =
+        "MinecraftiaRegular";
+      document.getElementById("loading-text").innerText = "Ready!";
+      setTimeout(() => {
+        document.getElementById("loading-text").innerText =
+          "This Portfolio is not finished yet!";
+        setTimeout(() => {
+          document.querySelector(".loadings").classList.add("fade-out");
+        }, 4000);
+      }, 1000);
+    }, 2500);
+  } else {
+    setTimeout(() => {
+      document.querySelector(".loadings").classList.add("fade-out");
+      document.getElementById("loading-text").innerText = "Welcome!";
+      document.getElementById("loading-text").style.fontFamily = "Mojang";
+    }, 4000);
+  }
+} else {
+  document.querySelector(".loadings").style.display = "none";
 }
-
 
 // if mobile view or the screen is small show the mobile warning
 function checkMobileView() {
@@ -114,14 +119,14 @@ loadingScreen.addEventListener("animationend", () => {
 });
 
 // Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
 
     const target = document.querySelector(this.getAttribute("href"));
     if (target) {
       target.scrollIntoView({
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
   });
