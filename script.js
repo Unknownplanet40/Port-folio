@@ -33,7 +33,7 @@ function animate() {
   requestAnimationFrame(animate);
 
   // Slowly rotate like Minecraft's main menu
-  camera.rotation.y += 0.003;
+  camera.rotation.y += 0.0008; // on
 
   renderer.render(scene, camera);
 }
@@ -45,3 +45,46 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+// splash text
+//id = splash-text
+
+const splashTexts = [
+  "Portfolio 1.0",
+  "Caps Portfolio",
+  "Made by Caps",
+  "Hello World!",
+  "Welcome to my site!",
+  "Enjoy your stay!",
+  "Coding is fun!",
+  "Minecraft vibes",
+  "Three.js magic",
+  "WebGL wonder",
+];  
+
+function getRandomSplashText() {
+  const index = Math.floor(Math.random() * splashTexts.length);
+  return splashTexts[index];
+}
+
+document.getElementById("splash-text").innerText = getRandomSplashText();
+const underConstruction = true; // Change to false if the portfolio is finished
+if (underConstruction) {
+  document.getElementById("loading-text").innerText = "Loading...";
+  document.getElementById("loading-text").style.fontFamily = "Mojang";
+  setTimeout(() => {
+    document.getElementById("loading-text").style.fontFamily = "MinecraftiaRegular";
+    document.getElementById("loading-text").innerText = "Ready!";
+    setTimeout(() => {
+      document.getElementById("loading-text").innerText =
+        "This Portfolio is not finished yet!";
+      setTimeout(() => {
+        document.querySelector(".loadings").classList.add("fade-out");
+      }, 4000);
+    }, 1000);
+  }, 2500);
+} else {
+  setTimeout(() => {
+    document.querySelector(".loadings").classList.add("fade-out");
+  }, 4000);
+}
