@@ -90,3 +90,39 @@ if (underConstruction) {
     document.getElementById("loading-text").style.fontFamily = "Mojang";
   }, 4000);
 }
+
+
+// if mobile view or the screen is small show the mobile warning
+function checkMobileView() {
+  const mobileWarning = document.getElementById("mobile-warning");
+  if (window.innerWidth < 768) {
+    mobileWarning.classList.remove("d-none");
+  } else {
+    mobileWarning.classList.add("d-none");
+  }
+}
+
+// Call the function on resize
+window.addEventListener("resize", checkMobileView);
+
+// Initial check
+checkMobileView();
+// fade out loading screen
+const loadingScreen = document.querySelector(".loadings");
+loadingScreen.addEventListener("animationend", () => {
+  loadingScreen.style.display = "none";
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const target = document.querySelector(this.getAttribute("href"));
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+  });
+});
