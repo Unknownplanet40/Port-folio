@@ -42,8 +42,8 @@ canvas {
 
 .splash {
   position: absolute;
-  top: 75%;
-  left: 95%;
+  top: 65%;
+  left: 100%;
   transform: translate(-50%, -50%) rotate(-20deg);
   width: auto;
   max-width: 80%;
@@ -61,22 +61,15 @@ canvas {
   }
 }
 
-.loadings {
-  z-index: 10;
+.loading-overlay {
   background-color: rgba(239, 46, 59, 1);
-  padding: 1rem 2rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: white;
+  font-family: "Mojang", sans-serif;
+  text-shadow: 2px 2px 4px #000000;
 }
 
 /* loading fadeout effect */
-.loadings.fade-out {
+.loading-overlay.fade-out {
   opacity: 0;
   transition: opacity 1s ease-out;
   pointer-events: none;

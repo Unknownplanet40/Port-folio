@@ -1,133 +1,104 @@
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.min.js";
 
-// Set up scene, camera, and renderer
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+//settings
+const enableLoadingScreen = false; // set to false to disable loading screen
+const underDevelopment = true; // set to true to show under development message
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const enablebackgroundAnimation = false; // set to false to disable background animation
+const rotationSpeed = 0.0008; // rotation speed of the background
 
-// Load the cube map (Minecraft panorama images)
-const loader = new THREE.CubeTextureLoader();
-const texture = loader.load([
-  "textures/panorama_3.png", // +x
-  "textures/panorama_1.png", // -x
-  "textures/panorama_4.png", // +y (top)
-  "textures/panorama_5.png", // -y (bottom)
-  "textures/panorama_2.png", // +z
-  "textures/panorama_0.png", // -z
-]);
+// Use jQuery for DOM manipulation and events
+$(document).ready(function () {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
 
-scene.background = texture;
-
-// Camera in the center
-camera.position.set(0, 0, 0);
-
-// Animation loop
-function animate() {
-  requestAnimationFrame(animate);
-
-  // Slowly rotate like Minecraft's main menu
-  camera.rotation.y += 0.0008; // on
-
-  renderer.render(scene, camera);
-}
-animate();
-
-// Make it responsive
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
-});
+  $("body").append(renderer.domElement);
 
-// splash text
-//id = splash-text
+  // Load the cube map (Minecraft panorama images)
+  const loader = new THREE.CubeTextureLoader();
+  const texture = loader.load([
+    "textures/panorama_3.png", // +x
+    "textures/panorama_1.png", // -x
+    "textures/panorama_4.png", // +y (top)
+    "textures/panorama_5.png", // -y (bottom)
+    "textures/panorama_2.png", // +z
+    "textures/panorama_0.png", // -z
+  ]);
 
-const splashTexts = [
-  "Portfolio 1.0",
-  "Caps Portfolio",
-  "Made by Caps",
-  "Hello World!",
-  "Welcome to my site!",
-  "Enjoy your stay!",
-  "Coding is fun!",
-  "Minecraft vibes",
-  "Three.js magic",
-  "WebGL wonder",
-];
+  scene.background = texture;
 
-function getRandomSplashText() {
-  const index = Math.floor(Math.random() * splashTexts.length);
-  return splashTexts[index];
-}
+  // Camera in the center
+  camera.position.set(0, 0, 0);
 
-document.getElementById("splash-text").innerText = getRandomSplashText();
-const underConstruction = true; // Change to false if the portfolio is finished
-const enableLoading = true; // Set to false to disable loading screen
-if (enableLoading) {
-  if (underConstruction) {
-    document.getElementById("loading-text").innerText = "Loading...";
-    document.getElementById("loading-text").style.fontFamily = "Mojang";
-    setTimeout(() => {
-      document.getElementById("loading-text").style.fontFamily =
-        "MinecraftiaRegular";
-      document.getElementById("loading-text").innerText = "Ready!";
-      setTimeout(() => {
-        document.getElementById("loading-text").innerText =
-          "This Portfolio is not finished yet!";
-        setTimeout(() => {
-          document.querySelector(".loadings").classList.add("fade-out");
-        }, 4000);
-      }, 1000);
-    }, 2500);
-  } else {
-    setTimeout(() => {
-      document.querySelector(".loadings").classList.add("fade-out");
-      document.getElementById("loading-text").innerText = "Welcome!";
-      document.getElementById("loading-text").style.fontFamily = "Mojang";
-    }, 4000);
+  // Animation loop
+  function animate() {
+    requestAnimationFrame(animate);
+    if (enablebackgroundAnimation) {
+      camera.rotation.y += rotationSpeed;
+    }
+    renderer.render(scene, camera);
   }
-} else {
-  document.querySelector(".loadings").style.display = "none";
-}
+  animate();
 
-// if mobile view or the screen is small show the mobile warning
-function checkMobileView() {
-  const mobileWarning = document.getElementById("mobile-warning");
-  if (window.innerWidth < 768) {
-    mobileWarning.classList.remove("d-none");
-  } else {
-    mobileWarning.classList.add("d-none");
+  // Make it responsive
+  $(window).on("resize", function () {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // splash text
+  const splashTexts = [
+    "Portfolio 1.0!",
+    "Caps Portfolio!",
+    "Made by Caps!!!",
+    "Hello World!!!",
+    "Enjoy your stay!",
+    "Coding is fun!!",
+    "Minecraft vibes!",
+    "Three.js magic!!",
+    "WebGL wonder!!!",
+  ];
+
+  function getRandomSplashText() {
+    const index = Math.floor(Math.random() * splashTexts.length);
+    return splashTexts[index];
   }
-}
 
-// Call the function on resize
-window.addEventListener("resize", checkMobileView);
+  $("#splash-text").text(getRandomSplashText());
 
-// Initial check
-checkMobileView();
-// fade out loading screen
-const loadingScreen = document.querySelector(".loadings");
-loadingScreen.addEventListener("animationend", () => {
-  loadingScreen.style.display = "none";
-});
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
+  if (enableLoadingScreen) {
+    const randomDelay = Math.random() * 2000 + 1000;
+    if (underDevelopment) {
+      $(window).on("load", function () {
+        $(".loading-text").text("Loading...");
+        setTimeout(function () {
+          $(".loading-text").css("font-family", "MinecraftiaRegular");
+          $(".loading-text").text("This Portfolio is under development!");
+          setTimeout(function () {
+            $("#loading-screen").fadeOut(500, function () {
+              $(this).remove();
+            });
+          }, Math.random() * 2000 + 2000);
+        }, randomDelay);
+      });
+    } else {
+      $(window).on("load", function () {
+        setTimeout(function () {
+          $("#loading-screen").fadeOut(500, function () {
+            $(this).remove();
+          });
+        }, randomDelay);
       });
     }
-  });
+  } else {
+    $("#loading-screen").remove();
+  }
 });

@@ -24,15 +24,21 @@
       integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
-    <!-- if in mobile view or size display this -->
-    <div id="loading-text" class="loadings position-absolute top-50 start-50 translate-middle text-white text-center" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 2rem; text-shadow: 2px 2px 4px #000000;">
-      Loading...
-    </div>
-      <div id="mobile-warning" class="d-none loadings position-absolute top-50 start-50 translate-middle text-white text-center" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 2rem; text-shadow: 2px 2px 4px #000000;">
-      Please rotate your device to landscape mode for the best experience.
-    </div>
+     <div class="loading-overlay d-flex justify-content-center align-items-center w-100 h-100 position-fixed top-0 start-0 z-3" id="loading-screen">
+      <span class="loading-text fs-3">
+        Loading...
+      </span>
+     </div>
+
+     <div class="loading-overlay d-flex justify-content-center align-items-center w-100 h-100 position-fixed top-0 start-0 z-3 d-block d-md-none" id="Mobile-loading-screen">
+      <span class="fs-3 text-center mx-3" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000; font-weight: bold;">
+        Please use a larger screen for the best experience.
+      </span>
+     </div>
+
     <div class="overlay">
       <div class="container">
         <div class="row text-center">
@@ -44,23 +50,7 @@
             </span>
           </div>
           <div class="mb-3">
-            <div class="vstack gap-3">
-              <div class="pt-2">
-                <span class="mcbutton">
-                  <a href="#about" class="text-center mt-3">About Me</a>
-                </span>
-              </div>
-              <div>
-                <span class="mcbutton">
-                  <a href="#projects" class="text-center mt-3">Projects</a>
-                </span>
-              </div>
-              <div class="pb-2">
-                <span class="mcbutton">
-                  <a href="#contact" class="text-center mt-3">Contact Me</a>
-                </span>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
