@@ -1,10 +1,10 @@
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.min.js";
 
 //settings
-const enableLoadingScreen = true; // set to false to disable loading screen
+const enableLoadingScreen = false; // set to false to disable loading screen
 const underDevelopment = true; // set to true to show under development message
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-const enablebackgroundAnimation = true; // set to false to disable background animation
+const enablebackgroundAnimation = false; // set to false to disable background animation
 const rotationSpeed = 0.0008; // rotation speed of the background
 
 // Use jQuery for DOM manipulation and events

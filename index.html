@@ -39,11 +39,11 @@
       </span>
      </div>
 
-    <div class="overlay">
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100">
       <div class="container">
         <div class="row text-center">
           <div class="mb-3">
-            <span class="position-relative mlogo">
+            <span class="position-relative mlogo align-middle w-100" style="height: clamp(20vh, 20vw, 20vh);">
               <h1 class="splash text-warning text-nowrap" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: clamp(2vh, 2vw, 3vh); text-shadow: 2px 2px 4px #000000; font-weight: bold;" id="splash-text">
                 it's Fucking Splash Text!
               </h1>
@@ -70,11 +70,29 @@
       </div>
       <!-- footer -->
       <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3 w-100">
-        <span class="text-white" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000; font-weight: bold;">
+        <span class="text-white" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000;">
           <div class="hstack">
             <span class="mx-3">Portfolio v1.0</span>
             <span class="mx-auto"></span>
-            <span class="mx-3">Copyright © 2025 Unknownplanet40</span>
+            <span class="mx-3">Copyright © <span id="current-year"></span> <span id="owner-name">Your Name</span></span>
+            <script>
+              // Set current year
+              document.getElementById('current-year').textContent = new Date().getFullYear();
+
+              // check if it's in localhost
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                document.getElementById('owner-name').textContent = "Unknownplanet40 (on localhost)";
+                } else if (window.location.hostname === 'unknownplanet40.github.io' && window.location.pathname.startsWith('/Port-folio/')) {
+                // Get part before .github
+                const owner = window.location.hostname.split('.github')[0];
+                document.getElementById('owner-name').textContent = owner.charAt(0).toUpperCase() + owner.slice(1);
+                } else {
+                const urlParams = new URLSearchParams(window.location.search);
+                const owner = urlParams.get('owner') || 'Your Name';
+                document.getElementById('owner-name').textContent = owner;
+                }
+
+            </script>
           </div>
         </span>
       </div>
