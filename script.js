@@ -1,10 +1,10 @@
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.min.js";
 
 //settings
-const enableLoadingScreen = false; // set to false to disable loading screen
+const enableLoadingScreen = true; // set to false to disable loading screen
 const underDevelopment = true; // set to true to show under development message
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-const enablebackgroundAnimation = false; // set to false to disable background animation
+const enablebackgroundAnimation = true; // set to false to disable background animation
 const rotationSpeed = 0.0008; // rotation speed of the background
 
 // Use jQuery for DOM manipulation and events
@@ -100,5 +100,24 @@ $(document).ready(function () {
     }
   } else {
     $("#loading-screen").remove();
+  }
+
+  $("#current-year").text(new Date().getFullYear());
+
+  if (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  ) {
+    $("#owner-name").text("Unknownplanet40 (on localhost)");
+  } else if (
+    window.location.hostname === "unknownplanet40.github.io" &&
+    window.location.pathname.startsWith("/Port-folio/")
+  ) {
+    const owner = window.location.hostname.split(".github")[0];
+    $("#owner-name").text(owner.charAt(0).toUpperCase() + owner.slice(1));
+  } else {
+    const urlParams = new URLSearchParams(window.location.search);
+    const owner = urlParams.get("owner") || "Your Name";
+    $("#owner-name").text(owner);
   }
 });
