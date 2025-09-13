@@ -50,23 +50,28 @@ $(document).ready(function () {
   renderer.setSize(window.innerWidth, window.innerHeight);
   $("body").append(renderer.domElement);
 
-  // Load the cube map (Minecraft panorama images)
   const loader = new THREE.CubeTextureLoader();
+  const PathToThemes = "textures/Panoramas/";
+  const themes = [
+    "BuzzyBees",
+    "ChaseTheSkyes",
+    "Cliffs",
+    "GardenAwakens",
+    "Nether",
+  ];
+
+  const selectedTheme = themes[Math.floor(Math.random() * themes.length)];
   const texture = loader.load([
-    "textures/panorama_3.png", // +x
-    "textures/panorama_1.png", // -x
-    "textures/panorama_4.png", // +y (top)
-    "textures/panorama_5.png", // -y (bottom)
-    "textures/panorama_2.png", // +z
-    "textures/panorama_0.png", // -z
+    `${PathToThemes}${selectedTheme}/panorama_3.png`, // +x
+    `${PathToThemes}${selectedTheme}/panorama_1.png`, // -x
+    `${PathToThemes}${selectedTheme}/panorama_4.png`, // +y (top)
+    `${PathToThemes}${selectedTheme}/panorama_5.png`, // -y (bottom)
+    `${PathToThemes}${selectedTheme}/panorama_2.png`, // +z
+    `${PathToThemes}${selectedTheme}/panorama_0.png`, // -z
   ]);
 
   scene.background = texture;
-
-  // Camera in the center
   camera.position.set(0, 0, 0);
-
-  // Animation loop
   function animate() {
     requestAnimationFrame(animate);
     if (enablebackgroundAnimation) {
@@ -76,14 +81,12 @@ $(document).ready(function () {
   }
   animate();
 
-  // Make it responsive
   $(window).on("resize", function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
 
-  // splash text
   const splashTexts = [
     "Portfolio 1.0!",
     "Caps Portfolio!",

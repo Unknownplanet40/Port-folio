@@ -16,11 +16,11 @@ canvas {
   display: block;
 }
 
-.overlay {
+/* .overlay {
   background: url("textures/panorama_overlay.png") no-repeat center;
   background-size: cover;
   pointer-events: none;
-}
+} */
 
 .mlogo {
   background: url("Assets/Logo.png") no-repeat center;
