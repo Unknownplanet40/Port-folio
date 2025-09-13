@@ -6,9 +6,38 @@ const underDevelopment = true; // set to true to show under development message
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 const enablebackgroundAnimation = true; // set to false to disable background animation
 const rotationSpeed = 0.0008; // rotation speed of the background
+const enableBGMusic = true; // set to false to disable background music
 
-// Use jQuery for DOM manipulation and events
+$(".btn-Clicksound").on("click", function () {
+  const audio = new Audio("Assets/Sounds/BtnClickSound.mp3");
+  audio.play();
+});
+
 $(document).ready(function () {
+
+  
+  let BGMUSIC;
+  if (enableBGMusic) {
+    BGMUSIC = new Audio("Assets/Sounds/BG-Music.ogg");
+    BGMUSIC.loop = true;
+    BGMUSIC.volume = 0.5;
+
+    const playMusic = () => {
+      BGMUSIC.play();
+      $(window).off("click keydown", playMusic);
+    };
+
+    $(window).on("click keydown", playMusic);
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        BGMUSIC.pause();
+      } else {
+        BGMUSIC.play();
+      }
+    });
+  }
+
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     75,

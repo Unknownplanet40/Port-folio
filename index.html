@@ -10,7 +10,7 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script type="module" src="script.js"></script>
     <script
       defer
@@ -24,78 +24,134 @@
       integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+      integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
-     <div class="loading-overlay d-flex justify-content-center align-items-center w-100 h-100 position-fixed top-0 start-0 z-3" id="loading-screen">
-      <span class="loading-text fs-3">
-        Loading...
-      </span>
-     </div>
+    <div
+      class="loading-overlay d-flex justify-content-center align-items-center w-100 h-100 position-fixed top-0 start-0 z-3"
+      id="loading-screen"
+    >
+      <span class="loading-text fs-3"> Loading... </span>
+    </div>
 
-     <div class="loading-overlay d-flex justify-content-center align-items-center w-100 h-100 position-fixed top-0 start-0 z-3 d-block d-md-none" id="Mobile-loading-screen">
-      <span class="fs-3 text-center mx-3" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000; font-weight: bold;">
+    <div
+      class="loading-overlay d-flex justify-content-center align-items-center w-100 h-100 position-fixed top-0 start-0 z-3 d-block d-md-none"
+      id="Mobile-loading-screen"
+    >
+      <span
+        class="fs-3 text-center mx-3"
+        style="
+          font-family: 'MinecraftiaRegular', sans-serif;
+          text-shadow: 2px 2px 4px #000000;
+          font-weight: bold;
+        "
+      >
         Please use a larger screen for the best experience.
       </span>
-     </div>
+    </div>
 
     <div class="overlay position-absolute top-0 start-0 w-100 h-100">
       <div class="container">
         <div class="row text-center">
           <div class="mb-3">
-            <span class="position-relative mlogo align-middle w-100" style="height: clamp(20vh, 20vw, 20vh);">
-              <h1 class="splash text-warning text-nowrap" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: clamp(2vh, 2vw, 3vh); text-shadow: 2px 2px 4px #000000; font-weight: bold;" id="splash-text">
+            <span
+              class="position-relative mlogo align-middle w-100"
+              style="height: clamp(20vh, 20vw, 20vh)"
+            >
+              <h1
+                class="splash text-warning text-nowrap"
+                style="
+                  font-family: 'MinecraftiaRegular', sans-serif;
+                  font-size: clamp(2vh, 2vw, 3vh);
+                  text-shadow: 2px 2px 4px #000000;
+                  font-weight: bold;
+                "
+                id="splash-text"
+              >
                 it's Fucking Splash Text!
               </h1>
             </span>
           </div>
           <div class="mt-5 pt-5 d-flex flex-column align-items-center">
             <span class="MC-Btn mb-3">
-                <a class="MC-Btn-text">
-                  About Me
-                </a>
+              <a
+                class="MC-Btn-text btn-Clicksound">
+                About Me
+              </a>
+            </span>
+            <span class="MC-Btn mb-3 btn-Clicksound">
+              <a class="MC-Btn-text"> Projects </a>
+            </span>
+            <span class="MC-Btn btn-Clicksound">
+              <a class="MC-Btn-text"> Contact Me </a>
+            </span>
+            <div class="hstack w-50 justify-content-center mt-3 mx-auto">
+              <span class="MC-Btn-sm me-3 btn-Clicksound">
+                <a class="MC-Btn-text-sm Icon-GitHub"></a>
               </span>
-              <span class="MC-Btn mb-3">
-                <a class="MC-Btn-text">
-                  Projects
-                </a>
+              <span class="MC-Btn-md me-5 btn-Clicksound">
+                <a class="MC-Btn-text-sm"> Facebook </a>
               </span>
-              <span class="MC-Btn">
-                <a class="MC-Btn-text">
-                  Contact Me
-                </a>
+              <span class="MC-Btn-md ms-4 btn-Clicksound">
+                <a class="MC-Btn-text-sm"> LinkedIn </a>
               </span>
-              <div class="hstack w-50 justify-content-center mt-3 mx-auto">
-                <span class="MC-Btn-sm me-3">
-                  <a class="MC-Btn-text-sm Icon-GitHub"></a>
-                </span>
-                <span class="MC-Btn-md me-5">
-                  <a class="MC-Btn-text-sm">
-                    Facebook
-                  </a>
-                </span>
-                <span class="MC-Btn-md ms-4">
-                  <a class="MC-Btn-text-sm">
-                    LinkedIn
-                  </a>
-                </span>
-                <span class="MC-Btn-sm ms-3">
-                  <a class="MC-Btn-text-sm Icon-Resume">
-                  </a>
-                </span>
-              </div>
+              <span class="MC-Btn-sm ms-3 btn-Clicksound">
+                <a class="MC-Btn-text-sm Icon-Resume"> </a>
+              </span>
+            </div>
           </div>
         </div>
       </div>
-      <!-- footer -->
-      <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3 w-100">
-        <span class="text-white" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000;">
+      <div
+        class="position-absolute bottom-0 start-50 translate-middle-x mb-3 w-100"
+      >
+        <span
+          class="text-white"
+          style="
+            font-family: 'MinecraftiaRegular', sans-serif;
+            text-shadow: 2px 2px 4px #000000;
+          "
+        >
           <div class="hstack">
             <span class="mx-3">Portfolio v1.0</span>
             <span class="mx-auto"></span>
-            <span class="mx-3">Copyright © <span id="current-year"></span> <span id="owner-name">Owner Name</span></span>
+            <span class="mx-3"
+              >Copyright © <span id="current-year"></span>
+              <span id="owner-name">Owner Name</span></span
+            >
           </div>
         </span>
       </div>
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content bg-transparent border">
+            <div class="row g-0 row-cols-1 row-cols-md-2">
+              <div class="col-6">
+                <p>
+                  Hello! I'm [Your Name], a passionate developer with a love
+                  for creating innovative solutions. With expertise in [Your
+                  Skills/Technologies], I enjoy turning ideas into reality.
+                  Welcome to my portfolio!
+                </p>
+              </div>
+              <div class="col-6"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
