@@ -74,7 +74,7 @@ canvas {
   width: 650px;
   height: 50px;
   display: inline-block;
-  pointer-events: auto;
+  
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -100,7 +100,7 @@ canvas {
   width: 650px;
   height: 50px;
   display: inline-block;
-  pointer-events: auto;
+  
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -113,7 +113,7 @@ canvas {
   min-width: 55px;
   height: 50px;
   display: inline-block;
-  pointer-events: auto;
+  
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -127,7 +127,7 @@ canvas {
   min-width: 215px;
   height: 50px;
   display: inline-block;
-  pointer-events: auto;
+  
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -141,7 +141,7 @@ canvas {
   min-width: 55px;
   height: 50px;
   display: inline-block;
-  pointer-events: auto;
+  
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -154,7 +154,7 @@ canvas {
   min-width: 215px;
   height: 50px;
   display: inline-block;
-  pointer-events: auto;
+  
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -208,4 +208,42 @@ canvas {
   margin-left: auto;
   margin-right: auto;
   margin-top: 12px;
+}
+
+.dialogBG {
+  background: url("Assets/dialogBG.png") repeat;
+  background-size: 16px 16px;
+  width: 350px;
+  height: 200px;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left:54%;
+  transform: translate(-50%, -50%);
+}
+
+.PopDialog {
+  background: url("Assets/dialog.png") no-repeat center center;
+  background-size: contain;
+  width: 500px;
+  height: 200px;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.popDialogLabel {
+  width: 65%;
+  font-family: "MinecraftiaRegular", sans-serif;
+  color: #fff;
+  text-shadow: 2px 2px 4px #000000;
+}
+
+.btn-close-Custom{
+  width: .8rem !important;
+  height: .8rem !important;
+  padding: 0 !important;
+  margin-left: 30px !important;
 }

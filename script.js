@@ -14,8 +14,6 @@ $(".btn-Clicksound").on("click", function () {
 });
 
 $(document).ready(function () {
-
-  
   let BGMUSIC;
   if (enableBGMusic) {
     BGMUSIC = new Audio("Assets/Sounds/BG-Music.ogg");
@@ -29,11 +27,15 @@ $(document).ready(function () {
 
     $(window).on("click keydown", playMusic);
 
+    // Remove automatic play on window load to avoid NotAllowedError
+
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) {
         BGMUSIC.pause();
       } else {
-        BGMUSIC.play();
+        if (BGMUSIC.paused) {
+          BGMUSIC.play().catch(() => {});
+        }
       }
     });
   }
@@ -54,7 +56,7 @@ $(document).ready(function () {
   const PathToThemes = "textures/Panoramas/";
   const themes = [
     "BuzzyBees",
-    "ChaseTheSkyes",
+    "ChaseTheSkys",
     "Cliffs",
     "GardenAwakens",
     "Nether",
@@ -117,6 +119,7 @@ $(document).ready(function () {
           setTimeout(function () {
             $("#loading-screen").fadeOut(500, function () {
               $(this).remove();
+              $("#PopupModal").modal("show");
             });
           }, Math.random() * 2000 + 2000);
         }, randomDelay);
