@@ -116,6 +116,7 @@ $(document).ready(function () {
         setTimeout(function () {
           $(".loading-text").css("font-family", "MinecraftiaRegular");
           $(".loading-text").text("This Portfolio is under development!");
+            $("#loading-help-text").fadeOut(500);
           setTimeout(function () {
             $("#loading-screen").fadeOut(500, function () {
               $(this).remove();

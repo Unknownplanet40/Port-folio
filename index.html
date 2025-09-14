@@ -34,10 +34,24 @@
   </head>
   <body>
     <div
-      class="loading-overlay d-flex justify-content-center align-items-center w-100 h-100 position-fixed top-0 start-0 z-3"
+      class="loading-overlay w-100 h-100 position-fixed top-0 start-0 z-3"
       id="loading-screen"
     >
-      <span class="loading-text fs-3"> Loading... </span>
+      <div
+        class="vstack gap-3 d-flex justify-content-center align-items-center h-100 position-relative"
+      >
+        <span class="loading-text fs-3 px-1"> Loading... </span>
+        <span class="px-auto"></span>
+        <div
+          class="px-1 position-absolute bottom-0 start-50 translate-middle-x mb-4"
+          role="status"
+        >
+          <p style="font-size: 0.8rem; font-family: 'MinecraftiaRegular', sans-serif" class="text-white text-center" id="loading-help-text">
+            Stuck on loading? Try refreshing the page or check your internet
+            connection.
+          </p>
+        </div>
+      </div>
     </div>
 
     <div
@@ -81,9 +95,7 @@
           </div>
           <div class="mt-5 pt-5 d-flex flex-column align-items-center">
             <span class="MC-Btn mb-2">
-              <a class="MC-Btn-text btn-Clicksound">
-                About Me
-              </a>
+              <a class="MC-Btn-text btn-Clicksound"> About Me </a>
             </span>
             <span class="MC-Btn mb-2 btn-Clicksound">
               <a class="MC-Btn-text"> Projects </a>
@@ -145,8 +157,10 @@
               <div class="modal-body text-center" style="position: relative">
                 <span class="dialogBG rounded"></span>
                 <div class="PopDialog position-relative rounded">
-                    <div class="position-absolute top-0 start-50 translate-middle-x
-                    " style="width: 68%; right: 16%">
+                  <div
+                    class="position-absolute top-0 start-50 translate-middle-x"
+                    style="width: 68%; right: 16%"
+                  >
                     <p class="mb-0">Reminder</p>
                     <button
                       type="button"
@@ -154,8 +168,11 @@
                       data-bs-dismiss="modal"
                       aria-label="Close"
                     ></button>
-                    </div>
-                  <div class="d-flex flex-column align-items-center justify-content-center position-relative" style="top: 15%; height: 80%;">
+                  </div>
+                  <div
+                    class="d-flex flex-column align-items-center justify-content-center position-relative"
+                    style="top: 15%; height: 80%"
+                  >
                     <p class="mx-auto popDialogLabel text-center">
                       You need to interact with the page to enable sound
                       effects.
