@@ -22,6 +22,127 @@ canvas {
   
 } */
 
+
+.custom-box {
+  background-color: #c8c8c8;
+  border-radius: 6px;
+  border-left: 5px solid #fff;
+  border-top: 5px solid #fff;
+  border-right: 5px solid #7f7f7f;
+  border-bottom: 5px solid #7f7f7f;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
+}
+
+.char-Box {
+  width: 200px;
+  height: 260px;
+  background-color: black;
+  border-top: 4px solid #7f7f7f;
+  border-left: 4px solid #7f7f7f;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+}
+
+.box-1 {
+  width: 100%;
+  background-color: #8b8b8b;
+  border-top: 4px solid #414141;
+  border-left: 4px solid #414141;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+}
+
+.item-slot {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.mc-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 125%; /* move to right side */
+  transform: translateY(-50%);
+  font-family: "MinecraftiaRegular", sans-serif;
+  font-size: 16px;
+  white-space: nowrap;
+  z-index: 10;
+  text-align: center;
+  background-color: #100210d1;
+  border: 4px solid #100210;
+  padding: 8px 8px 0 8px;
+  border-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s;
+  color: gold;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+}
+
+.item-slot:hover .mc-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* change box-1 (item that currently hovered) background color */
+.item-slot:hover {
+  background-color: #bab9b9;
+}
+
+.MC-main {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.MC-Title {
+  font-family: "MinecraftiaRegular", sans-serif;
+  color: #dfdfdf;
+  font-size: 24px;
+  font-weight: bolder;
+  background-color: #212121;
+  border: 4px solid #5d5d5d;
+  border-radius: 6px;
+}
+
+/* Scrollbar Styles */
+.MC-main::-webkit-scrollbar {
+  width: 8px;
+}
+.MC-main::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+.MC-main::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+.MC-main::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+@media (max-width: 768px) {
+  .MC-Title {
+    font-size: 20px;
+  }
+  .mc-tooltip {
+    font-size: 14px;
+    left: 110%;
+  }
+}
+@media (max-width: 576px) {
+  .MC-Title {
+    font-size: 18px;
+  }
+  .mc-tooltip {
+    font-size: 12px;
+    left: 105%;
+  }
+}
+
+
 .mlogo {
   background: url("Assets/Logo.png") no-repeat center;
   background-size: contain;
@@ -314,123 +435,3 @@ canvas {
 
   background: #000; /* doesn’t matter, the mask controls visibility */
 }
-
-.custom-box {
-        background-color: #c8c8c8;
-        border-radius: 6px;
-        border-left: 5px solid #fff;
-        border-top: 5px solid #fff;
-        border-right: 5px solid #7f7f7f;
-        border-bottom: 5px solid #7f7f7f;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
-      }
-
-      .char-Box {
-        width: 200px;
-        height: 260px;
-        background-color: black;
-        border-top: 4px solid #7f7f7f;
-        border-left: 4px solid #7f7f7f;
-        border-right: 4px solid #fff;
-        border-bottom: 4px solid #fff;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
-      }
-
-      .box-1 {
-        width: 100%;
-        background-color: #8b8b8b;
-        border-top: 4px solid #414141;
-        border-left: 4px solid #414141;
-        border-right: 4px solid #fff;
-        border-bottom: 4px solid #fff;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
-      }
-
-      .item-slot {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-      }
-
-      .mc-tooltip {
-        visibility: hidden;
-        opacity: 0;
-        position: absolute;
-        top: 50%;
-        left: 125%; /* move to right side */
-        transform: translateY(-50%);
-        font-family: "MinecraftiaRegular", sans-serif;
-        font-size: 16px;
-        white-space: nowrap;
-        z-index: 10;
-        text-align: center;
-        background-color: #100210d1;
-        border: 4px solid #100210;
-        padding: 8px 8px 0 8px;
-        border-radius: 6px;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        transition: opacity 0.3s;
-        color: gold;
-        width: auto;
-        max-width: none;
-        min-width: 0;
-      }
-
-      .item-slot:hover .mc-tooltip {
-        visibility: visible;
-        opacity: 1;
-      }
-
-      /* change box-1 (item that currently hovered) background color */
-      .item-slot:hover {
-        background-color: #bab9b9;
-      }
-
-      .MC-main {
-        overflow-y: auto;
-        scrollbar-width: thin;
-      }
-      .MC-Title {
-        font-family: "MinecraftiaRegular", sans-serif;
-        color: #dfdfdf;
-        font-size: 24px;
-        font-weight: bolder;
-        background-color: #212121;
-        border: 4px solid #5d5d5d;
-        border-radius: 6px;
-      }
-
-      /* Scrollbar Styles */
-      .MC-main::-webkit-scrollbar {
-        width: 8px;
-      }
-      .MC-main::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 6px;
-      }
-      .MC-main::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 6px;
-      }
-      .MC-main::-webkit-scrollbar-thumb:hover {
-        background: #555;
-      }
-      @media (max-width: 768px) {
-        .MC-Title {
-          font-size: 20px;
-        }
-        .mc-tooltip {
-          font-size: 14px;
-          left: 110%;
-        }
-      }
-      @media (max-width: 576px) {
-        .MC-Title {
-          font-size: 18px;
-        }
-        .mc-tooltip {
-          font-size: 12px;
-          left: 105%;
-        }
-      }
-
