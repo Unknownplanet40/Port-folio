@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Portfolio</title>
+    <meta name="description" content="Minecraft Themed Portfolio Website" />
+    <meta name="author" content="Your Name" />
+    <meta name="keywords" content="Portfolio, Minecraft, Web Development" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revised" content="Ryan James Capadocia, 10/04/2025" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -11,8 +17,8 @@
       crossorigin="anonymous"
     />
     <link rel="shortcut icon" href="Assets/Gprofile.gif" type="image/x-icon" />
-    <link rel="stylesheet" href="style.css" />
-    <script type="module" src="script.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./script.js"></script>
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -46,7 +52,14 @@
           class="px-1 position-absolute bottom-0 start-50 translate-middle-x mb-4"
           role="status"
         >
-          <p style="font-size: 0.8rem; font-family: 'MinecraftiaRegular', sans-serif" class="text-white text-center" id="loading-help-text">
+          <p
+            style="
+              font-size: 0.8rem;
+              font-family: 'MinecraftiaRegular', sans-serif;
+            "
+            class="text-white text-center"
+            id="loading-help-text"
+          >
             Stuck on loading? Try refreshing the page or check your internet
             connection.
           </p>
@@ -60,7 +73,7 @@
       id="Mobile-loading-screen"
     >
       <span
-        class="fs-3 text-center mx-3"
+        class="fs-5 fs-md-3 text-center mx-3"
         style="
           font-family: 'MinecraftiaRegular', sans-serif;
           text-shadow: 2px 2px 4px #000000;
@@ -95,23 +108,33 @@
           </div>
           <div class="mt-5 pt-5 d-flex flex-column align-items-center">
             <span class="MC-Btn mb-2">
-              <a class="MC-Btn-text btn-Clicksound"> About Me </a>
+              <a
+                class="MC-Btn-text btn-Clicksound"
+                data-bs-toggle="modal"
+                data-bs-target="#AboutMeModal"
+              >
+                About Me
+              </a>
             </span>
             <span class="MC-Btn mb-2 btn-Clicksound">
               <a class="MC-Btn-text"> Projects </a>
             </span>
             <span class="MC-Btn btn-Clicksound">
               <a class="MC-Btn-text"> Contact Me </a>
+              
             </span>
             <div class="hstack w-50 justify-content-center mt-2 mx-auto">
               <span class="MC-Btn-sm me-2 btn-Clicksound">
-                <a class="MC-Btn-text-sm Icon-GitHub"></a>
+                <a class="MC-Btn-text-sm Icon-GitHub" href="https://github.com/Unknownplanet40" target="_blank" rel="noopener noreferrer"
+                > </a>
               </span>
               <span class="MC-Btn-md me-5 btn-Clicksound">
-                <a class="MC-Btn-text-sm"> Facebook </a>
+                <a class="MC-Btn-text-sm" href="https://www.facebook.com/Cappps.Lock" target="_blank" rel="noopener noreferrer"
+                > Facebook </a>
               </span>
               <span class="MC-Btn-md ms-4 btn-Clicksound">
-                <a class="MC-Btn-text-sm"> LinkedIn </a>
+                <a class="MC-Btn-text-sm" href="https://www.linkedin.com/in/rj45" target="_blank" rel="noopener noreferrer"
+                > LinkedIn </a>
               </span>
               <span class="MC-Btn-sm ms-3 btn-Clicksound">
                 <a class="MC-Btn-text-sm Icon-Resume"> </a>
@@ -140,8 +163,6 @@
           </div>
         </span>
       </div>
-      <!-- Popup Modal -->
-      <!-- Popup Modal (placed behind Mobile-loading-screen) -->
       <div class="modal-container">
         <div
           class="modal fade"
@@ -153,6 +174,7 @@
           aria-hidden="true"
         >
           <div class="modal-dialog">
+            <!-- Small modal-dialog -->
             <div class="modal-content bg-transparent border-0">
               <div class="modal-body text-center" style="position: relative">
                 <span class="dialogBG rounded"></span>
@@ -161,7 +183,6 @@
                     class="position-absolute top-0 start-50 translate-middle-x"
                     style="width: 68%; right: 16%"
                   >
-                    <p class="mb-0">Reminder</p>
                     <button
                       type="button"
                       class="btn-close btn-close-Custom btn-Clicksound position-absolute top-0 end-0 m-2 z-3"
@@ -177,6 +198,303 @@
                       You need to interact with the page to enable sound
                       effects.
                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- About Me Modal -->
+        <div
+          class="modal fade"
+          id="AboutMeModal"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="AboutMeModalLabel"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down"
+          >
+            <div class="modal-content custom-box">
+              <div class="modal-body border-0 p-0">
+                <div class="row g-0 p-3">
+                  <div class="col-12 d-flex justify-content-end">
+                    <small class="position-absolute start-0 ps-3 text-muted"
+                      >Note: This is not the final layout. Content will be added
+                      soon.</small
+                    >
+                    <button
+                      type="button"
+                      class="btn-close btn-Clicksound"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="col-12">
+                    <div class="hstack gap-0 p-0 m-0">
+                      <div class="ms-3" style="height: 260px; width: 200px">
+                        <div class="char-Box p-0 m-0"></div>
+                      </div>
+                      <div class="m-0" style="height: 260px; width: 65px">
+                        <div class="d-flex flex-column h-100 w-100 p-0 m-0">
+                          <div
+                            class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                          >
+                            <div class="item-slot slot-sound">
+                              <img
+                                src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121"
+                                alt="Enchanted_Book"
+                                style="width: 48px; height: 48px"
+                              />
+                              <div class="mc-tooltip">Basic Information</div>
+                            </div>
+                          </div>
+                          <div
+                            class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                          >
+                            <div class="item-slot slot-sound">
+                              <img
+                                src="https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024"
+                                alt="Command_Block"
+                                style="width: 48px; height: 48px"
+                              />
+                              <div class="mc-tooltip">Skills & Experience</div>
+                            </div>
+                          </div>
+                          <div
+                            class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                          >
+                            <div class="item-slot slot-sound">
+                              <img
+                                src="https://minecraft.wiki/images/Book_and_Quill_JE2_BE2.png?2128f"
+                                alt="Book_and_Quill"
+                                style="width: 48px; height: 48px"
+                              />
+                              <div class="mc-tooltip">
+                                Education & Certifications
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                          >
+                            <div class="item-slot slot-sound">
+                              <img
+                                src="https://minecraft.wiki/images/Elytra_%28item%29_JE1_BE1.png?8f01d&20190502042255"
+                                alt="Elytra"
+                                style="width: 48px; height: 48px"
+                              />
+                              <div class="mc-tooltip">Goals & Aspirations</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="me-3 ms-1 MC-main"
+                        style="
+                          height: 260px;
+                          max-height: 260px;
+                          width: calc(100% - 265px);
+                        "
+                      >
+                        <div
+                          class="h-100 p-3"
+                          style="overflow-y: auto"
+                          id="Info-1"
+                        >
+                          <span class="d-block">
+                            <h3
+                              class="MC-Title p-3 pb-0 text-center mb-5 text-truncate"
+                            >
+                              Basic Information
+                            </h3>
+                          </span>
+                          <table
+                            class="text-justify mb-3"
+                            style="
+                              font-family: 'MinecraftiaRegular', sans-serif;
+                              font-size: 16px;
+                              color: #100210;
+                            "
+                          >
+                            <tr>
+                              <td>
+                                <span style="font-weight: bold; color: #000"
+                                  >Name:</span
+                                >
+                              </td>
+                              <td>
+                                <span class="ms-3" id="playerName"></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span style="font-weight: bold; color: #000"
+                                  >Age:</span
+                                >
+                              </td>
+                              <td>
+                                <span class="ms-3" id="age"></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span style="font-weight: bold; color: #000"
+                                  >Location:</span
+                                >
+                              </td>
+                              <td>
+                                <span class="ms-3" id="location"></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span style="font-weight: bold; color: #000"
+                                  >Email:</span
+                                >
+                              </td>
+                              <td>
+                                <span class="ms-3" id="email"></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span style="font-weight: bold; color: #000"
+                                  >Title:</span
+                                >
+                              </td>
+                              <td>
+                                <span class="ms-3" id="title"></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span style="font-weight: bold; color: #000"
+                                  >Status Message:</span
+                                >
+                              </td>
+                              <td>
+                                <span class="ms-3" id="statusMessage"></span>
+                              </td>
+                            </tr>
+                            <!-- Profile Stats (as bullet list or grid): -->
+                            <tr>
+                              <td>
+                                <img
+                                  src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121"
+                                  alt="Enchanted_Book"
+                                  style="width: 100px; height: 100px"
+                                  class="m-3"
+                                />
+                              </td>
+                              <td colspan="2" class="pt-3">
+                                <span style="font-weight: bold; color: #000"
+                                  >Profile Stats:</span
+                                >
+                                <ul
+                                  class="mt-1 mb-0"
+                                  style="padding-left: 20px"
+                                >
+                                  <li>Level: 99 (in Caffine Tolerance)</li>
+                                  <li>Profession: IT Support Specialist</li>
+                                  <li>
+                                    Hobbies: Coding, Gaming, Reading Tech Blogs
+                                  </li>
+                                  <li>
+                                    Favorite Language: JavaScript, MySQL, PHP
+                                  </li>
+                                  <li>
+                                    Years of Experience: None (Fresh Graduate)
+                                  </li>
+                                </ul>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 text-center bg-danger mt-3 p-3"
+                    style="height: 300px"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of About Me Modal -->
+          <div
+            class="modal fade"
+            id="MidModalDialog"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="MidModalDialogLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content MidDialogBG bg-transparent">
+                <div class="modal-body MidPopDialog">
+                  <div
+                    class="d-flex flex-column align-items-center justify-content-center position-relative h-100"
+                    style="top: 5%; height: 80%; padding: 20px"
+                  >
+                    <h2
+                      class="text-warning mb-3 d-none"
+                      style="
+                        font-weight: bold;
+                        font-family: 'MinecraftiaRegular', sans-serif;
+                        font-size: 1.5rem;
+                        text-shadow: 1px 1px 2px #000000;
+                      "
+                    >
+                      About Me
+                    </h2>
+                    <p
+                      class="mx-auto text-white text-center d-none"
+                      style="
+                        font-family: 'MinecraftiaRegular', sans-serif;
+                        font-size: 1rem;
+                        line-height: 1.5;
+                      "
+                    >
+                      Hello! I'm [Your Name], a passionate developer with a love
+                      for creating innovative solutions. With experience in web
+                      development, I enjoy bringing ideas to life through code.
+                      When I'm not coding, you can find me exploring new
+                      technologies or indulging in my hobbies. Let's connect and
+                      build something amazing together!
+                    </p>
+                    <!-- Progress Bar Version 1.0 -->`
+                    <p
+                      class="text-white text-center mb-2"
+                      style="
+                        font-family: 'MinecraftiaRegular', sans-serif;
+                        font-size: 1rem;
+                        text-shadow: 1px 1px 2px #000000;
+                      "
+                    >
+                      Loading Profile...
+                    </p>
+                    <div class="w-100 px-3 position-relative">
+                      <div
+                        class="progress w-100 MC-Progress-Bar bg-transparent"
+                        role="progressbar"
+                        aria-label="Profile loading progress"
+                        style="height: 10px"
+                      >
+                        <div
+                          class="progress-bar bg-transparent MC-Progress-Bar-fill"
+                          style="width: 100%"
+                        ></div>
+                      </div>
+                      <div
+                        class="MC-Progress-Bar-Overlay"
+                        id="progress-bar-overlay"
+                      ></div>
+                    </div>
                   </div>
                 </div>
               </div>

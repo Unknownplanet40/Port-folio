@@ -116,7 +116,7 @@ $(document).ready(function () {
         setTimeout(function () {
           $(".loading-text").css("font-family", "MinecraftiaRegular");
           $(".loading-text").text("This Portfolio is under development!");
-            $("#loading-help-text").fadeOut(500);
+          $("#loading-help-text").fadeOut(500);
           setTimeout(function () {
             $("#loading-screen").fadeOut(500, function () {
               $(this).remove();
@@ -156,4 +156,23 @@ $(document).ready(function () {
     const owner = urlParams.get("owner") || "Your Name";
     $("#owner-name").text(owner);
   }
+
+  let soundArray = [
+        "https://minecraft.wiki/images/Page_turn1.ogg?213d1",
+        "https://minecraft.wiki/images/Page_turn2.ogg?6e3e1",
+        "https://minecraft.wiki/images/Page_turn3.ogg?5e9d9",
+      ];
+      $(".slot-sound").on("click", function () {
+        var audio = new Audio(
+        soundArray[Math.floor(Math.random() * soundArray.length)]
+        );
+        audio.play();
+      });
+  
+      $("#playerName").text("Ryan James Capadocia");
+      $("#age").text((2025 - 2002).toString() + " years old");
+      $("#location").text("Philippines");
+      $("#email").text("ryan.capadocia@example.com");
+      $("#title").text("Aspiring Web Developer");
+      $("#statusMessage").text("Building the future, one line of code at a time.");
 });

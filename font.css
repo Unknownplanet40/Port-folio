@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "MinecraftiaRegular";
+  src: url("fonts/Minecraftia-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Mojang";
+  src: url("fonts/mojang.otf") format("truetype");
+}

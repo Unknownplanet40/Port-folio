@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <meta name="description" content="Minecraft Themed Portfolio Website" />
+    <meta name="author" content="Your Name" />
+    <meta name="keywords" content="Portfolio, Minecraft, Web Development" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revised" content="Ryan James Capadocia, 10/04/2025" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="font.css" />
+    <link rel="shortcut icon" href="Assets/Gprofile.gif" type="image/x-icon" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+      integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <style>
+      .custom-box {
+        background-color: #c8c8c8;
+        border-radius: 6px;
+        border-left: 5px solid #fff;
+        border-top: 5px solid #fff;
+        border-right: 5px solid #7f7f7f;
+        border-bottom: 5px solid #7f7f7f;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
+      }
+
+      .char-Box {
+        width: 200px;
+        height: 260px;
+        background-color: black;
+        border-top: 4px solid #7f7f7f;
+        border-left: 4px solid #7f7f7f;
+        border-right: 4px solid #fff;
+        border-bottom: 4px solid #fff;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+      }
+
+      .box-1 {
+        width: 100%;
+        background-color: #8b8b8b;
+        border-top: 4px solid #414141;
+        border-left: 4px solid #414141;
+        border-right: 4px solid #fff;
+        border-bottom: 4px solid #fff;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+      }
+
+      .item-slot {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .mc-tooltip {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 125%; /* move to right side */
+        transform: translateY(-50%);
+        font-family: "MinecraftiaRegular", sans-serif;
+        font-size: 16px;
+        white-space: nowrap;
+        z-index: 10;
+        text-align: center;
+        background-color: #100210d1;
+        border: 4px solid #100210;
+        padding: 8px 8px 0 8px;
+        border-radius: 6px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        transition: opacity 0.3s;
+        color: gold;
+        width: auto;
+        max-width: none;
+        min-width: 0;
+      }
+
+      .item-slot:hover .mc-tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      /* change box-1 (item that currently hovered) background color */
+      .item-slot:hover {
+        background-color: #bab9b9;
+      }
+
+      .MC-main {
+        overflow-y: auto;
+        scrollbar-width: thin;
+      }
+      .MC-Title {
+        font-family: "MinecraftiaRegular", sans-serif;
+        color: #dfdfdf;
+        font-size: 24px;
+        font-weight: bolder;
+        background-color: #212121;
+        border: 4px solid #5d5d5d;
+        border-radius: 6px;
+      }
+
+      /* Scrollbar Styles */
+      .MC-main::-webkit-scrollbar {
+        width: 8px;
+      }
+      .MC-main::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 6px;
+      }
+      .MC-main::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 6px;
+      }
+      .MC-main::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      @media (max-width: 768px) {
+        .MC-Title {
+          font-size: 20px;
+        }
+        .mc-tooltip {
+          font-size: 14px;
+          left: 110%;
+        }
+      }
+      @media (max-width: 576px) {
+        .MC-Title {
+          font-size: 18px;
+        }
+        .mc-tooltip {
+          font-size: 12px;
+          left: 105%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="AboutMeModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="AboutMeModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-md-down"
+      >
+        <div class="modal-content custom-box">
+          <div class="modal-body border-0 p-0">
+            <div class="row g-0 p-3">
+              <div class="col-12 d-flex justify-content-end">
+                <small class="position-absolute start-0 ps-3 text-muted">Note: This is not the final layout. Content will be added soon.</small>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="col-12">
+                <div class="hstack gap-0 p-0 m-0">
+                  <div class="ms-3" style="height: 260px; width: 200px">
+                    <div class="char-Box p-0 m-0"></div>
+                  </div>
+                  <div class="m-0" style="height: 260px; width: 65px">
+                    <div class="d-flex flex-column h-100 w-100 p-0 m-0">
+                      <div
+                        class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                      >
+                        <div class="item-slot slot-sound">
+                          <img
+                            src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121"
+                            alt="Enchanted_Book"
+                            style="width: 48px; height: 48px"
+                          />
+                          <div class="mc-tooltip">Basic Information</div>
+                        </div>
+                      </div>
+                      <div
+                        class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                      >
+                        <div class="item-slot slot-sound">
+                          <img
+                            src="https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024"
+                            alt="Command_Block"
+                            style="width: 48px; height: 48px"
+                          />
+                          <div class="mc-tooltip">Skills & Experience</div>
+                        </div>
+                      </div>
+                      <div
+                        class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                      >
+                        <div class="item-slot slot-sound">
+                          <img
+                            src="https://minecraft.wiki/images/Book_and_Quill_JE2_BE2.png?2128f"
+                            alt="Book_and_Quill"
+                            style="width: 48px; height: 48px"
+                          />
+                          <div class="mc-tooltip">
+                            Education & Certifications
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                      >
+                        <div class="item-slot slot-sound">
+                          <img
+                            src="https://minecraft.wiki/images/Elytra_%28item%29_JE1_BE1.png?8f01d&20190502042255"
+                            alt="Elytra"
+                            style="width: 48px; height: 48px"
+                          />
+                          <div class="mc-tooltip">Goals & Aspirations</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="me-3 ms-1 MC-main"
+                    style="
+                      height: 260px;
+                      max-height: 260px;
+                      width: calc(100% - 265px);
+                    "
+                  >
+                    <div class="h-100 p-3" style="overflow-y: auto" id="Info-1">
+                      <span
+                        class="d-block"
+                      >
+                        <h3
+                          class="MC-Title p-3 pb-0 text-center mb-5 text-truncate"
+                        >
+                          Basic Information
+                        </h3>
+                      </span>
+                      <table
+                        class="text-justify mb-3"
+                        style="
+                          font-family: 'MinecraftiaRegular', sans-serif;
+                          font-size: 16px;
+                          color: #100210;
+                        "
+                      >
+                        <tr>
+                          <td>
+                            <span style="font-weight: bold; color: #000"
+                              >Name:</span
+                            >
+                          </td>
+                          <td>
+                            <span class="ms-3" id="playerName"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span style="font-weight: bold; color: #000"
+                              >Age:</span
+                            >
+                          </td>
+                          <td>
+                            <span class="ms-3" id="age"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span style="font-weight: bold; color: #000"
+                              >Location:</span
+                            >
+                          </td>
+                          <td>
+                            <span class="ms-3" id="location"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span style="font-weight: bold; color: #000"
+                              >Email:</span
+                            >
+                          </td>
+                          <td>
+                            <span class="ms-3" id="email"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span style="font-weight: bold; color: #000"
+                              >Title:</span
+                            >
+                          </td>
+                          <td>
+                            <span class="ms-3" id="title"></span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span style="font-weight: bold; color: #000"
+                              >Status Message:</span
+                            >
+                          </td>
+                          <td>
+                            <span class="ms-3" id="statusMessage"></span>
+                          </td>
+                        </tr>
+                        <!-- Profile Stats (as bullet list or grid): -->
+                        <tr>
+                          <td>
+                            <img
+                              src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121"
+                              alt="Enchanted_Book"
+                              style="width: 100px; height: 100px" class="m-3"
+                            />
+                          </td>
+                          <td colspan="2" class="pt-3">
+                            <span
+                              style="font-weight: bold; color: #000"
+                              >Profile Stats:</span
+                            >
+                            <ul class="mt-1 mb-0" style="padding-left: 20px">
+                              <li>Level: 99 (in Caffine Tolerance)</li>
+                              <li>Profession: IT Support Specialist</li>
+                              <li>Hobbies: Coding, Gaming, Reading Tech Blogs</li>
+                              <li>Favorite Language: JavaScript, MySQL, PHP</li>
+                              <li>Years of Experience: None (Fresh Graduate)</li>
+                            </ul>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 text-center bg-danger mt-3 p-3" style="height: 300px;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+      var myModal = new bootstrap.Modal($("#staticBackdrop")[0], {
+        keyboard: false,
+      });
+      myModal.show();
+
+      let soundArray = [
+        "https://minecraft.wiki/images/Page_turn1.ogg?213d1",
+        "https://minecraft.wiki/images/Page_turn2.ogg?6e3e1",
+        "https://minecraft.wiki/images/Page_turn3.ogg?5e9d9",
+      ];
+      $(".slot-sound").on("click", function () {
+        var audio = new Audio(
+        soundArray[Math.floor(Math.random() * soundArray.length)]
+        );
+        audio.play();
+      });
+
+      // Basic Information Data
+      $("#playerName").text("Ryan James Capadocia");
+      $("#age").text((2025 - 2002).toString() + " years old");
+      $("#location").text("Philippines");
+      $("#email").text("ryan.capadocia@example.com");
+      $("#title").text("Aspiring Web Developer");
+      $("#statusMessage").text("Building the future, one line of code at a time.");
+      });
+    </script>
+  </body>
+</html>

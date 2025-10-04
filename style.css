@@ -19,7 +19,7 @@ canvas {
 /* .overlay {
   background: url("textures/panorama_overlay.png") no-repeat center;
   background-size: cover;
-  pointer-events: none;
+  
 } */
 
 .mlogo {
@@ -28,7 +28,6 @@ canvas {
   width: 100%;
   height: 140px;
   display: inline-block;
-  pointer-events: none;
   margin: 50px 0 0 0;
   padding: 0;
 }
@@ -41,7 +40,7 @@ canvas {
   width: auto;
   max-width: 80%;
   text-align: center;
-  pointer-events: none;
+
   animation: splashAnimation 1.5s infinite;
 }
 @keyframes splashAnimation {
@@ -65,7 +64,6 @@ canvas {
 .loading-overlay.fade-out {
   opacity: 0;
   transition: opacity 1s ease-out;
-  pointer-events: none;
 }
 
 .MC-Btn {
@@ -74,7 +72,7 @@ canvas {
   width: 650px;
   height: 50px;
   display: inline-block;
-  
+
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -100,7 +98,7 @@ canvas {
   width: 650px;
   height: 50px;
   display: inline-block;
-  
+
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -113,7 +111,7 @@ canvas {
   min-width: 55px;
   height: 50px;
   display: inline-block;
-  
+
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -122,12 +120,12 @@ canvas {
 
 .MC-Btn-md {
   background: url("Assets/button_md.png") no-repeat center;
-    background-size: contain;
+  background-size: contain;
   width: 215px;
   min-width: 215px;
   height: 50px;
   display: inline-block;
-  
+
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -141,7 +139,7 @@ canvas {
   min-width: 55px;
   height: 50px;
   display: inline-block;
-  
+
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -149,12 +147,12 @@ canvas {
 
 .MC-Btn-md:hover {
   background: url("Assets/button_highlighted_md.png") no-repeat center;
-    background-size: contain;
+  background-size: contain;
   width: 215px;
   min-width: 215px;
   height: 50px;
   display: inline-block;
-  
+
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -192,19 +190,18 @@ canvas {
   width: 38px;
   height: 38px;
   display: block;
-  pointer-events: none;
+
   margin-left: auto;
   margin-right: auto;
   margin-top: 6px;
 }
 
 .Icon-Resume {
-  background: url("Assets/draft_report.png") no-repeat center;
+  background: url("Assets/info.png") no-repeat center;
   background-size: contain;
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
   display: block;
-  pointer-events: none;
   margin-left: auto;
   margin-right: auto;
   margin-top: 12px;
@@ -220,7 +217,7 @@ canvas {
   padding: 0;
   position: absolute;
   top: 50%;
-  left:54%;
+  left: 54%;
   transform: translate(-50%, -50%);
 }
 
@@ -241,9 +238,199 @@ canvas {
   text-shadow: 2px 2px 4px #000000;
 }
 
-.btn-close-Custom{
-  width: .8rem !important;
-  height: .8rem !important;
+.btn-close-Custom {
+  width: 0.8rem !important;
+  height: 0.8rem !important;
   padding: 0 !important;
   margin-left: 30px !important;
 }
+
+.MidDialogBG {
+  background: url("Assets/dialogBG.png") repeat;
+  background-size: 16px 16px;
+  width: 500px;
+  height: 230px;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.MidPopDialog {
+  background: url("Assets/dialog.png") no-repeat center center;
+  background-size: contain;
+  width: 500px;
+  height: 300px;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.MC-Progress-Bar {
+  position: relative;
+  height: 20px;
+  width: 100%;
+  background: url("textures/experience_bar_background.png") no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.MC-Progress-Bar-fill {
+  background: url("textures/experience_bar_progress.png") repeat-x; /* repeat like MC bar */
+  background-size: auto 100%;
+  height: 100%;
+  width: 0%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transition: width 0.3s ease;
+}
+
+/* Use transparent PNG as mask/overlay */
+.MC-Progress-Bar-Overlay {
+  position: absolute;
+  top: 0;
+  left: 10px; /* adjust if needed to fit */
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  /* Use a transparent PNG of the bar as a mask */
+  -webkit-mask-image: url("textures/experience_bar_overlay.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: cover;
+
+  mask-image: url("textures/experience_bar_overlay.png");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover;
+
+  background: #000; /* doesn’t matter, the mask controls visibility */
+}
+
+.custom-box {
+        background-color: #c8c8c8;
+        border-radius: 6px;
+        border-left: 5px solid #fff;
+        border-top: 5px solid #fff;
+        border-right: 5px solid #7f7f7f;
+        border-bottom: 5px solid #7f7f7f;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
+      }
+
+      .char-Box {
+        width: 200px;
+        height: 260px;
+        background-color: black;
+        border-top: 4px solid #7f7f7f;
+        border-left: 4px solid #7f7f7f;
+        border-right: 4px solid #fff;
+        border-bottom: 4px solid #fff;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+      }
+
+      .box-1 {
+        width: 100%;
+        background-color: #8b8b8b;
+        border-top: 4px solid #414141;
+        border-left: 4px solid #414141;
+        border-right: 4px solid #fff;
+        border-bottom: 4px solid #fff;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+      }
+
+      .item-slot {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .mc-tooltip {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 125%; /* move to right side */
+        transform: translateY(-50%);
+        font-family: "MinecraftiaRegular", sans-serif;
+        font-size: 16px;
+        white-space: nowrap;
+        z-index: 10;
+        text-align: center;
+        background-color: #100210d1;
+        border: 4px solid #100210;
+        padding: 8px 8px 0 8px;
+        border-radius: 6px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        transition: opacity 0.3s;
+        color: gold;
+        width: auto;
+        max-width: none;
+        min-width: 0;
+      }
+
+      .item-slot:hover .mc-tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      /* change box-1 (item that currently hovered) background color */
+      .item-slot:hover {
+        background-color: #bab9b9;
+      }
+
+      .MC-main {
+        overflow-y: auto;
+        scrollbar-width: thin;
+      }
+      .MC-Title {
+        font-family: "MinecraftiaRegular", sans-serif;
+        color: #dfdfdf;
+        font-size: 24px;
+        font-weight: bolder;
+        background-color: #212121;
+        border: 4px solid #5d5d5d;
+        border-radius: 6px;
+      }
+
+      /* Scrollbar Styles */
+      .MC-main::-webkit-scrollbar {
+        width: 8px;
+      }
+      .MC-main::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 6px;
+      }
+      .MC-main::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 6px;
+      }
+      .MC-main::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      @media (max-width: 768px) {
+        .MC-Title {
+          font-size: 20px;
+        }
+        .mc-tooltip {
+          font-size: 14px;
+          left: 110%;
+        }
+      }
+      @media (max-width: 576px) {
+        .MC-Title {
+          font-size: 18px;
+        }
+        .mc-tooltip {
+          font-size: 12px;
+          left: 105%;
+        }
+      }
+
