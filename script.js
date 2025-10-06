@@ -27,8 +27,6 @@ $(document).ready(function () {
 
     $(window).on("click keydown", playMusic);
 
-    // Remove automatic play on window load to avoid NotAllowedError
-
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) {
         BGMUSIC.pause();
@@ -87,6 +85,24 @@ $(document).ready(function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    $("#AboutMeModal").modal("hide");
+
+    if (
+      !$("#loading-screen").length ||
+      $("#loading-screen").css("display") === "none" ||
+      $("#loading-screen").hasClass("d-none")
+    ) {
+      if (window.innerWidth <= 968) {
+        $("#PopupModal").modal("show");
+        $("#popupModalLabel").text("Incompatible Screen Size");
+        $(".modal").not("#PopupModal").modal("hide");
+      } else {
+        $("#popupModalLabel").text(
+          "You need to interact with the page to enable sound effects."
+        );
+        $("#PopupModal").modal("hide");
+      }
+    }
   });
 
   const splashTexts = [
@@ -158,21 +174,59 @@ $(document).ready(function () {
   }
 
   let soundArray = [
-        "https://minecraft.wiki/images/Page_turn1.ogg?213d1",
-        "https://minecraft.wiki/images/Page_turn2.ogg?6e3e1",
-        "https://minecraft.wiki/images/Page_turn3.ogg?5e9d9",
-      ];
-      $(".slot-sound").on("click", function () {
-        var audio = new Audio(
-        soundArray[Math.floor(Math.random() * soundArray.length)]
-        );
-        audio.play();
+    "https://minecraft.wiki/images/Page_turn1.ogg?213d1",
+    "https://minecraft.wiki/images/Page_turn2.ogg?6e3e1",
+    "https://minecraft.wiki/images/Page_turn3.ogg?5e9d9",
+  ];
+  $(".slot-sound").on("click", function () {
+    var audio = new Audio(
+      soundArray[Math.floor(Math.random() * soundArray.length)]
+    );
+    audio.play();
+  });
+
+  $("#playerName").text("Ryan James Capadocia");
+  $("#age").text((2025 - 2002).toString() + " years old");
+  $("#location").text("Philippines");
+  $("#email").text("ryan.capadocia@example.com");
+  $("#title").text("Aspiring Web Developer");
+  $("#statusMessage").text("Building the future, one line of code at a time.");
+
+  $("#AboutMeBtn").on("click", function () {
+    if (window.innerWidth < 1366) {
+      $("#PopupModal").modal("show");
+      $("#popupModalLabel").text("It's best viewed on a larger screen.");
+      $(".modal").not("#PopupModal").modal("hide");
+    } else {
+      $("#AboutMeModal").modal("show");
+      $(".modal").not("#AboutMeModal").modal("hide");
+      $("#popupModalLabel").text(
+        "You need to interact with the page to enable sound effects."
+      );
+    }
+  });
+
+  $("#slot-1").on("click", function () {
+    if (!$("#Info-1").hasClass("d-none")) {
+      $("#Info-1").show();
+      $("#Info-2").addClass("d-none");
+    } else {
+      $("#Info-2").fadeOut(200, function () {
+        $(this).addClass("d-none");
+        $("#Info-1").removeClass("d-none").hide().fadeIn(200);
       });
-  
-      $("#playerName").text("Ryan James Capadocia");
-      $("#age").text((2025 - 2002).toString() + " years old");
-      $("#location").text("Philippines");
-      $("#email").text("ryan.capadocia@example.com");
-      $("#title").text("Aspiring Web Developer");
-      $("#statusMessage").text("Building the future, one line of code at a time.");
+    }
+  });
+
+  $("#slot-2").on("click", function () {
+    if (!$("#Info-2").hasClass("d-none")) {
+      $("#Info-2").show();
+      $("#Info-1").addClass("d-none");
+    } else {
+      $("#Info-1").fadeOut(200, function () {
+        $(this).addClass("d-none");
+        $("#Info-2").removeClass("d-none").hide().fadeIn(200);
+      });
+    }
+  });
 });

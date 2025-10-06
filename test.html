@@ -37,6 +37,12 @@
       referrerpolicy="no-referrer"
     ></script>
     <style>
+      body {
+        background-color: #121212;
+        /* hide scroll bar but still able to scroll */
+        overflow: hidden;
+      }
+
       .custom-box {
         background-color: #c8c8c8;
         border-radius: 6px;
@@ -122,21 +128,6 @@
         border-radius: 6px;
       }
 
-      /* Scrollbar Styles */
-      .MC-main::-webkit-scrollbar {
-        width: 8px;
-      }
-      .MC-main::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 6px;
-      }
-      .MC-main::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 6px;
-      }
-      .MC-main::-webkit-scrollbar-thumb:hover {
-        background: #555;
-      }
       @media (max-width: 768px) {
         .MC-Title {
           font-size: 20px;
@@ -155,6 +146,36 @@
           left: 105%;
         }
       }
+
+      .MC-boxData {
+        width: 100%;
+        height: 100%;
+        background-color: #100210d1;
+        border: 4px solid #100210;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        border-radius: 6px;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        color: gold;
+        font-family: "MinecraftiaRegular", sans-serif;
+        padding: 16px;
+      }
+
+      .progbar-BG {
+        background-image: url(textures/experience_bar_background.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: 2px solid #000;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      }
+      .Progbar-Gold {
+        background-color: #00ff00;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        background-blend-mode: multiply;
+        opacity: 0.7;
+      }
     </style>
   </head>
 
@@ -170,13 +191,16 @@
       aria-hidden="true"
     >
       <div
-        class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-md-down"
+        class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-md-down modal-dialog-scrollable"
       >
         <div class="modal-content custom-box">
           <div class="modal-body border-0 p-0">
             <div class="row g-0 p-3">
               <div class="col-12 d-flex justify-content-end">
-                <small class="position-absolute start-0 ps-3 text-muted">Note: This is not the final layout. Content will be added soon.</small>
+                <small class="position-absolute start-0 ps-3 text-muted"
+                  >Note: This is not the final layout. Content will be added
+                  soon.</small
+                >
                 <button
                   type="button"
                   class="btn-close"
@@ -184,17 +208,19 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="col-12">
+              <div class="col-12" style="height: 360px; max-height: 360px">
                 <div class="hstack gap-0 p-0 m-0">
-                  <div class="ms-3" style="height: 260px; width: 200px">
-                    <div class="char-Box p-0 m-0"></div>
+                  <div style="height: 400px; max-height: 400px; padding-top: 6.5%;">
+                    <div class="ms-3" style="height: 260px; width: 200px">
+                      <div class="char-Box p-0 m-0"></div>
+                    </div>
                   </div>
                   <div class="m-0" style="height: 260px; width: 65px">
                     <div class="d-flex flex-column h-100 w-100 p-0 m-0">
                       <div
                         class="box-1 flex-fill d-flex align-items-center justify-content-center"
                       >
-                        <div class="item-slot slot-sound">
+                        <div class="item-slot slot-sound" id="slot-1">
                           <img
                             src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121"
                             alt="Enchanted_Book"
@@ -206,7 +232,7 @@
                       <div
                         class="box-1 flex-fill d-flex align-items-center justify-content-center"
                       >
-                        <div class="item-slot slot-sound">
+                        <div class="item-slot slot-sound" id="slot-2">
                           <img
                             src="https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024"
                             alt="Command_Block"
@@ -218,7 +244,7 @@
                       <div
                         class="box-1 flex-fill d-flex align-items-center justify-content-center"
                       >
-                        <div class="item-slot slot-sound">
+                        <div class="item-slot slot-sound" id="slot-3">
                           <img
                             src="https://minecraft.wiki/images/Book_and_Quill_JE2_BE2.png?2128f"
                             alt="Book_and_Quill"
@@ -232,7 +258,7 @@
                       <div
                         class="box-1 flex-fill d-flex align-items-center justify-content-center"
                       >
-                        <div class="item-slot slot-sound">
+                        <div class="item-slot slot-sound" id="slot-4">
                           <img
                             src="https://minecraft.wiki/images/Elytra_%28item%29_JE1_BE1.png?8f01d&20190502042255"
                             alt="Elytra"
@@ -245,119 +271,305 @@
                   </div>
                   <div
                     class="me-3 ms-1 MC-main"
-                    style="
-                      height: 260px;
-                      max-height: 260px;
-                      width: calc(100% - 265px);
-                    "
+                    style="width: calc(100% - 265px)"
                   >
-                    <div class="h-100 p-3" style="overflow-y: auto" id="Info-1">
-                      <span
-                        class="d-block"
-                      >
+                    <div
+                      class="h-100 p-3"
+                      style="overflow-y: auto; max-height: 400px; height: 400px"
+                      id="Info-1"
+                    >
+                      <span class="d-block">
                         <h3
-                          class="MC-Title p-3 pb-0 text-center mb-5 text-truncate"
+                          class="MC-Title p-3 pb-0 text-center mb-3 text-truncate"
                         >
                           Basic Information
                         </h3>
                       </span>
-                      <table
-                        class="text-justify mb-3"
-                        style="
-                          font-family: 'MinecraftiaRegular', sans-serif;
-                          font-size: 16px;
-                          color: #100210;
-                        "
-                      >
-                        <tr>
-                          <td>
-                            <span style="font-weight: bold; color: #000"
-                              >Name:</span
-                            >
-                          </td>
-                          <td>
-                            <span class="ms-3" id="playerName"></span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span style="font-weight: bold; color: #000"
-                              >Age:</span
-                            >
-                          </td>
-                          <td>
-                            <span class="ms-3" id="age"></span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span style="font-weight: bold; color: #000"
-                              >Location:</span
-                            >
-                          </td>
-                          <td>
-                            <span class="ms-3" id="location"></span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span style="font-weight: bold; color: #000"
-                              >Email:</span
-                            >
-                          </td>
-                          <td>
-                            <span class="ms-3" id="email"></span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span style="font-weight: bold; color: #000"
-                              >Title:</span
-                            >
-                          </td>
-                          <td>
-                            <span class="ms-3" id="title"></span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span style="font-weight: bold; color: #000"
-                              >Status Message:</span
-                            >
-                          </td>
-                          <td>
-                            <span class="ms-3" id="statusMessage"></span>
-                          </td>
-                        </tr>
-                        <!-- Profile Stats (as bullet list or grid): -->
-                        <tr>
-                          <td>
+                      <div class="hstack p-3 custom-box">
+                        <div class="position-relative">
+                          <span>
+                            <img
+                              src="Assets/map.png"
+                              alt="Enchanted_Book"
+                              style="
+                                width: 230px;
+                                height: 230px;
+                                image-rendering: pixelated;
+                                image-rendering: crisp-edges;
+                              "
+                            />
+                          </span>
+                          <span
+                            class="position-absolute top-50 start-50 translate-middle"
+                          >
                             <img
                               src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121"
                               alt="Enchanted_Book"
-                              style="width: 100px; height: 100px" class="m-3"
+                              style="width: 128px; height: 128px"
                             />
-                          </td>
-                          <td colspan="2" class="pt-3">
-                            <span
-                              style="font-weight: bold; color: #000"
-                              >Profile Stats:</span
-                            >
-                            <ul class="mt-1 mb-0" style="padding-left: 20px">
-                              <li>Level: 99 (in Caffine Tolerance)</li>
-                              <li>Profession: IT Support Specialist</li>
-                              <li>Hobbies: Coding, Gaming, Reading Tech Blogs</li>
-                              <li>Favorite Language: JavaScript, MySQL, PHP</li>
-                              <li>Years of Experience: None (Fresh Graduate)</li>
-                            </ul>
-                          </td>
-                        </tr>
-                      </table>
+                          </span>
+                        </div>
+                        <div class="flex-fill ms-3">
+                          <table
+                            class="text-justify"
+                            style="
+                              font-family: 'MinecraftiaRegular', sans-serif;
+                              font-size: 16px;
+                              color: #100210;
+                            "
+                          >
+                            <tr>
+                              <td>
+                                <span class="text-muted">Name:</span>
+                              </td>
+                              <td>
+                                <span
+                                  class="ms-3 fw-bold"
+                                  id="playerName"
+                                ></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Age:</span>
+                              </td>
+                              <td>
+                                <span class="ms-3 fw-bold" id="age"></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Location:</span>
+                              </td>
+                              <td>
+                                <span class="ms-3 fw-bold" id="location"></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Email:</span>
+                              </td>
+                              <td>
+                                <span class="ms-3 fw-bold" id="email"></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Title:</span>
+                              </td>
+                              <td>
+                                <span class="ms-3 fw-bold" id="title"></span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <span class="text-muted">Motto:</span>
+                              </td>
+                              <td>
+                                <span
+                                  class="ms-3 fw-bold fst-italic"
+                                  style="font-size: 14px"
+                                  id="statusMessage"
+                                ></span>
+                              </td>
+                            </tr>
+                          </table>
+                          <small class="text-muted">
+                            Note: This is a sample text. Actual information will
+                            be updated soon.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="h-100 p-3 d-none"
+                      style="overflow-y: auto; max-height: 400px; height: 400px"
+                      id="Info-2"
+                    >
+                      <span class="d-block">
+                        <h3
+                          class="MC-Title p-3 pb-0 text-center mb-3 text-truncate"
+                        >
+                          Skills & Experience
+                        </h3>
+                      </span>
+                      <div class="hstack p-3 custom-box">
+                        <div class="position-relative">
+                          <span>
+                            <img
+                              src="Assets/map.png"
+                              alt="Enchanted_Book"
+                              style="
+                                width: 230px;
+                                height: 230px;
+                                image-rendering: pixelated;
+                                image-rendering: crisp-edges;
+                              "
+                            />
+                          </span>
+                          <span
+                            class="position-absolute top-50 start-50 translate-middle"
+                          >
+                            <img
+                              src="https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024"
+                              alt="Command_Block"
+                              style="width: 128px; height: 128px"
+                            />
+                          </span>
+                        </div>
+                        <div class="flex-fill ms-3" style="overflow-y: auto; max-height: 230px; height: 230px; text-align: justify;">
+                          <p
+                            class="text-justify p-2"
+                            style="
+                              font-family: 'MinecraftiaRegular', sans-serif;
+                              font-size: 14px;
+                              color: #100210;
+                              text-indent: 2.5em;
+                              line-height: 1.7;
+                            "
+                          >
+                            I am proficient in HTML, CSS, JavaScript, and PHP,
+                            with hands-on experience in building responsive and
+                            user-friendly websites. I have a solid understanding
+                            of front-end and back-end development, and I am
+                            eager to apply my skills in real-world projects.
+                            Additionally, I am familiar with popular frameworks
+                            like Bootstrap and libraries such as jQuery, which
+                            enhance my ability to create dynamic web
+                            applications. I am committed to continuous learning
+                            and staying updated with the latest web development
+                            trends and technologies.
+                          </p>
+                          <small class="text-muted">
+                            Note: This is a sample text. Actual skills and
+                            experience will be updated soon.
+                          </small>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-12 text-center bg-danger mt-3 p-3" style="height: 300px;">
+            </div>
+            <div class="col-12 p-3 pt-0 mb-3" style="height: 200px">
+              <div class="row g-0 h-100 row-cols-1 row-cols-lg-2">
+                <div class="col-6 mx-auto">
+                  <div class="MC-boxData">
+                    <p class="text-start mb-3 fw-bold">
+                      Most used Programming Languages
+                    </p>
+                    <table class="w-100" style="font-size: 16px">
+                      <tr>
+                        <td class="text-start p-2 pb-0">PHP</td>
+                        <td class="text-end w-75">
+                          <div
+                            class="progress rounded-1 bg-secondary progbar-BG"
+                            role="progressbar"
+                            aria-label="Basic example"
+                            aria-valuenow="0"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            style="height: 10px; image-rendering: pixelated"
+                          >
+                            <div
+                              class="progress-bar progress-bar-animated progress-bar-striped Progbar-Gold"
+                              style="width: 67%"
+                            ></div>
+                          </div>
+                        </td>
+                        <td class="text-end p-2">67%</td>
+                      </tr>
+                      <tr class="">
+                        <td class="text-start p-2 pb-0">JavaScript</td>
+                        <td class="text-end w-75">
+                          <div
+                            class="progress rounded-1 bg-secondary progbar-BG"
+                            role="progressbar"
+                            aria-label="Basic example"
+                            aria-valuenow="0"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            style="height: 10px; image-rendering: pixelated"
+                          >
+                            <div
+                              class="progress-bar progress-bar-animated progress-bar-striped Progbar-Gold"
+                              style="width: 26%"
+                            ></div>
+                          </div>
+                        </td>
+                        <td class="text-end p-2">26%</td>
+                      </tr>
+                      <tr class="">
+                        <td class="text-start p-2 pb-0">CSS</td>
+                        <td class="text-end w-100">
+                          <div
+                            class="progress rounded-1 bg-secondary progbar-BG"
+                            role="progressbar"
+                            aria-label="Basic example"
+                            aria-valuenow="0"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            style="height: 10px; image-rendering: pixelated"
+                          >
+                            <div
+                              class="progress-bar progress-bar-animated progress-bar-striped Progbar-Gold"
+                              style="width: 3%"
+                            ></div>
+                          </div>
+                        </td>
+                        <td class="text-end p-2">3%</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="col-6 mx-auto border">
+                  <div class="MC-boxData">
+                    <p class="text-start mb-3 fw-bold">
+                      Most used Frameworks & Libraries
+                    </p>
+                    <table class="w-100" style="font-size: 16px">
+                      <tr>
+                        <td class="text-start p-2 pb-0">Bootstrap 5</td>
+                        <td class="text-end" style="width: 70%">
+                          <div
+                            class="progress rounded-1 bg-secondary progbar-BG"
+                            role="progressbar"
+                            aria-label="Basic example"
+                            aria-valuenow="0"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            style="height: 10px; image-rendering: pixelated"
+                          >
+                            <div
+                              class="progress-bar progress-bar-animated progress-bar-striped Progbar-Gold"
+                              style="width: 86%"
+                            ></div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-start p-2 pb-0">jQuery</td>
+                        <td class="text-end" style="width: 70%">
+                          <div
+                            class="progress rounded-1 bg-secondary progbar-BG"
+                            role="progressbar"
+                            aria-label="Basic example"
+                            aria-valuenow="0"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            style="height: 10px; image-rendering: pixelated"
+                          >
+                            <div
+                              class="progress-bar progress-bar-animated progress-bar-striped Progbar-Gold"
+                              style="width: 65%"
+                            ></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -365,30 +577,41 @@
     </div>
     <script>
       $(document).ready(function () {
-      var myModal = new bootstrap.Modal($("#staticBackdrop")[0], {
-        keyboard: false,
-      });
-      myModal.show();
+        $("#playerName").text("Ryan James Capadocia");
+        $("#age").text((2025 - 2002).toString() + " years old");
+        $("#location").text("Philippines");
+        $("#email").text("ryan.capadocia@example.com");
+        $("#title").text("Aspiring Web Developer");
+        $("#statusMessage").text("Every wait has a worth, trust the process.");
 
-      let soundArray = [
-        "https://minecraft.wiki/images/Page_turn1.ogg?213d1",
-        "https://minecraft.wiki/images/Page_turn2.ogg?6e3e1",
-        "https://minecraft.wiki/images/Page_turn3.ogg?5e9d9",
-      ];
-      $(".slot-sound").on("click", function () {
-        var audio = new Audio(
-        soundArray[Math.floor(Math.random() * soundArray.length)]
-        );
-        audio.play();
+        let soundArray = [
+          "https://minecraft.wiki/images/Page_turn1.ogg?213d1",
+          "https://minecraft.wiki/images/Page_turn2.ogg?6e3e1",
+          "https://minecraft.wiki/images/Page_turn3.ogg?5e9d9",
+        ];
+        $(".slot-sound").on("click", function () {
+          var audio = new Audio(
+            soundArray[Math.floor(Math.random() * soundArray.length)]
+          );
+          audio.play();
+        });
+
+        // Show AboutMeModal on page load
+        var aboutMeModal = new bootstrap.Modal($("#AboutMeModal")[0], {
+          keyboard: false,
+        });
+        aboutMeModal.show();
       });
 
-      // Basic Information Data
-      $("#playerName").text("Ryan James Capadocia");
-      $("#age").text((2025 - 2002).toString() + " years old");
-      $("#location").text("Philippines");
-      $("#email").text("ryan.capadocia@example.com");
-      $("#title").text("Aspiring Web Developer");
-      $("#statusMessage").text("Building the future, one line of code at a time.");
+      // Switch Info sections based on clicked item-slot
+      $("#slot-1").on("click", function () {
+        $("#Info-1").removeClass("d-none");
+        $("#Info-2").addClass("d-none").fadeOut();
+      });
+
+      $("#slot-2").on("click", function () {
+        $("#Info-2").removeClass("d-none");
+        $("#Info-1").addClass("d-none").fadeOut();
       });
     </script>
   </body>
