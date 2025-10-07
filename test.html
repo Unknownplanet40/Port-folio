@@ -210,7 +210,9 @@
               </div>
               <div class="col-12" style="height: 360px; max-height: 360px">
                 <div class="hstack gap-0 p-0 m-0">
-                  <div style="height: 400px; max-height: 400px; padding-top: 6.5%;">
+                  <div
+                    style="height: 400px; max-height: 400px; padding-top: 6.5%"
+                  >
                     <div class="ms-3" style="height: 260px; width: 200px">
                       <div class="char-Box p-0 m-0"></div>
                     </div>
@@ -394,56 +396,385 @@
                         </h3>
                       </span>
                       <div class="hstack p-3 custom-box">
-                        <div class="position-relative">
-                          <span>
-                            <img
-                              src="Assets/map.png"
-                              alt="Enchanted_Book"
-                              style="
-                                width: 230px;
-                                height: 230px;
-                                image-rendering: pixelated;
-                                image-rendering: crisp-edges;
-                              "
-                            />
-                          </span>
-                          <span
-                            class="position-absolute top-50 start-50 translate-middle"
-                          >
-                            <img
-                              src="https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024"
-                              alt="Command_Block"
-                              style="width: 128px; height: 128px"
-                            />
-                          </span>
+                        <div class="d-flex flex-column">
+                          <div class="d-flex">
+                            <div
+                              class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                            >
+                              <div
+                                class="item-slot"
+                                id="inv-slot-1"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges"
+                                  class="p-1 d-none"
+                                  id="inv-item-1"
+                                />
+                                <div class="mc-tooltip text-start d-none" id="inv-tooltip-1">
+                                  <strong id="inv-tooltip-1-text" class="text-light"></strong><br />
+                                  <span class="text-wrap text-secondary" id="inv-tooltip-1-description"></span>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                            >
+                              <div
+                                class="item-slot"
+                                id="inv-slot-2"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges"
+                                  class="p-1 d-none"
+                                  id="inv-item-2"
+                                />
+                                <div class="mc-tooltip d-none" id="inv-tooltip-2">
+                                  <strong id="inv-tooltip-2-text" class="text-light"></strong><br />
+                                  <span class="text-wrap text-secondary" id="inv-tooltip-2-description"></span>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                            >
+                              <div
+                                class="item-slot"
+                                id="inv-slot-3"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt="Enchanted_Book"
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="inv-item-3"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="inv-tooltip-3"
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="d-flex">
+                            <div
+                              class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                            >
+                              <div
+                                class="item-slot"
+                                id="inv-slot-4"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt="Enchanted_Book"
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="inv-item-4"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="inv-tooltip-4"
+                                ></div>
+                              </div>
+                            </div>
+                            <div
+                              class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                            >
+                              <div
+                                class="item-slot"
+                                id="inv-slot-5"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt="Enchanted_Book"
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="inv-item-5"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="inv-tooltip-5"
+                                ></div>
+                              </div>
+                            </div>
+                            <div
+                              class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                            >
+                              <div
+                                class="item-slot"
+                                id="inv-slot-6"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt="Enchanted_Book"
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="inv-item-6"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="inv-tooltip-6"
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="d-flex">
+                            <div
+                              class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                            >
+                              <div
+                                class="item-slot"
+                                id="inv-slot-7"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt="Enchanted_Book"
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="inv-item-7"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="inv-tooltip-7"
+                                ></div>
+                              </div>
+                            </div>
+                            <div
+                              class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                            >
+                              <div
+                                class="item-slot"
+                                id="inv-slot-8"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt="Enchanted_Book"
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="inv-item-8"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="inv-tooltip-8"
+                                ></div>
+                              </div>
+                            </div>
+                            <div
+                              class="box-1 flex-fill d-flex align-items-center justify-content-center"
+                            >
+                              <div
+                                class="item-slot"
+                                id="inv-slot-9"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt="Enchanted_Book"
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="inv-item-9"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="inv-tooltip-9"
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="flex-fill ms-3" style="overflow-y: auto; max-height: 230px; height: 230px; text-align: justify;">
-                          <p
-                            class="text-justify p-2"
-                            style="
-                              font-family: 'MinecraftiaRegular', sans-serif;
-                              font-size: 14px;
-                              color: #100210;
-                              text-indent: 2.5em;
-                              line-height: 1.7;
-                            "
-                          >
-                            I am proficient in HTML, CSS, JavaScript, and PHP,
-                            with hands-on experience in building responsive and
-                            user-friendly websites. I have a solid understanding
-                            of front-end and back-end development, and I am
-                            eager to apply my skills in real-world projects.
-                            Additionally, I am familiar with popular frameworks
-                            like Bootstrap and libraries such as jQuery, which
-                            enhance my ability to create dynamic web
-                            applications. I am committed to continuous learning
-                            and staying updated with the latest web development
-                            trends and technologies.
-                          </p>
-                          <small class="text-muted">
-                            Note: This is a sample text. Actual skills and
-                            experience will be updated soon.
-                          </small>
+                        <div
+                          class="flex-fill ms-3"
+                          style="
+                            overflow-y: auto;
+                            max-height: 230px;
+                            height: 230px;
+                            text-align: justify;
+                          "
+                        >
+                          <div class="hstack">
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div
+                                class="item-slot"
+                                id="skill-slot-1"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src="https://minecraft.wiki/images/Invicon_Cobweb.png?cb28b"
+                                  alt="Cobweb"
+                                  style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges"
+                                  class="p-1"
+                                  id="skill-item-1"
+                                />
+                                <div class="mc-tooltip text-light text-start pt-5" id="skill-tooltip-1" style="width: 420px;">
+                                  <strong>Web Development</strong><br />
+                                  <span class="text-wrap text-secondary">Experience in building responsive and user-friendly websites</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div
+                                class="item-slot"
+                                id="skill-slot-2"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="skill-item-2"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="skill-tooltip-2"
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div
+                                class="item-slot"
+                                id="skill-slot-3"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="skill-item-3"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="skill-tooltip-3"
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div
+                                class="item-slot"
+                                id="skill-slot-4"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="skill-item-4"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="skill-tooltip-4"
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div
+                                class="item-slot"
+                                id="skill-slot-5"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="skill-item-5"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="skill-tooltip-5"
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div
+                                class="item-slot"
+                                id="skill-slot-6"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="skill-item-6"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="skill-tooltip-6"
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div
+                                class="item-slot"
+                                id="skill-slot-7"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="skill-item-7"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="skill-tooltip-7"
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div
+                                class="item-slot"
+                                id="skill-slot-8"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="skill-item-8"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="skill-tooltip-8"
+                                ></div>
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div
+                                class="item-slot"
+                                id="skill-slot-9"
+                                style="height: 48px; width: 48px"
+                              >
+                                <img
+                                  src=""
+                                  alt=""
+                                  style="width: 48px; height: 48px"
+                                  class="p-1 d-none"
+                                  id="skill-item-9"
+                                />
+                                <div
+                                  class="mc-tooltip d-none"
+                                  id="skill-tooltip-9"
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -612,6 +943,53 @@
       $("#slot-2").on("click", function () {
         $("#Info-2").removeClass("d-none");
         $("#Info-1").addClass("d-none").fadeOut();
+      });
+
+      // if skill-item-1 is clicked, show inv-item-1
+      $("#skill-item-1").on("click", function () {
+        // HTML Skill
+        $("#inv-item-1")
+          .attr({
+        src: "https://minecraft.wiki/images/Invicon_String.png?b6e8d",
+        alt: "HTML"
+          })
+          .removeClass("d-none");
+        $("#inv-tooltip-1-text").text("HTML");
+        $("#inv-tooltip-1-description").text("Skilled in creating structured, semantic, and accessible web pages.");
+        $("#inv-tooltip-1")
+          .removeClass("d-none")
+          .css({ width: "auto", minWidth: "275px" })
+          .addClass("text-start");
+
+        // CSS Skill
+        $("#inv-item-2")
+          .attr({
+        src: "https://minecraft.wiki/images/Invicon_String.png?b6e8d",
+        alt: "CSS"
+          })
+          .removeClass("d-none");
+        $("#inv-tooltip-2-text").text("CSS");
+        $("#inv-tooltip-2-description").text("Proficient in designing responsive, visually appealing layouts and animations.");
+        $("#inv-tooltip-2")
+          .removeClass("d-none")
+          .css({ width: "auto", minWidth: "275px" })
+          .addClass("text-start");
+
+        // JavaScript Skill
+        $("#inv-item-3")
+          .attr({
+        src: "https://minecraft.wiki/images/Invicon_String.png?b6e8d",
+        alt: "JavaScript",
+        style: "width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges"
+          })
+          .removeClass("d-none");
+        $("#inv-tooltip-3")
+          .removeClass("d-none text-start")
+          .html(
+        '<strong class="text-light">JavaScript</strong><br>' +
+        '<span class="text-wrap text-secondary">Experienced in adding interactivity, dynamic content, and logic to web applications.</span>'
+          )
+          .css({ width: "auto", minWidth: "275px" }).addClass("text-start");
       });
     </script>
   </body>

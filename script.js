@@ -229,4 +229,67 @@ $(document).ready(function () {
       });
     }
   });
+
+  $("#slot-1").on("click", function () {
+    $("#Info-1").removeClass("d-none");
+    $("#Info-2").addClass("d-none").fadeOut();
+  });
+
+  $("#slot-2").on("click", function () {
+    $("#Info-2").removeClass("d-none");
+    $("#Info-1").addClass("d-none").fadeOut();
+  });
+
+  // if skill-item-1 is clicked, show inv-item-1
+  $("#skill-item-1").on("click", function () {
+    // HTML Skill
+    $("#inv-item-1")
+      .attr({
+        src: "https://minecraft.wiki/images/Invicon_String.png?b6e8d",
+        alt: "HTML",
+      })
+      .removeClass("d-none");
+    $("#inv-tooltip-1-text").text("HTML");
+    $("#inv-tooltip-1-description").text(
+      "Skilled in creating structured, semantic, and accessible web pages."
+    );
+    $("#inv-tooltip-1")
+      .removeClass("d-none")
+      .css({ width: "auto", minWidth: "275px" })
+      .addClass("text-start");
+
+    // CSS Skill
+    $("#inv-item-2")
+      .attr({
+        src: "https://minecraft.wiki/images/Invicon_String.png?b6e8d",
+        alt: "CSS",
+      })
+      .removeClass("d-none");
+    $("#inv-tooltip-2-text").text("CSS");
+    $("#inv-tooltip-2-description").text(
+      "Proficient in designing responsive, visually appealing layouts and animations."
+    );
+    $("#inv-tooltip-2")
+      .removeClass("d-none")
+      .css({ width: "auto", minWidth: "275px" })
+      .addClass("text-start");
+
+    // JavaScript Skill
+    $("#inv-item-3")
+      .attr({
+        src: "https://minecraft.wiki/images/Invicon_String.png?b6e8d",
+        alt: "JavaScript",
+        style:
+          "width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges",
+      })
+      .removeClass("d-none");
+    $("#inv-tooltip-3")
+      .removeClass("d-none text-start")
+      .html(
+        '<strong class="text-light">JavaScript</strong><br>' +
+          '<span class="text-wrap text-secondary">Experienced in adding interactivity, dynamic content, and logic to web applications.</span>'
+      )
+      .css({ width: "auto", minWidth: "275px" })
+      .addClass("text-start");
+  });
 });
