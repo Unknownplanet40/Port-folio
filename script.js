@@ -23,6 +23,7 @@ if (isMobile) {
     "For the best experience, please use a larger screen.",
     "This portfolio is optimized for desktops and tablets.",
     "Some features may not work properly on mobile devices.",
+    "Consider visiting this portfolio on a laptop or desktop for full functionality.",
     "Thank you for understanding!",
   ];
 
