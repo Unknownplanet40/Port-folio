@@ -32,15 +32,26 @@ if (isMobile) {
     index = (index + 1) % mobileText.length;
   }, 5000);
 
-  // make the default width and height of the Mobile-loading-screen to fit the screen
-  $(document).ready(function () {
-    if ($("#Mobile-loading-screen").length) {
-      $("#Mobile-loading-screen").css({
-        width: window.innerWidth + "px",
-        height: window.innerHeight + "px",
-      });
-    }
+  // prevent from zooming in and out on mobile
+  document.addEventListener(
+    "touchmove",
+    function (event) {
+      if (event.scale !== 1) {
+        event.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+
+  // make the page fit the screen size
+  document.addEventListener("gesturestart", function (event) {
+    event.preventDefault();
   });
+
+  
+
+
+
 } else {
   $("#Mobile-loading-screen").addClass("d-none d-md-block");
   enableLoadingScreen = true;
