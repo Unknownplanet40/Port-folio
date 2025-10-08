@@ -1,12 +1,55 @@
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.min.js";
 
 //settings
-const enableLoadingScreen = true; // set to false to disable loading screen
+let enableLoadingScreen = true; // set to false to disable loading screen
 const underDevelopment = true; // set to true to show under development message
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-const enablebackgroundAnimation = true; // set to false to disable background animation
+let enablebackgroundAnimation = true; // set to false to disable background animation
 const rotationSpeed = 0.0008; // rotation speed of the background
-const enableBGMusic = true; // set to false to disable background music
+let enableBGMusic = true; // set to false to disable background music
+
+
+if (isMobile) {
+  $("#Mobile-loading-screen").removeClass("d-block d-md-none");
+  enableLoadingScreen = false;
+  enablebackgroundAnimation = false;
+  enableBGMusic = false;
+  // IncompatibleForMobileText
+  let mobileText = [
+    "This Portfolio is best viewed on a larger screen.",
+    "Please visit on a desktop or laptop for the best experience.",
+    "Currently, Not optimized for mobile devices.",
+    "Mobile support is coming soon!",
+    "Thank you for your understanding.",
+  ];
+
+  let index = 0;
+  setInterval(() => {
+    $("#IncompatibleForMobileText").fadeOut(500, function () {
+      $(this).text(mobileText[index]);
+      $(this).fadeIn(500);
+    });
+    index = (index + 1) % mobileText.length;
+  }, 5000);
+
+  // make the default width and height of the Mobile-loading-screen to fit the screen
+  $(document).ready(function () {
+    if ($("#Mobile-loading-screen").length) {
+      $("#Mobile-loading-screen").css({
+        width: window.innerWidth + "px",
+        height: window.innerHeight + "px",
+      });
+    }
+  });
+} else {
+  $("#Mobile-loading-screen").addClass("d-none d-md-block");
+  enableLoadingScreen = true;
+  enablebackgroundAnimation = true;
+  enableBGMusic = true;
+  $("#IncompatibleForMobileText").text("Please use a larger screen for the best experience.");
+}
+
+
 
 $(".btn-Clicksound").on("click", function () {
   const audio = new Audio("Assets/Sounds/BtnClickSound.mp3");
