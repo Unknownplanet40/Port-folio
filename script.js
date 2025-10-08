@@ -1,5 +1,10 @@
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.min.js";
 
+// Ensure jQuery is loaded before running the script
+if (typeof $ === "undefined") {
+  throw new Error("jQuery is required for this script to work. Please include jQuery before this script.");
+}
+
 //settings
 let enableLoadingScreen = true; // set to false to disable loading screen
 const underDevelopment = true; // set to true to show under development message
@@ -8,19 +13,17 @@ let enablebackgroundAnimation = true; // set to false to disable background anim
 const rotationSpeed = 0.0008; // rotation speed of the background
 let enableBGMusic = true; // set to false to disable background music
 
-
 if (isMobile) {
   $("#Mobile-loading-screen").removeClass("d-block d-md-none");
   enableLoadingScreen = false;
   enablebackgroundAnimation = false;
   enableBGMusic = false;
-  // IncompatibleForMobileText
   let mobileText = [
-    "This Portfolio is best viewed on a larger screen.",
-    "Please visit on a desktop or laptop for the best experience.",
-    "Currently, Not optimized for mobile devices.",
-    "Mobile support is coming soon!",
-    "Thank you for your understanding.",
+    "It's seeems you're on a mobile device.",
+    "For the best experience, please use a larger screen.",
+    "This portfolio is optimized for desktops and tablets.",
+    "Some features may not work properly on mobile devices.",
+    "Thank you for understanding!",
   ];
 
   let index = 0;
@@ -31,36 +34,15 @@ if (isMobile) {
     });
     index = (index + 1) % mobileText.length;
   }, 5000);
-
-  // prevent from zooming in and out on mobile
-  document.addEventListener(
-    "touchmove",
-    function (event) {
-      if (event.scale !== 1) {
-        event.preventDefault();
-      }
-    },
-    { passive: false }
-  );
-
-  // make the page fit the screen size
-  document.addEventListener("gesturestart", function (event) {
-    event.preventDefault();
-  });
-
-  
-
-
-
 } else {
   $("#Mobile-loading-screen").addClass("d-none d-md-block");
   enableLoadingScreen = true;
   enablebackgroundAnimation = true;
   enableBGMusic = true;
-  $("#IncompatibleForMobileText").text("Please use a larger screen for the best experience.");
+  $("#IncompatibleForMobileText").text(
+    "Please use a larger screen for the best experience."
+  );
 }
-
-
 
 $(".btn-Clicksound").on("click", function () {
   const audio = new Audio("Assets/Sounds/BtnClickSound.mp3");
@@ -178,35 +160,55 @@ $(document).ready(function () {
 
   $("#splash-text").text(getRandomSplashText());
 
-  if (enableLoadingScreen) {
-    const randomDelay = Math.random() * 2000 + 1000;
-    if (underDevelopment) {
-      $(window).on("load", function () {
-        $(".loading-text").text("Loading...");
-        setTimeout(function () {
-          $(".loading-text").css("font-family", "MinecraftiaRegular");
-          $(".loading-text").text("This Portfolio is under development!");
+  (function () {
+    const randomDelay = Math.random() * 4000 + 1000;
+    function runLoadingSequence() {
+      if (!$("#loading-screen").length) {
+        console.warn("⚠️ #loading-screen not found.");
+        return;
+      }
+
+      if (!enableLoadingScreen) {
+        console.log("Loading screen disabled.");
+        $("#loading-screen").remove();
+        console.log(
+          "Loading screen removed at:",
+          new Date().toLocaleTimeString()
+        );
+        return;
+      }
+      if (underDevelopment) {
+        setTimeout(() => {
+          $(".loading-text").fadeOut(500, function () {
+            $(this)
+              .css("font-family", "MinecraftiaRegular")
+              .text("Portfolio is still under development.")
+              .fadeIn(500);
+          });
           $("#loading-help-text").fadeOut(500);
-          setTimeout(function () {
+
+          setTimeout(() => {
             $("#loading-screen").fadeOut(500, function () {
               $(this).remove();
               $("#PopupModal").modal("show");
             });
           }, Math.random() * 2000 + 2000);
         }, randomDelay);
-      });
-    } else {
-      $(window).on("load", function () {
-        setTimeout(function () {
+      } else {
+        setTimeout(() => {
           $("#loading-screen").fadeOut(500, function () {
-            $(this).remove();
+            $();
           });
         }, randomDelay);
-      });
+      }
     }
-  } else {
-    $("#loading-screen").remove();
-  }
+
+    if (document.readyState === "complete") {
+      runLoadingSequence();
+    } else {
+      $(window).on("load", runLoadingSequence);
+    }
+  })();
 
   $("#current-year").text(new Date().getFullYear());
 
