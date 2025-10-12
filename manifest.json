@@ -1,0 +1,119 @@
+{
+  "name": "Portfolio Website",
+  "short_name": "Portfolio",
+  "background_color": "#ef2e3b",
+  "description": "Portfolio Website is a web application that showcases the projects and skills of the individual.",
+  "dir": "ltr",
+  "display": "standalone",
+  "orientation": "natural",
+  "scope": "/",
+  "start_url": "./index.html",
+  "theme_color": "#ef2e3b",
+  "iarc_rating_id": "e58c174a-81d2-5c3c-32cc-34b8de4a52e9",
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": "narrow"
+  },
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.example.app1",
+      "url": "https://play.google.com/store/apps/details?id=com.example.app1"
+    },
+    {
+      "platform": "itunes",
+      "id": "com.example.app2",
+      "url": "https://itunes.apple.com/app/example-app2/id123456789"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "About me",
+      "short_name": "About",
+      "url": "./About.html",
+      "description": "Learn more about me, my background, and my skills.",
+      "icons": [
+        {
+          "src": "../../Assets/Icons/PWA-Icon/Icon-x96.jpeg",
+          "sizes": "96x96",
+          "type": "image/jpeg",
+          "purpose": "any"
+        }
+      ]
+    }
+  ],
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "web_apps": {
+    "navigation_scope": "/index.html",
+    "scope": "index.html",
+    "open_as_window": true
+  },
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/Unknownplanet40/UP40-Collection/691f0c5c83a068053219415f0dc365ad8b2470c5/Icons/Icon-x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Unknownplanet40/UP40-Collection/691f0c5c83a068053219415f0dc365ad8b2470c5/Icons/Icon-x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Unknownplanet40/UP40-Collection/691f0c5c83a068053219415f0dc365ad8b2470c5/Icons/Icon-x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Unknownplanet40/UP40-Collection/691f0c5c83a068053219415f0dc365ad8b2470c5/Icons/Icon-x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Unknownplanet40/UP40-Collection/691f0c5c83a068053219415f0dc365ad8b2470c5/Icons/Icon-x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Unknownplanet40/UP40-Collection/691f0c5c83a068053219415f0dc365ad8b2470c5/Icons/Icon-x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Unknownplanet40/UP40-Collection/691f0c5c83a068053219415f0dc365ad8b2470c5/Icons/Icon-x36.png",
+      "sizes": "36x36",
+      "type": "image/png"
+    }
+  ],
+  "lang": "en",
+  "display_override": ["window-controls-overlay"],
+  "categories": [
+    "education",
+    "navigation",
+    "politics",
+    "productivity",
+    "utilities"
+  ],
+  "screenshots": [
+    {
+      "src": "/Assets/PWA/1.png",
+      "sizes": "1080x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/Assets/PWA/2.png",
+      "sizes": "1080x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/Assets/PWA/3.png",
+      "sizes": "1080x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}

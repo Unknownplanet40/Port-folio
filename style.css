@@ -173,7 +173,7 @@ canvas {
 }
 
 .loading-overlay {
-  background-color: rgba(239, 46, 59, 1);
+  background-color: #ef2e3b;
   color: white;
   font-family: "Mojang", sans-serif;
   text-shadow: 2px 2px 4px #000000;
@@ -389,49 +389,58 @@ canvas {
   transform: translate(-50%, -50%);
 }
 
-.MC-Progress-Bar {
-  position: relative;
-  height: 20px;
+.mc-xp-container {
   width: 100%;
-  background: url("textures/experience_bar_background.png") no-repeat center;
-  background-size: cover;
-  overflow: hidden;
+  height: 10px;
+  position: relative;
+  image-rendering: pixelated;
 }
 
-.MC-Progress-Bar-fill {
-  background: url("textures/experience_bar_progress.png") repeat-x; /* repeat like MC bar */
-  background-size: auto 100%;
-  height: 100%;
-  width: 0%;
+.mc-xp-bg {
+  background: url("textures/experience_bar_background.png") no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 10px;
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.mc-xp-fill {
+  background: url("textures/experience_bar_progress.png") no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 10px;
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
-  transition: width 0.3s ease;
+  image-rendering: pixelated;
+  clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
+  transition: clip-path 0.6s ease-out;
+  animation: xpFillAnimation 0.6s ease-out;
 }
 
-/* Use transparent PNG as mask/overlay */
-.MC-Progress-Bar-Overlay {
+@keyframes xpFillAnimation {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
+  }
+}
+
+.mc-xp-level {
   position: absolute;
-  top: 0;
-  left: 10px; /* adjust if needed to fit */
-  height: 100%;
-  width: 100%;
-  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  color: #80ff00;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 12px;
+  font-weight: bold;
   pointer-events: none;
-
-  /* Use a transparent PNG of the bar as a mask */
-  -webkit-mask-image: url("textures/experience_bar_overlay.png");
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  -webkit-mask-size: cover;
-
-  mask-image: url("textures/experience_bar_overlay.png");
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: cover;
-
-  background: #000; /* doesn’t matter, the mask controls visibility */
+  min-width: 24px; /* Ensure enough space for 2+ digits */
+  text-align: center;
+  white-space: nowrap;
 }
 
 .MC-boxData {

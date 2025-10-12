@@ -2,7 +2,9 @@ import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/
 
 // Ensure jQuery is loaded before running the script
 if (typeof $ === "undefined") {
-  throw new Error("jQuery is required for this script to work. Please include jQuery before this script.");
+  throw new Error(
+    "jQuery is required for this script to work. Please include jQuery before this script."
+  );
 }
 
 //settings
@@ -59,7 +61,6 @@ $(document).ready(function () {
 
     const playMusic = () => {
       BGMUSIC.play();
-      $(window).off("click keydown", playMusic);
     };
 
     $(window).on("click keydown", playMusic);
@@ -192,6 +193,9 @@ $(document).ready(function () {
             $("#loading-screen").fadeOut(500, function () {
               $(this).remove();
               $("#PopupModal").modal("show");
+              $("#PopupModal").on("hidden.bs.modal", function () {
+                // for future use
+              });
             });
           }, Math.random() * 2000 + 2000);
         }, randomDelay);
@@ -241,6 +245,21 @@ $(document).ready(function () {
     );
     audio.play();
   });
+
+  // detect if website is installed as PWA or in standalone mode
+  if (window.matchMedia("(display-mode: standalone)").matches) {
+    if (window.innerWidth < 1366) {
+      $("#PopupModal").modal("show");
+      $("#popupModalLabel").text("It's best viewed on a larger screen.");
+      $(".modal").not("#PopupModal").modal("hide");
+    }
+  } else {
+    if (window.innerWidth < 1366) {
+      $("#PopupModal").modal("show");
+      $("#popupModalLabel").text("It's best viewed on a larger screen.");
+      $(".modal").not("#PopupModal").modal("hide");
+    }
+  }
 
   $("#playerName").text("Ryan James Capadocia");
   $("#age").text((2025 - 2002).toString() + " years old");
@@ -297,56 +316,122 @@ $(document).ready(function () {
     $("#Info-1").addClass("d-none").fadeOut();
   });
 
-  // if skill-item-1 is clicked, show inv-item-1
+
+  function resetInventory() {
+    for (let i = 1; i <= 9; i++) {
+      $(`#inv-item-${i}`).addClass("d-none").attr({ src: "", alt: "" }).fadeOut();
+      $(`#inv-tooltip-${i}`).addClass("d-none text-start").html("");
+      $(`#inv-tooltip-${i}`)
+        .css({ width: "", minWidth: "" })
+        .removeClass("text-start");
+      $(`#inv-tooltip-${i}-text`).text("").removeClass("text-info text-light");
+      $(`#inv-tooltip-${i}-description`).text("");
+    }
+
+    let soundArray = [
+      "https://minecraft.wiki/images/Enchanting_Table_enchant1.ogg?58e1c",
+      "https://minecraft.wiki/images/Enchanting_Table_enchant2.ogg?cf629",
+      "https://minecraft.wiki/images/Enchanting_Table_enchant3.ogg?0134e",
+    ];
+    var audio = new Audio(
+      soundArray[Math.floor(Math.random() * soundArray.length)]
+    );
+    audio.play();
+  }
+
   $("#skill-item-1").on("click", function () {
-    // HTML Skill
+    resetInventory();
     $("#inv-item-1")
       .attr({
-        src: "https://minecraft.wiki/images/Invicon_String.png?b6e8d",
+        src: "https://minecraft.wiki/images/Paper_JE2_BE2.png?9c3be",
         alt: "HTML",
       })
       .removeClass("d-none");
-    $("#inv-tooltip-1-text").text("HTML");
-    $("#inv-tooltip-1-description").text(
-      "Skilled in creating structured, semantic, and accessible web pages."
-    );
     $("#inv-tooltip-1")
-      .removeClass("d-none")
+      .removeClass("d-none text-start")
+      .html(
+        '<strong class="text-info">HTML</strong><br>' +
+          '<span class="text-nowrap text-secondary">Structure - the foundation.</span>'
+      );
+    $("#inv-tooltip-1")
       .css({ width: "auto", minWidth: "275px" })
       .addClass("text-start");
 
     // CSS Skill
-    $("#inv-item-2")
+    $("#inv-item-5")
       .attr({
-        src: "https://minecraft.wiki/images/Invicon_String.png?b6e8d",
+        src: "https://minecraft.wiki/images/Feather_JE3_BE2.png?b869b",
         alt: "CSS",
       })
       .removeClass("d-none");
-    $("#inv-tooltip-2-text").text("CSS");
-    $("#inv-tooltip-2-description").text(
-      "Proficient in designing responsive, visually appealing layouts and animations."
-    );
-    $("#inv-tooltip-2")
-      .removeClass("d-none")
+    $("#inv-tooltip-5")
+      .removeClass("d-none text-start")
+      .html(
+        '<strong class="text-info">CSS</strong><br>' +
+          '<span class="text-nowrap text-secondary">Style - the visual flair.</span>'
+      );
+    $("#inv-tooltip-5")
       .css({ width: "auto", minWidth: "275px" })
       .addClass("text-start");
 
     // JavaScript Skill
-    $("#inv-item-3")
+    $("#inv-item-9")
       .attr({
-        src: "https://minecraft.wiki/images/Invicon_String.png?b6e8d",
+        src: "https://minecraft.wiki/images/Redstone_Dust_JE2_BE2.png?8cf17",
         alt: "JavaScript",
         style:
           "width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges",
       })
       .removeClass("d-none");
-    $("#inv-tooltip-3")
+    $("#inv-tooltip-9")
       .removeClass("d-none text-start")
       .html(
-        '<strong class="text-light">JavaScript</strong><br>' +
-          '<span class="text-wrap text-secondary">Experienced in adding interactivity, dynamic content, and logic to web applications.</span>'
+        '<strong class="text-info">JavaScript</strong><br>' +
+          '<span class="text-wrap text-secondary">Interactivity & logic.</span>'
       )
       .css({ width: "auto", minWidth: "275px" })
       .addClass("text-start");
+  });
+
+  $("#skill-item-2").on("click", function () {
+    resetInventory();
+
+    // furnace
+    $("#inv-item-2")
+      .attr({
+        src: "https://minecraft.wiki/images/thumb/Lit_Blast_Furnace_%28S%29_BE1.png/240px-Lit_Blast_Furnace_%28S%29_BE1.png?13048",
+        alt: "PHP",
+      })
+      .removeClass("d-none");
+    $("#inv-tooltip-2")
+      .removeClass("d-none text-start")
+      .html(
+        '<strong class="text-info">PHP</strong><br>' +
+          '<span class="text-nowrap text-secondary">Server processing power.</span>'
+      );
+    $("#inv-tooltip-2")
+      .css({ width: "auto", minWidth: "275px" })
+      .addClass("text-start");
+      
+      // comparitor
+    $("#inv-item-5")
+      .attr({
+        src: "https://minecraft.wiki/images/Powered_Subtracting_Redstone_Comparator_%28S%29_JE2_BE1.png?b6563&20250907040754",
+        alt: "Comparitor",
+      })
+      .removeClass("d-none");
+    $("#inv-tooltip-5")
+      .removeClass("d-none text-start")
+      .html(
+        '<strong class="text-info">API Integration</strong><br>' +
+          '<span class="text-nowrap text-secondary">Connecting services seamlessly.</span>'
+      );
+    $("#inv-tooltip-5")
+      .css({ width: "auto", minWidth: "275px" })
+      .addClass("text-start");
+  });
+
+  $("#skill-item-3").on("click", function () {
+    resetInventory();
   });
 });
