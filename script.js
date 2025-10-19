@@ -7,6 +7,8 @@ if (typeof $ === "undefined") {
   );
 }
 
+let AboutmeDATA = "./Data/AboutME.json";
+
 //Configuration Variables
 let enableLoadingScreen = true; // set to false to disable loading screen
 const underDevelopment = true; // set to true to show under development message
@@ -166,6 +168,9 @@ function resetInventory() {
       })
       .removeAttr("data-tooltip data-title data-body");
   }
+
+  $("#legend").text("").addClass("d-none");
+  $("#description").text("").addClass("d-none");
 
   let soundArray = [
     "https://minecraft.wiki/images/Enchanting_Table_enchant1.ogg?58e1c",
@@ -400,13 +405,15 @@ $(document).ready(function () {
   // detect if website is installed as PWA or in standalone mode
   displayModeCheck();
 
-  // About Me Section Population and Interactions (Temporary Data)
-  $("#playerName").text("Ryan James Capadocia");
-  $("#age").text((2025 - 2002).toString() + " years old");
-  $("#location").text("Philippines");
-  $("#email").text("ryan.capadocia@example.com");
-  $("#title").text("Aspiring Web Developer");
-  $("#statusMessage").text("Building the future, one line of code at a time.");
+  // About Me Section Population and Interactions
+  $.getJSON(AboutmeDATA, function (data) {
+    $("#playerName").text(data.name);
+    $("#age").text((2025 - data.birthYear).toString() + " years old");
+    $("#location").text(`${data.location.city}, ${data.location.country}`);
+    $("#email").text(data.contact.email);
+    $("#title").text(data.title);
+    $("#statusMessage").text(data.Motto);
+  });
 
   // About Me Button Click
   $("#AboutMeBtn").on("click", function () {
@@ -493,6 +500,9 @@ $(document).ready(function () {
       })
       .removeClass("d-none")
       .mcTooltip();
+
+      $("#legend").text("Frontend Development Skills").removeClass("d-none");
+      $("#description").text("Technologies used to build the user interface and experience.").removeClass("d-none");
   });
 
   $("#skill-item-2").on("click", function () {
@@ -521,6 +531,9 @@ $(document).ready(function () {
       })
       .removeClass("d-none")
       .mcTooltip();
+
+    $("#legend").text("Backend Development Skills").removeClass("d-none");
+    $("#description").text("Technologies used to build and maintain the server-side logic and databases.").removeClass("d-none");
   });
 
   $("#skill-item-3").on("click", function () {
@@ -536,5 +549,41 @@ $(document).ready(function () {
       })
       .removeClass("d-none")
       .mcTooltip();
+
+      $("#legend").text("Database Management Skills").removeClass("d-none");
+      $("#description").text("Technologies used to store, retrieve, and manage data efficiently.").removeClass("d-none");
+  });
+
+  $("#skill-item-4").on("click", function () {
+    resetInventory();
+    $("#inv-item-2")
+      .attr({
+        src: "https://minecraft.wiki/images/Paper_JE2_BE2.png",
+        alt: "Paper",
+        "data-tooltip": "",
+        "data-title": "Jquery",
+        "data-body": "Simplifying JavaScript for dynamic web pages.",
+      })
+      .removeClass("d-none")
+      .mcTooltip();
+
+    $("#inv-item-5")
+      .attr({
+        src: "https://minecraft.wiki/images/Book_JE2_BE2.png",
+        alt: "Book",
+        "data-tooltip": "",
+        "data-title": "Bootstrap",
+        "data-body":
+          "Simplifying front-end development with responsive design.",
+      })
+      .removeClass("d-none")
+      .mcTooltip();
+
+      $("#legend").text("Library & Framework Skills").removeClass("d-none");
+      $("#description").text("Proficiency in popular libraries and frameworks to enhance development efficiency.").removeClass("d-none");
+  });
+
+  $("#skill-item-9").on("click", function () {
+    resetInventory();
   });
 });

@@ -1,0 +1,42 @@
+{
+    "name": "Ryan James Capadocia",
+    "birthYear": 2002,
+    "title": "N/A",
+    "summary": "Caps is a passionate IT professional who combines hands-on technical skills with a deep curiosity for how systems work. He’s experienced in tech support, programming, and system design, creating practical and scalable solutions with a balance of logic and creativity. Always forward-thinking, Caps approaches every project as an opportunity to learn, improve, and build smarter.",
+    "profileImage": "Assets/Gprofile.gif",
+    "location": {
+        "city": "Imus City",
+        "country": "Philippines"
+    },
+    "Motto": "Every wait has a worth, Trust the Process",
+    "contact": {
+        "email": "Ryanjames.capadocia@cvsu.edu.ph",
+        "phone": "09227653422",
+        "website": "https://unknownplanet40.github.io/Port-folio/"
+    },
+    "social": {
+        "github": "https://github.com/Unknownplanet40",
+        "linkedin": "https://www.linkedin.com/in/rj45",
+        "facebook": "https://www.facebook.com/Cappps.Lock"
+    },
+    "skills": [
+        {
+            "category": "Languages",
+            "items": ["HTML5", "CSS3", "JavaScript", "TypeScript"]
+        },
+        {
+            "category": "Frameworks & Libraries",
+            "items": ["React", "Vue", "Svelte"]
+        },
+        {
+            "category": "Tooling",
+            "items": ["Webpack", "Vite", "ESLint", "Prettier", "Git"]
+        },
+        {
+            "category": "Design & UX",
+            "items": ["Responsive Design", "Accessibility (A11y)", "Figma"]
+        }
+    ],
+    "resume": "Assets/Ryan_James_Capadocia_Resume.pdf",
+    "lastUpdated": "2025-10-19"
+}
