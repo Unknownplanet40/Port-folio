@@ -259,12 +259,16 @@ function displayModeCheck() {
       $("#PopupModal").modal("show");
       $("#popupModalLabel").text("It's best viewed on a larger screen.");
       $(".modal").not("#PopupModal").modal("hide");
+    } else {
+      // for future use
     }
   } else {
     if (window.innerWidth < 1366) {
       $("#PopupModal").modal("show");
       $("#popupModalLabel").text("It's best viewed on a larger screen.");
       $(".modal").not("#PopupModal").modal("hide");
+    } else {
+      // for future use
     }
   }
 }
@@ -496,9 +500,57 @@ $(document).ready(function () {
               $(this).remove();
               $("#PopupModal").modal("show");
               $("#PopupModal").on("hidden.bs.modal", function () {
-                // for future use
               });
             });
+
+            /* if ("serviceWorker" in navigator) {
+              navigator.serviceWorker
+                .register("service-worker.js")
+                .then(function (registration) {
+                  console.log(
+                    "🧩 Service Worker registered with scope:",
+                    registration.scope
+                  );
+                })
+                .catch(function (error) {
+                  console.error("❌ Service Worker registration failed:", error);
+                });
+            } else {
+              console.warn("⚠️ Service Workers are not supported in this browser.");
+            }
+
+            let deferredPrompt = null;
+
+            // Capture the install event EARLY (outside of modal)
+            $(window).on("beforeinstallprompt", function (e) {
+              e.preventDefault(); // prevent automatic mini-bar
+              deferredPrompt = e.originalEvent;
+              console.log("📱 PWA install prompt captured and ready!");
+            });
+
+            // Your loading and modal logic
+            $("#loading-screen").fadeOut(500, function () {
+              $(this).remove();
+              $("#PopupModal").modal("show");
+            });
+
+            // When Bootstrap modal closes, show the install prompt
+            $("#PopupModal").on("hidden.bs.modal", function () {
+              if (deferredPrompt) {
+                deferredPrompt.prompt();
+
+                deferredPrompt.userChoice.then(function (choiceResult) {
+                  if (choiceResult.outcome === "accepted") {
+                    console.log("✅ User accepted the PWA installation");
+                  } else {
+                    console.log("❌ User dismissed the PWA installation");
+                  }
+                  deferredPrompt = null;
+                });
+              } else {
+                console.log("⚠️ No PWA install prompt available yet.");
+              }
+            }); */
           }, Math.random() * 2000 + 2000);
         }, randomDelay);
       } else {
