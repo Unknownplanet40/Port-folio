@@ -7,6 +7,21 @@ if (typeof $ === "undefined") {
   );
 }
 
+if (typeof $.fn.modal !== "function") {
+  $.fn.modal = function (action) {
+    if (action === "show") {
+      return this.each(function () {
+        $(this).show();
+      });
+    } else if (action === "hide") {
+      return this.each(function () {
+        $(this).hide();
+      });
+    }
+    return this;
+  };
+}
+
 let AboutmeDATA = "./Data/AboutME.json";
 
 //Configuration Variables
@@ -17,6 +32,7 @@ let enablebackgroundAnimation = true; // set to false to disable background anim
 const rotationSpeed = 0.0008; // rotation speed of the background
 let enableBGMusic = true; // set to false to disable background music
 let BGMUSIC;
+
 const splashTexts = [
   "Portfolio 1.0!!!",
   "Caps Portfolio!!",
@@ -28,43 +44,133 @@ const splashTexts = [
   "Three.js magic!!",
   "WebGL wonder!!!!",
 ];
+
 let soundArray = [
   "https://minecraft.wiki/images/Page_turn1.ogg?213d1",
   "https://minecraft.wiki/images/Page_turn2.ogg?6e3e1",
   "https://minecraft.wiki/images/Page_turn3.ogg?5e9d9",
 ];
 
-// Mobile Device Detection
-if (isMobile) {
-  $("#Mobile-loading-screen").removeClass("d-block d-md-none");
-  enableLoadingScreen = false;
-  enablebackgroundAnimation = false;
-  enableBGMusic = false;
-  let mobileText = [
-    "It's seeems you're on a mobile device.",
-    "For the best experience, please use a larger screen.",
-    "This portfolio is optimized for desktops and tablets.",
-    "Some features may not work properly on mobile devices.",
-    "Consider visiting this portfolio on a laptop or desktop for full functionality.",
-    "Thank you for understanding!",
-  ];
+const mobileText = [
+  "Oh no! It seems you're on a mobile device.",
+  "This portfolio is best experienced on a desktop or larger screen.",
+  "For the full experience, please visit on a desktop.",
+  "Some features may not work optimally on mobile devices.",
+  "Consider using a tablet or computer for the best view.",
+  "Thank you for visiting!",
+];
 
-  let index = 0;
-  setInterval(() => {
-    $("#IncompatibleForMobileText").fadeOut(500, function () {
-      $(this).text(mobileText[index]);
-      $(this).fadeIn(500);
-    });
-    index = (index + 1) % mobileText.length;
-  }, 5000);
-} else {
-  $("#Mobile-loading-screen").addClass("d-none d-md-block");
-  enableLoadingScreen = true;
-  enablebackgroundAnimation = true;
-  enableBGMusic = true;
-  $("#IncompatibleForMobileText").text(
-    "Please use a larger screen for the best experience."
-  );
+const DesktopSmallScreenText = [
+  "Your screen size is a bit small for the best experience.",
+  "Maximize your window or use a larger screen for optimal viewing.",
+  "This portfolio shines brightest on larger displays.",
+  "Some features may be limited on smaller screens.",
+  "For the full experience, consider using a desktop or larger device.",
+  "Thank you for visiting!",
+];
+
+if (window._incompatibleMobileIntervalId) {
+  clearInterval(window._incompatibleMobileIntervalId);
+  window._incompatibleMobileIntervalId = null;
+}
+
+const $mobileScreen = $("#Mobile-loading-screen");
+const $incompatText = $("#IncompatibleForMobileText");
+
+function MobileDisplayCheck() {
+  if (isMobile) {
+    $mobileScreen.removeClass("d-block d-md-none");
+    enableLoadingScreen = false;
+    enablebackgroundAnimation = false;
+    enableBGMusic = false;
+
+    if (!enableBGMusic && BGMUSIC) {
+      BGMUSIC = null;
+    }
+    if ($incompatText.length) {
+      let index = 0;
+      let typingSpeed = 50;
+      let displayDuration = 3000;
+
+      function typeText(text, callback) {
+        let charIndex = 0;
+        $incompatText.text("");
+        function typeNextChar() {
+          if (charIndex < text.length) {
+            $incompatText.append(text.charAt(charIndex));
+            charIndex++;
+            setTimeout(typeNextChar, typingSpeed);
+          } else if (callback) {
+            setTimeout(callback, displayDuration);
+          }
+        }
+        typeNextChar();
+      }
+      function startRotation() {
+        typeText(mobileText[index], () => {
+          index = (index + 1) % mobileText.length;
+          $incompatText.fadeOut(300, function () {
+            $(this).fadeIn(300);
+            startRotation();
+          });
+        });
+      }
+      startRotation();
+    } else {
+      console.warn(
+        "⚠️ #IncompatibleForMobileText element not found. Cannot display mobile messages."
+      );
+    }
+  } else {
+    $mobileScreen.addClass("d-block d-md-none");
+    enableLoadingScreen = true;
+    enablebackgroundAnimation = true;
+    enableBGMusic = true;
+
+    if (!enableBGMusic && BGMUSIC) {
+      BGMUSIC = null;
+    }
+
+    if ($incompatText.length) {
+      let index = 0;
+      let typingSpeed = 50;
+      let displayDuration = 3000;
+
+      function typeText(text, callback) {
+        let charIndex = 0;
+        $incompatText.text("");
+
+        function typeNextChar() {
+          if (charIndex < text.length) {
+            $incompatText.append(text.charAt(charIndex));
+            charIndex++;
+            setTimeout(typeNextChar, typingSpeed);
+          } else if (callback) {
+            setTimeout(callback, displayDuration);
+          }
+        }
+
+        typeNextChar();
+      }
+
+      function startRotation() {
+        typeText(DesktopSmallScreenText[index], () => {
+          index = (index + 1) % DesktopSmallScreenText.length;
+
+          $incompatText.fadeOut(300, function () {
+            $(this).fadeIn(300);
+            startRotation();
+          });
+        });
+      }
+
+      startRotation();
+    } else {
+      console.warn(
+        "⚠️ #IncompatibleForMobileText element not found. Cannot display desktop small screen messages."
+      );
+    }
+  }
 }
 
 // FUNCTIONS --------------------------------------
@@ -112,6 +218,12 @@ function PanoramaBackground() {
     renderer.render(scene, camera);
   }
   animate();
+
+  $(window).on("resize", function () {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
 }
 
 // Get Random Splash Text
@@ -291,6 +403,7 @@ $(document).ready(function () {
 
   PanoramaBackground();
   CopyRightName();
+  MobileDisplayCheck();
 
   // Background Music Setup
   if (enableBGMusic) {
@@ -323,27 +436,29 @@ $(document).ready(function () {
     audio.play();
   });
 
-  // Handle Window Resize
+  // Window Resize Event
   $(window).on("resize", function () {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    $("#AboutMeModal").modal("hide");
+    if (isMobile) {
+      MobileDisplayCheck();
+      return;
+    } else {
+      $("#AboutMeModal").modal("hide");
 
-    if (
-      !$("#loading-screen").length ||
-      $("#loading-screen").css("display") === "none" ||
-      $("#loading-screen").hasClass("d-none")
-    ) {
-      if (window.innerWidth <= 968) {
-        $("#PopupModal").modal("show");
-        $("#popupModalLabel").text("Incompatible Screen Size");
-        $(".modal").not("#PopupModal").modal("hide");
-      } else {
-        $("#popupModalLabel").text(
-          "You need to interact with the page to enable sound effects."
-        );
-        $("#PopupModal").modal("hide");
+      if (
+        !$("#loading-screen").length ||
+        $("#loading-screen").css("display") === "none" ||
+        $("#loading-screen").hasClass("d-none")
+      ) {
+        if (window.innerWidth <= 968) {
+          $("#PopupModal").modal("show");
+          $("#popupModalLabel").text("Incompatible Screen Size");
+          $(".modal").not("#PopupModal").modal("hide");
+        } else {
+          $("#popupModalLabel").text(
+            "You need to interact with the page to enable sound effects."
+          );
+          $("#PopupModal").modal("hide");
+        }
       }
     }
   });
@@ -501,8 +616,10 @@ $(document).ready(function () {
       .removeClass("d-none")
       .mcTooltip();
 
-      $("#legend").text("Frontend Development Skills").removeClass("d-none");
-      $("#description").text("Technologies used to build the user interface and experience.").removeClass("d-none");
+    $("#legend").text("Frontend Development Skills").removeClass("d-none");
+    $("#description")
+      .text("Technologies used to build the user interface and experience.")
+      .removeClass("d-none");
   });
 
   $("#skill-item-2").on("click", function () {
@@ -533,7 +650,11 @@ $(document).ready(function () {
       .mcTooltip();
 
     $("#legend").text("Backend Development Skills").removeClass("d-none");
-    $("#description").text("Technologies used to build and maintain the server-side logic and databases.").removeClass("d-none");
+    $("#description")
+      .text(
+        "Technologies used to build and maintain the server-side logic and databases."
+      )
+      .removeClass("d-none");
   });
 
   $("#skill-item-3").on("click", function () {
@@ -550,8 +671,12 @@ $(document).ready(function () {
       .removeClass("d-none")
       .mcTooltip();
 
-      $("#legend").text("Database Management Skills").removeClass("d-none");
-      $("#description").text("Technologies used to store, retrieve, and manage data efficiently.").removeClass("d-none");
+    $("#legend").text("Database Management Skills").removeClass("d-none");
+    $("#description")
+      .text(
+        "Technologies used to store, retrieve, and manage data efficiently."
+      )
+      .removeClass("d-none");
   });
 
   $("#skill-item-4").on("click", function () {
@@ -579,8 +704,12 @@ $(document).ready(function () {
       .removeClass("d-none")
       .mcTooltip();
 
-      $("#legend").text("Library & Framework Skills").removeClass("d-none");
-      $("#description").text("Proficiency in popular libraries and frameworks to enhance development efficiency.").removeClass("d-none");
+    $("#legend").text("Library & Framework Skills").removeClass("d-none");
+    $("#description")
+      .text(
+        "Proficiency in popular libraries and frameworks to enhance development efficiency."
+      )
+      .removeClass("d-none");
   });
 
   $("#skill-item-9").on("click", function () {
