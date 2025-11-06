@@ -189,9 +189,16 @@ canvas {
 }
 
 .loading-overlay {
-  background: rgb(239, 46, 59);
+  background-color: rgb(239, 46, 59);
+  color: white;
   font-family: "Mojang", sans-serif;
   text-shadow: 2px 2px 4px #000000;
+}
+
+/* loading fadeout effect */
+.loading-overlay.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
 }
 
 .MC-Btn {
