@@ -123,7 +123,12 @@ export function PanoramaBackground(ContainerID = "PanoramaContainer", EnableBack
   });
 }
 
-export function LoadingScreenFadeOut(isUnderDevelopment = false) {
+export function LoadingScreenFadeOut(isUnderDevelopment = false, enableLoadingScreen = true) {
+  if (!enableLoadingScreen) {
+    $("#LoadingScreen").remove();
+    return;
+  }
+
   localStorage.setItem("StarttheSound", "false");
   const Random = Math.random() * 5000 + 10000;
 
@@ -239,4 +244,99 @@ export function BackgroundMusic(EnableSounds = true, BackgroundMusicVolume = 0.5
   tryPlay();
 
   return bgMusic;
+}
+
+export function ServiceWorkerRegister() {
+  if ("serviceWorker" in navigator) {
+    try {
+      // Derive a sensible base for the sw file and scope. Prefer a <base> tag if present,
+      // otherwise use the current location directory. This covers root and subpath
+      // deployments.
+      const baseEl = document.querySelector('base');
+      const baseHref = baseEl ? baseEl.href : location.href;
+      const base = new URL('.', baseHref).href; // ensures trailing slash
+
+      const swUrl = new URL('service-worker.js', base).href;
+      const scopePath = new URL('.', base).pathname; // e.g. '/Port-folio/' or '/'
+
+      navigator.serviceWorker
+        .register(swUrl, { scope: scopePath })
+        .then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+
+          // Optional: ask service worker for initial online status using a MessageChannel
+          if (registration.active) {
+            const mc = new MessageChannel();
+            mc.port1.onmessage = (e) => {
+              // e.data will be { online: true/false } from the service worker if supported
+              document.dispatchEvent(new CustomEvent('sw:online-status', { detail: e.data }));
+            };
+            try {
+              registration.active.postMessage({ type: 'CHECK_ONLINE_STATUS' }, [mc.port2]);
+            } catch (err) {
+              // ignore if postMessage with port fails
+            }
+          }
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+
+      // Listen for messages from the service worker (reload action, network/cache events)
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        const data = event.data || {};
+        if (data && data.action === 'reload') {
+          // service worker requested a reload for this client
+          window.location.reload();
+        }
+
+        // re-dispatch network/cache source as a document event for app code to react
+        if (data && data.source) {
+          document.dispatchEvent(new CustomEvent('sw:status', { detail: data.source }));
+        }
+      });
+    } catch (e) {
+      console.error('Service Worker registration error', e);
+    }
+  }
+}
+
+export function Splashtext(ContainerID = "MCsplashText", portfolioVersion = "0.0") {
+  const splashTexts = [
+  "Portfolio v" + portfolioVersion + "!!!",
+  "Caps Portfolio!!",
+  "Made by Caps!!!!",
+  "Hello World!!!!!",
+  "Enjoy your stay!",
+  "Coding is fun!!!",
+  "Minecraft vibes!",
+  "Three.js magic!!",
+  "WebGL wonder!!!!",
+];
+
+  const randomIndex = Math.floor(Math.random() * splashTexts.length);
+  const selectedSplashText = splashTexts[randomIndex];
+  $(`#${ContainerID}`).text(selectedSplashText);
+}
+
+export function CopyRightName(YearContainerID = "current-year", OwnerContainerID = "owner-name", PortfolioVersion = "0.0") {
+  const currentYear = new Date().getFullYear();
+  $(`#${YearContainerID}`).text(currentYear);
+  if (
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+  ) {
+    $(`#${OwnerContainerID}`).text("Unknownplanet40 (on localhost)");
+  } else if (
+    window.location.hostname === "unknownplanet40.github.io" &&
+    window.location.pathname.startsWith("/Port-folio/")
+  ) {
+    const owner = window.location.hostname.split(".github")[0];
+    $(`#${OwnerContainerID}`).text(owner.charAt(0).toUpperCase() + owner.slice(1));
+  } else {
+    const urlParams = new URLSearchParams(window.location.search);
+    const owner = urlParams.get("owner") || "Your Name";
+    $(`#${OwnerContainerID}`).text(owner);
+  }
+  $(`#portfolio-version`).text(`Portfolio v${PortfolioVersion}`);
 }

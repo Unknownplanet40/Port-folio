@@ -22,473 +22,132 @@ canvas {
   
 } */
 
-.custom-box {
-  background-color: #c8c8c8;
-  border-radius: 6px;
-  border-left: 5px solid #fff;
-  border-top: 5px solid #fff;
-  border-right: 5px solid #7f7f7f;
-  border-bottom: 5px solid #7f7f7f;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
-}
-
-.char-Box {
-  width: 200px;
-  height: 260px;
-  background-color: black;
-  border-top: 4px solid #7f7f7f;
-  border-left: 4px solid #7f7f7f;
-  border-right: 4px solid #fff;
-  border-bottom: 4px solid #fff;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
-}
-
-.box-1 {
-  width: 100%;
-  background-color: #8b8b8b;
-  border-top: 4px solid #414141;
-  border-left: 4px solid #414141;
-  border-right: 4px solid #fff;
-  border-bottom: 4px solid #fff;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
-}
-
-.item-slot {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.mc-tooltip {
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 125%; /* move to right side */
-  transform: translateY(-50%);
-  font-family: "MinecraftiaRegular", sans-serif;
-  font-size: 16px;
-  white-space: nowrap;
-  z-index: 10;
-  text-align: center;
-  background-color: #100210d1;
-  border: 4px solid #100210;
-  padding: 8px 8px 0 8px;
-  border-radius: 6px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s;
-  color: gold;
-  width: auto;
-  max-width: none;
-  min-width: 0;
-}
-
-.tooltip {
-  font-family: "MinecraftiaRegular", sans-serif;
-  font-size: 16px;
-  background-color: #100210d1;
-  border: 4px solid #100210;
-  border-radius: 6px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s;
-  color: gold;
-  z-index: 1000;
-  width: fit-content;
-  max-width: 300px;
-  height: auto;
-  padding: 8px;
-}
-
-.item-slot:hover .mc-tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* change box-1 (item that currently hovered) background color */
-.item-slot:hover {
-  background-color: #bab9b9;
-}
-
-.MC-main {
-  overflow-y: auto;
-  scrollbar-width: thin;
-}
-.MC-Title {
-  font-family: "MinecraftiaRegular", sans-serif;
-  color: #dfdfdf;
-  font-size: 24px;
-  font-weight: bolder;
-  background-color: #212121;
-  border: 4px solid #5d5d5d;
-  border-radius: 6px;
-}
-
-/* Scrollbar Styles */
-.MC-main::-webkit-scrollbar {
-  width: 8px;
-}
-.MC-main::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 6px;
-}
-.MC-main::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 6px;
-}
-.MC-main::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-@media (max-width: 768px) {
-  .MC-Title {
-    font-size: 20px;
-  }
-  .mc-tooltip {
-    font-size: 14px;
-    left: 110%;
-  }
-}
-@media (max-width: 576px) {
-  .MC-Title {
-    font-size: 18px;
-  }
-  .mc-tooltip {
-    font-size: 12px;
-    left: 105%;
-  }
-}
-
-.mlogo {
-  background: url("Assets/Logo.png") no-repeat center;
+.MainLOGO{
+  background-image: url("./Assets/Logo.png");
   background-size: contain;
-  width: 100%;
-  height: 140px;
-  display: inline-block;
-  margin: 50px 0 0 0;
-  padding: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  height: clamp(10vh, 20vh, 50vh);
+  width: clamp(600px, 50vw, 730px);
 }
 
-.splash {
-  position: absolute;
-  top: 65%;
-  left: 80%;
-  transform: translate(-50%, -50%) rotate(-20deg);
-  width: auto;
+.splashtext {
+  font-family: "MinecraftiaRegular", sans-serif;
+  color: #ffcc00;
+  line-height: 1.2;
+  font-size: clamp(2vh, 2vw, 3vh);
+  text-shadow: 2px 2px 4px #000000;
+  transform: rotate(-20deg);
   max-width: 80%;
-  text-align: center;
-
-  animation: splashAnimation 1.5s infinite;
+  min-width: 200px;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0px;
+  right: -10%;
+  animation: splashAnimation 1s infinite;
 }
+
 @keyframes splashAnimation {
   0%,
   100% {
-    transform: translate(-50%, -50%) rotate(-20deg) scale(1);
+    transform: scale(1) rotate(-15deg);
   }
   50% {
-    transform: translate(-50%, -50%) rotate(-20deg) scale(1.1);
+    transform: scale(1.1) rotate(-15deg);
   }
 }
 
-.loading-overlay {
-  background: rgb(239, 46, 59);
-  font-family: "Mojang", sans-serif;
-  text-shadow: 2px 2px 4px #000000;
-}
-
-.MC-Btn {
-  background: url("Assets/button.png") no-repeat center;
-  background-size: contain;
-  width: 650px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  filter: brightness(125%);
-}
-
-.MC-Btn-text {
-  font-family: "MinecraftiaRegular", sans-serif;
-  color: #fff;
-  text-shadow: 2px 2px 4px #000000;
-  font-size: 1rem;
-  line-height: 50px;
-  display: block;
-  text-align: center;
-  user-select: none;
-  text-decoration: none;
-  padding-top: 6px;
-}
-
-.MC-Btn:hover {
-  background: url("Assets/button_highlighted.png") no-repeat center;
-  background-size: contain;
-  width: 650px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-.MC-Btn-sm {
-  background: url("Assets/button_sm.png") no-repeat center;
-  background-size: contain;
-  width: 55px;
-  min-width: 55px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  filter: brightness(125%);
-}
-
-.MC-Btn-md {
-  background: url("Assets/button_md.png") no-repeat center;
-  background-size: contain;
-  width: 215px;
-  min-width: 215px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  filter: brightness(125%);
-}
-
-.MC-Btn-sm:hover {
-  background: url("Assets/button_highlighted_sm.png") no-repeat center;
-  background-size: contain;
-  width: 55px;
-  min-width: 55px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-.MC-Btn-md:hover {
-  background: url("Assets/button_highlighted_md.png") no-repeat center;
-  background-size: contain;
-  width: 215px;
-  min-width: 215px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-.MC-Btn-text-sm {
-  font-family: "MinecraftiaRegular", sans-serif;
-  color: #fff;
-  text-shadow: 2px 2px 4px #000000;
-  font-size: 1rem;
-  line-height: 50px;
-  display: block;
-  text-align: center;
-  user-select: none;
-  text-decoration: none;
-  padding-top: 8px;
-}
-
-.MC-Btn-text-md {
-  font-family: "MinecraftiaRegular", sans-serif;
-  color: #fff;
-  text-shadow: 2px 2px 4px #000000;
-  font-size: 1rem;
-  line-height: 50px;
-  display: block;
-  text-align: center;
-  user-select: none;
-  text-decoration: none;
-  padding-top: 8px;
-}
-
-.Icon-GitHub {
-  background: url("Assets/github-ico.png") no-repeat center;
-  background-size: contain;
-  width: 38px;
-  height: 38px;
-  display: block;
-
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 6px;
-}
-
-.Icon-Resume {
-  background: url("Assets/info.png") no-repeat center;
-  background-size: contain;
-  width: 24px;
-  height: 24px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 12px;
-}
-
-.dialogBG {
-  background: url("Assets/dialogBG.png") repeat;
-  background-size: 16px 16px;
-  width: 350px;
-  height: 200px;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 50%;
-  left: 54%;
-  transform: translate(-50%, -50%);
-}
-
-.PopDialog {
-  background: url("Assets/dialog.png") no-repeat center center;
-  background-size: contain;
-  width: 500px;
-  height: 200px;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-}
-
-.popDialogLabel {
-  width: 65%;
-  font-family: "MinecraftiaRegular", sans-serif;
-  color: #fff;
-  text-shadow: 2px 2px 4px #000000;
-}
-
-.btn-close-Custom {
-  width: 0.8rem !important;
-  height: 0.8rem !important;
-  padding: 0 !important;
-  margin-left: 30px !important;
-}
-
-.MidDialogBG {
-  background: url("Assets/dialogBG.png") repeat;
-  background-size: 16px 16px;
-  width: 500px;
-  height: 230px;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-
-.MidPopDialog {
-  background: url("Assets/dialog.png") no-repeat center center;
-  background-size: contain;
-  width: 500px;
-  height: 300px;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.mc-xp-container {
-  width: 100%;
-  height: 10px;
-  position: relative;
+.mc-btn {
+  display: grid;
+  grid-template-columns: 18px auto 18px;
+  grid-template-rows: 18px auto 18px;
+  width: 300px;          /* any width you want */
+  height: 50px;          /* any height you want */
   image-rendering: pixelated;
 }
 
-.mc-xp-bg {
-  background: url("textures/experience_bar_background.png") no-repeat;
-  background-size: 100% 100%;
-  width: 100%;
-  height: 10px;
-  position: relative;
-  image-rendering: pixelated;
-}
-
-.mc-xp-fill {
-  background: url("textures/experience_bar_progress.png") no-repeat;
-  background-size: 100% 100%;
-  width: 100%;
-  height: 10px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  image-rendering: pixelated;
-  clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
-  transition: clip-path 0.6s ease-out;
-  animation: xpFillAnimation 0.6s ease-out;
-}
-
-@keyframes xpFillAnimation {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
-  }
-}
-
-.mc-xp-level {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -60%);
-  color: #80ff00;
-  text-shadow: 1px 1px 0 #000;
-  font-size: 12px;
-  font-weight: bold;
-  pointer-events: none;
-  min-width: 24px; /* Ensure enough space for 2+ digits */
-  text-align: center;
-  white-space: nowrap;
-}
-
-.MC-boxData {
-  width: 100%;
-  height: 100%;
-  background-color: #100210d1;
-  border: 4px solid #100210;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  border-radius: 6px;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  color: gold;
-  font-family: "MinecraftiaRegular", sans-serif;
-  padding: 16px;
-}
-
-.progbar-BG {
-  background-image: url(textures/experience_bar_background.png);
-  background-size: cover;
+.mc-btn {
+  background-image: url(./Assets/button.png);
   background-repeat: no-repeat;
   background-position: center;
-  border: 2px solid #000;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
-.Progbar-Gold {
-  background-color: #00ff00;
   image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  background-blend-mode: multiply;
-  opacity: 0.7;
+  width: 200px;
+  height: 20px;
+  font-family: "MinecraftiaRegular", sans-serif;
+  transform: scale(2.3);
+  position: relative;
 }
 
-#IncompatibleForMobileText::after {
-  content: "|";
-  animation: blink 0.8s steps(1) infinite;
+.mc-btn p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 3px;
+  font-size: 8px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  pointer-events: none;
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+.mc-btn:hover {
+  background-image: url(./Assets/button_highlighted.png);
+}
+
+.mc-btn-sm {
+  background-image: url(./Assets/button_sm.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+  width: 200px;
+  height: 20px;
+  font-family: "MinecraftiaRegular", sans-serif;
+  transform: scale(2.3);
+  position: relative;
+}
+
+.mc-btn-sm p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 3px;
+  font-size: 6px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  pointer-events: none;
+}
+
+.mc-btn-md {
+  background-image: url(./Assets/button_md.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+  width: 200px;
+  height: 20px;
+  font-family: "MinecraftiaRegular", sans-serif;
+  transform: scale(2.3);
+  position: relative;
+}
+
+.mc-btn-md p,
+.mc-btn-md .mc-btn-md-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 3px;
+  font-size: 7px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  pointer-events: none;
+}
+
+.mc-btn-md:hover {
+  background-image: url(./Assets/button_highlighted_md.png);
+}
+
+.mc-btn-sm:hover {
+  background-image: url(./Assets/button_highlighted_sm.png);
 }
