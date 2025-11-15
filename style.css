@@ -16,6 +16,13 @@ canvas {
   display: block;
 }
 
+.loading-overlay {
+  background-color: rgb(239, 46, 59);
+  color: white;
+  font-family: "Mojang", sans-serif;
+  text-shadow: 2px 2px 4px #000000;
+}
+
 /* .overlay {
   background: url("textures/panorama_overlay.png") no-repeat center;
   background-size: cover;
@@ -29,7 +36,7 @@ canvas {
   background-position: center;
   display: block;
   height: clamp(10vh, 20vh, 50vh);
-  width: clamp(600px, 50vw, 730px);
+  width: clamp(615px, 65vw, 745px);
 }
 
 .splashtext {
@@ -43,8 +50,8 @@ canvas {
   min-width: 200px;
   margin: 0 auto;
   position: absolute;
-  bottom: 0px;
-  right: -10%;
+  bottom: 10px;
+  right: -15%;
   animation: splashAnimation 1s infinite;
 }
 
@@ -62,9 +69,10 @@ canvas {
   display: grid;
   grid-template-columns: 18px auto 18px;
   grid-template-rows: 18px auto 18px;
-  width: 300px;          /* any width you want */
-  height: 50px;          /* any height you want */
+  width: 300px;
+  height: 50px;
   image-rendering: pixelated;
+  
 }
 
 .mc-btn {
@@ -77,62 +85,12 @@ canvas {
   font-family: "MinecraftiaRegular", sans-serif;
   transform: scale(2.3);
   position: relative;
+  filter: brightness(125%);
+  cursor: pointer;
 }
 
-.mc-btn p {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin-top: 3px;
-  font-size: 8px;
-  color: white;
-  text-shadow: 1px 1px 2px black;
-  pointer-events: none;
-}
-
-.mc-btn:hover {
-  background-image: url(./Assets/button_highlighted.png);
-}
-
-.mc-btn-sm {
-  background-image: url(./Assets/button_sm.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  image-rendering: pixelated;
-  width: 200px;
-  height: 20px;
-  font-family: "MinecraftiaRegular", sans-serif;
-  transform: scale(2.3);
-  position: relative;
-}
-
-.mc-btn-sm p {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin-top: 3px;
-  font-size: 6px;
-  color: white;
-  text-shadow: 1px 1px 2px black;
-  pointer-events: none;
-}
-
-.mc-btn-md {
-  background-image: url(./Assets/button_md.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  image-rendering: pixelated;
-  width: 200px;
-  height: 20px;
-  font-family: "MinecraftiaRegular", sans-serif;
-  transform: scale(2.3);
-  position: relative;
-}
-
-.mc-btn-md p,
-.mc-btn-md .mc-btn-md-text {
+.mc-btn p,
+.mc-btn-md p {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -144,10 +102,80 @@ canvas {
   pointer-events: none;
 }
 
+.mc-btn-md p {
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.mc-btn:hover {
+  background-image: url(./Assets/button_highlighted.png);
+}
+
+.mc-btn-sm {
+  background-image: url(./Assets/button_sm.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+  background-size: 100% 100%;
+  position: relative;
+  filter: brightness(125%);
+  font-family: "MinecraftiaRegular", sans-serif;
+  cursor: pointer;
+}
+
+
+.mc-btn-md {
+  background-image: url(./Assets/button_md.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  position: relative;
+  filter: brightness(125%);
+  font-family: "MinecraftiaRegular", sans-serif;
+  cursor: pointer;
+}
+
 .mc-btn-md:hover {
   background-image: url(./Assets/button_highlighted_md.png);
 }
 
 .mc-btn-sm:hover {
   background-image: url(./Assets/button_highlighted_sm.png);
+}
+
+.Icon-Resume {
+  background: url("Assets/info.png") no-repeat center;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.Icon-GitHub {
+  background: url("Assets/github-ico.png") no-repeat center;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  display: block;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+}
+
+.Icon-GitHub-down, .Icon-Resume-down{
+  margin-left: 50px;
+}
+.Icon-GitHub-down p{
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.Icon-Resume-down p{
+  margin-left: 20px;
+  margin-top: 5px;
 }

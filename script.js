@@ -1,22 +1,13 @@
-import {
-  PanoramaBackground,
-  LoadingScreenFadeOut,
-  BackgroundMusic,
-  ServiceWorkerRegister,
-  Splashtext,
-  CopyRightName,
-} from "./Functions/JS_Functions.js";
+import { PanoramaBackground, LoadingScreenFadeOut, BackgroundMusic, ServiceWorkerRegister, Splashtext, CopyRightName } from "./Functions/JS_Functions.js";
 
 if (typeof $ === "undefined") {
-  throw new Error(
-    "jQuery is required for this script to work. Please include jQuery before this script."
-  );
+  throw new Error("jQuery is required for this script to work. Please include jQuery before this script.");
 }
 
 let UNDER_DEVELOPMENT = true;
 let ENABLE_BACKGROUND_ANIMATION = true;
 let BACKGROUND_ROTATION_SPEED = 0.001;
-let ENABLE_LOADING_SCREEN = false;
+let ENABLE_LOADING_SCREEN = true;
 let PORTFOLIOVERSION = "2.0";
 
 $(document).ready(function () {

@@ -15,25 +15,25 @@ export function PanoramaBackground(ContainerID = "PanoramaContainer", EnableBack
   });
 
   // Prevent zooming on touch devices (tablet / iOS / Android)
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+  const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
   const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   if (isTouchDevice && isMobileUA) {
     // Ensure viewport disallows scaling (helps most browsers)
     let meta = document.querySelector('meta[name="viewport"]');
     if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'viewport';
+      meta = document.createElement("meta");
+      meta.name = "viewport";
       document.head.appendChild(meta);
     }
-    meta.content = 'width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no';
+    meta.content = "width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no";
 
     // Add CSS to reduce touch-driven gestures on the panorama container
-    $('html, body, #' + ContainerID).css({
-      'touch-action': 'none',         // prevents pinch/zoom and double-tap gestures in supporting browsers
-      '-ms-touch-action': 'none',
-      'overscroll-behavior': 'none',
-      '-webkit-user-select': 'none',
-      'user-select': 'none',
+    $("html, body, #" + ContainerID).css({
+      "touch-action": "none", // prevents pinch/zoom and double-tap gestures in supporting browsers
+      "-ms-touch-action": "none",
+      "overscroll-behavior": "none",
+      "-webkit-user-select": "none",
+      "user-select": "none",
     });
 
     // Prevent iOS gesturestart (pinch) and block multi-touch move default
@@ -50,15 +50,17 @@ export function PanoramaBackground(ContainerID = "PanoramaContainer", EnableBack
       lastTouchEnd = now;
     };
 
-    document.addEventListener('gesturestart', onGestureStart, { passive: false });
-    document.addEventListener('touchmove', onTouchMove, { passive: false });
-    document.addEventListener('touchend', onTouchEnd, { passive: false });
+    document.addEventListener("gesturestart", onGestureStart, {
+      passive: false,
+    });
+    document.addEventListener("touchmove", onTouchMove, { passive: false });
+    document.addEventListener("touchend", onTouchEnd, { passive: false });
 
     // Clean up listeners if the panorama container is removed
     const cleanup = () => {
-      document.removeEventListener('gesturestart', onGestureStart);
-      document.removeEventListener('touchmove', onTouchMove);
-      document.removeEventListener('touchend', onTouchEnd);
+      document.removeEventListener("gesturestart", onGestureStart);
+      document.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("touchend", onTouchEnd);
     };
     const removeObserver = new MutationObserver(() => {
       if (!document.getElementById(ContainerID)) {
@@ -69,29 +71,17 @@ export function PanoramaBackground(ContainerID = "PanoramaContainer", EnableBack
     removeObserver.observe(document.body, { childList: true, subtree: true });
   }
 
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   $(`#${ContainerID}`).append(renderer.domElement);
 
-  const enableBackgroundAnimation = EnableBackgroundAnimation;
   const rotationSpeed = RotationSpeed;
 
   const loader = new THREE.CubeTextureLoader();
   const PathToThemes = "textures/Panoramas/";
-  const themes = [
-    "BuzzyBees",
-    "ChaseTheSkys",
-    "Cliffs",
-    "GardenAwakens",
-    "Nether",
-  ];
+  const themes = ["BuzzyBees", "ChaseTheSkys", "Cliffs", "GardenAwakens", "Nether"];
 
   const selectedTheme = themes[Math.floor(Math.random() * themes.length)];
   const texture = loader.load([
@@ -106,14 +96,18 @@ export function PanoramaBackground(ContainerID = "PanoramaContainer", EnableBack
   scene.background = texture;
   camera.position.set(0, 0, 0);
   function animate() {
-    requestAnimationFrame(animate);
-    camera.rotation.y += rotationSpeed;
-    renderer.render(scene, camera);
+    if (!EnableBackgroundAnimation) {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    } else {
+      requestAnimationFrame(animate);
+      camera.rotation.y += rotationSpeed;
+      renderer.render(scene, camera);
+    }
   }
   animate();
 
   $(window).on("resize", function () {
-    // ensure device pixel ratio is capped to prevent apparent "zoom" on high-DPI mobile devices
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     renderer.setPixelRatio(dpr);
 
@@ -144,12 +138,8 @@ export function LoadingScreenFadeOut(isUnderDevelopment = false, enableLoadingSc
     if (isUnderDevelopment) {
       $("#LoadingText")
         .fadeOut(500, function () {
-          $(this)
-            .css("font-family", "MinecraftiaRegular")
-            .css("font-size", "clamp(16px, 4vw, 24px)")
-            .text("Portfolio is still under development.")
-            .fadeIn(500);
-            $("#SubLoadingText").fadeOut(300);
+          $(this).css("font-family", "MinecraftiaRegular").css("font-size", "clamp(16px, 4vw, 24px)").text("Portfolio is still under development.").fadeIn(500);
+          $("#SubLoadingText").fadeOut(300);
         })
         .fadeIn(500, function () {
           setTimeout(() => {
@@ -214,10 +204,8 @@ export function BackgroundMusic(EnableSounds = true, BackgroundMusicVolume = 0.5
     removeInteractionListeners();
   };
   const interactionEvents = ["pointerdown", "touchend", "keydown", "click"];
-  const addInteractionListeners = () =>
-    interactionEvents.forEach((ev) => window.addEventListener(ev, onFirstInteraction, { passive: true }));
-  const removeInteractionListeners = () =>
-    interactionEvents.forEach((ev) => window.removeEventListener(ev, onFirstInteraction));
+  const addInteractionListeners = () => interactionEvents.forEach((ev) => window.addEventListener(ev, onFirstInteraction, { passive: true }));
+  const removeInteractionListeners = () => interactionEvents.forEach((ev) => window.removeEventListener(ev, onFirstInteraction));
   addInteractionListeners();
 
   document.addEventListener("visibilitychange", () => {
@@ -252,67 +240,67 @@ export function ServiceWorkerRegister() {
       // Derive a sensible base for the sw file and scope. Prefer a <base> tag if present,
       // otherwise use the current location directory. This covers root and subpath
       // deployments.
-      const baseEl = document.querySelector('base');
+      const baseEl = document.querySelector("base");
       const baseHref = baseEl ? baseEl.href : location.href;
-      const base = new URL('.', baseHref).href; // ensures trailing slash
+      const base = new URL(".", baseHref).href; // ensures trailing slash
 
-      const swUrl = new URL('service-worker.js', base).href;
-      const scopePath = new URL('.', base).pathname; // e.g. '/Port-folio/' or '/'
+      const swUrl = new URL("service-worker.js", base).href;
+      const scopePath = new URL(".", base).pathname; // e.g. '/Port-folio/' or '/'
 
       navigator.serviceWorker
         .register(swUrl, { scope: scopePath })
         .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
+          console.log("Service Worker registered with scope:", registration.scope);
 
           // Optional: ask service worker for initial online status using a MessageChannel
           if (registration.active) {
             const mc = new MessageChannel();
             mc.port1.onmessage = (e) => {
               // e.data will be { online: true/false } from the service worker if supported
-              document.dispatchEvent(new CustomEvent('sw:online-status', { detail: e.data }));
+              document.dispatchEvent(new CustomEvent("sw:online-status", { detail: e.data }));
             };
             try {
-              registration.active.postMessage({ type: 'CHECK_ONLINE_STATUS' }, [mc.port2]);
+              registration.active.postMessage({ type: "CHECK_ONLINE_STATUS" }, [mc.port2]);
             } catch (err) {
               // ignore if postMessage with port fails
             }
           }
         })
         .catch((error) => {
-          console.error('Service Worker registration failed:', error);
+          console.error("Service Worker registration failed:", error);
         });
 
       // Listen for messages from the service worker (reload action, network/cache events)
-      navigator.serviceWorker.addEventListener('message', (event) => {
+      navigator.serviceWorker.addEventListener("message", (event) => {
         const data = event.data || {};
-        if (data && data.action === 'reload') {
+        if (data && data.action === "reload") {
           // service worker requested a reload for this client
           window.location.reload();
         }
 
         // re-dispatch network/cache source as a document event for app code to react
         if (data && data.source) {
-          document.dispatchEvent(new CustomEvent('sw:status', { detail: data.source }));
+          document.dispatchEvent(new CustomEvent("sw:status", { detail: data.source }));
         }
       });
     } catch (e) {
-      console.error('Service Worker registration error', e);
+      console.error("Service Worker registration error", e);
     }
   }
 }
 
 export function Splashtext(ContainerID = "MCsplashText", portfolioVersion = "0.0") {
   const splashTexts = [
-  "Portfolio v" + portfolioVersion + "!!!",
-  "Caps Portfolio!!",
-  "Made by Caps!!!!",
-  "Hello World!!!!!",
-  "Enjoy your stay!",
-  "Coding is fun!!!",
-  "Minecraft vibes!",
-  "Three.js magic!!",
-  "WebGL wonder!!!!",
-];
+    "Portfolio v" + portfolioVersion + "!!!",
+    "Caps Portfolio!!",
+    "Made by Caps!!!!",
+    "Hello World!!!!!",
+    "Enjoy your stay!",
+    "Coding is fun!!!",
+    "Minecraft vibes!",
+    "Three.js magic!!",
+    "WebGL wonder!!!!",
+  ];
 
   const randomIndex = Math.floor(Math.random() * splashTexts.length);
   const selectedSplashText = splashTexts[randomIndex];
@@ -322,15 +310,9 @@ export function Splashtext(ContainerID = "MCsplashText", portfolioVersion = "0.0
 export function CopyRightName(YearContainerID = "current-year", OwnerContainerID = "owner-name", PortfolioVersion = "0.0") {
   const currentYear = new Date().getFullYear();
   $(`#${YearContainerID}`).text(currentYear);
-  if (
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1"
-  ) {
+  if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
     $(`#${OwnerContainerID}`).text("Unknownplanet40 (on localhost)");
-  } else if (
-    window.location.hostname === "unknownplanet40.github.io" &&
-    window.location.pathname.startsWith("/Port-folio/")
-  ) {
+  } else if (window.location.hostname === "unknownplanet40.github.io" && window.location.pathname.startsWith("/Port-folio/")) {
     const owner = window.location.hostname.split(".github")[0];
     $(`#${OwnerContainerID}`).text(owner.charAt(0).toUpperCase() + owner.slice(1));
   } else {
