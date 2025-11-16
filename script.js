@@ -1,4 +1,5 @@
-import { PanoramaBackground, LoadingScreenFadeOut, BackgroundMusic, ServiceWorkerRegister, Splashtext, CopyRightName } from "./Functions/JS_Functions.js";
+import { PanoramaBackground, LoadingScreenFadeOut, ServiceWorkerRegister, Splashtext, CopyRightName, TooltipInit, ExternalLinkSetup } from "./Functions/JS_Functions.js";
+import { BackgroundMusic, SoundEffectSetup } from "./Functions/JS_Functions.js";
 
 if (typeof $ === "undefined") {
   throw new Error("jQuery is required for this script to work. Please include jQuery before this script.");
@@ -17,4 +18,7 @@ $(document).ready(function () {
   ServiceWorkerRegister();
   Splashtext("MCsplashText", PORTFOLIOVERSION);
   CopyRightName("current-year", "owner-name", PORTFOLIOVERSION);
+  TooltipInit();
+  ExternalLinkSetup();
+  SoundEffectSetup();
 });

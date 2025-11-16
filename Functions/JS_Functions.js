@@ -1,6 +1,11 @@
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.min.js";
 
-export function PanoramaBackground(ContainerID = "PanoramaContainer", EnableBackgroundAnimation = true, RotationSpeed = 0.001) {
+export function PanoramaBackground(ContainerID = "PanoramaContainerNONE", EnableBackgroundAnimation = true, RotationSpeed = 0.001) {
+  if (ContainerID === "PanoramaContainerNONE") {
+    console.warn("PanoramaBackground: No container ID provided, panorama background will not be initialized.");
+    return;
+  }
+
   const scene = new THREE.Scene();
   const $container = $(`#${ContainerID}`);
   $container.css({
@@ -144,10 +149,17 @@ export function LoadingScreenFadeOut(isUnderDevelopment = false, enableLoadingSc
         .fadeIn(500, function () {
           setTimeout(() => {
             $("#LoadingScreen").fadeOut(1000, function () {
+              // check if in mobile device
+              const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+              if (isMobile) {
+                setTimeout(() => {
+                   $("#LoadingText").css("font-family", "MinecraftiaRegular").css("font-size", "clamp(14px, 3.5vw, 20px)").text("For the best experience, please use a desktop browser.").fadeIn(500);
+                }, 500);
+              }
               $(this).remove();
               localStorage.setItem("StarttheSound", "true");
             });
-          }, 2000);
+          }, 2500);
         });
     } else {
       $("#LoadingScreen").fadeOut(1000, function () {
@@ -289,7 +301,12 @@ export function ServiceWorkerRegister() {
   }
 }
 
-export function Splashtext(ContainerID = "MCsplashText", portfolioVersion = "0.0") {
+export function Splashtext(ContainerID = "MCsplashTextNONE", portfolioVersion = "0.0") {
+  if (ContainerID === "MCsplashTextNONE") {
+    console.warn("Splashtext: No container ID provided, splash text will not be set.");
+    return;
+  }
+
   const splashTexts = [
     "Portfolio v" + portfolioVersion + "!!!",
     "Caps Portfolio!!",
@@ -321,4 +338,204 @@ export function CopyRightName(YearContainerID = "current-year", OwnerContainerID
     $(`#${OwnerContainerID}`).text(owner);
   }
   $(`#portfolio-version`).text(`Portfolio v${PortfolioVersion}`);
+}
+
+export function TooltipInit() {
+  (function ($) {
+    $.fn.mcTooltip = function () {
+      const $tooltip = $("#tooltip");
+      if (!$tooltip.length) {
+        console.warn("mcTooltip: #tooltip element not found, plugin disabled.");
+        return this;
+      }
+      const $header = $("#tooltip-header");
+      const $body = $("#tooltip-body");
+
+      const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+      const supportsHover = window.matchMedia && window.matchMedia("(hover: hover)").matches;
+      const useImmediateTouchHover = isTouchDevice && !supportsHover;
+
+      function positionTooltip(e, $el) {
+        const padding = 12;
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+        let clientX, clientY;
+        if (e) {
+          if (e.touches && e.touches.length) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+          } else if (e.changedTouches && e.changedTouches.length) {
+            clientX = e.changedTouches[0].clientX;
+            clientY = e.changedTouches[0].clientY;
+          } else if (typeof e.clientX === "number" && typeof e.clientY === "number") {
+            clientX = e.clientX;
+            clientY = e.clientY;
+          }
+        }
+
+        if (clientX == null || clientY == null) {
+          if ($el && $el.length) {
+            const r = $el[0].getBoundingClientRect();
+            clientX = Math.round(r.left + 10);
+            clientY = Math.round(r.bottom + 10);
+          } else {
+            clientX = padding;
+            clientY = padding;
+          }
+        }
+
+        let x = clientX + padding;
+        let y = clientY + padding;
+
+        $tooltip.css({ left: "0px", top: "0px", display: "block", opacity: 1 });
+        const rect = $tooltip[0].getBoundingClientRect();
+
+        if (x + rect.width + padding > vw) x = clientX - rect.width - padding;
+        if (y + rect.height + padding > vh) y = clientY - rect.height - padding;
+
+        x = Math.max(0, x);
+        y = Math.max(0, y);
+
+        $tooltip.css({ left: x + "px", top: y + "px" });
+      }
+
+      return this.each(function () {
+        const $el = $(this);
+
+        let touchTimer = null;
+        let touchVisible = false;
+        let startX = 0;
+        let startY = 0;
+
+        function show(ev) {
+          const title = $el.attr("data-title") || "";
+          const txt = $el.attr("data-body") || "";
+          if ($header.length) $header.text(title);
+          if ($body.length) $body.text(txt);
+          $tooltip.show().css("opacity", "1");
+          const native = ev && ev.originalEvent ? ev.originalEvent : ev;
+          positionTooltip(native, $el);
+        }
+
+        function move(ev) {
+          const native = ev && ev.originalEvent ? ev.originalEvent : ev;
+          positionTooltip(native, $el);
+        }
+
+        function hide() {
+          $tooltip.hide();
+          touchVisible = false;
+        }
+
+        $el.on("mouseenter.mcTooltip", show);
+        $el.on("mousemove.mcTooltip", move);
+        $el.on("mouseleave.mcTooltip", hide);
+
+        $el.on("focus.mcTooltip", function (ev) {
+          show(ev);
+        });
+        $el.on("blur.mcTooltip", hide);
+
+        if (isTouchDevice) {
+          $el.on(
+            "touchstart.mcTooltip",
+            function (ev) {
+              if (!ev || !ev.originalEvent) return;
+              const native = ev.originalEvent;
+              const t = native.touches && native.touches[0];
+              startX = t ? t.clientX : 0;
+              startY = t ? t.clientY : 0;
+              touchVisible = false;
+
+              if (useImmediateTouchHover) {
+                show(native);
+                touchVisible = true;
+                setTimeout(() => {
+                  if (touchVisible) hide();
+                }, 1500);
+              } else {
+                touchTimer = setTimeout(() => {
+                  show(native);
+                  touchVisible = true;
+                  setTimeout(() => {
+                    const outsideHandler = (e) => {
+                      if (!$(e.target).closest("#tooltip, [data-tooltip]").length) {
+                        hide();
+                        document.removeEventListener("touchstart", outsideHandler);
+                      }
+                    };
+                    document.addEventListener("touchstart", outsideHandler, { passive: true });
+                  }, 0);
+                }, 300);
+              }
+            },
+            { passive: true }
+          );
+
+          $el.on(
+            "touchmove.mcTooltip",
+            function (ev) {
+              const native = ev && ev.originalEvent ? ev.originalEvent : ev;
+              const t = native.touches && native.touches[0];
+              if (!t) return;
+              const dx = Math.abs(t.clientX - startX);
+              const dy = Math.abs(t.clientY - startY);
+              if (dx > 10 || dy > 10) {
+                if (touchTimer) {
+                  clearTimeout(touchTimer);
+                  touchTimer = null;
+                }
+                if (touchVisible) {
+                  move(native);
+                }
+              } else if (touchVisible) {
+                move(native);
+              }
+            },
+            { passive: true }
+          );
+
+          $el.on(
+            "touchend.mcTooltip touchcancel.mcTooltip",
+            function (ev) {
+              if (touchTimer) {
+                clearTimeout(touchTimer);
+                touchTimer = null;
+              }
+              if (touchVisible) {
+                setTimeout(hide, 800);
+              }
+            },
+            { passive: true }
+          );
+        }
+      });
+    };
+    $(function () {
+      $("[data-tooltip]").mcTooltip();
+    });
+  })(jQuery);
+}
+
+export function ExternalLinkSetup() {
+  $(".GH-Click").click(function () {
+    window.open("https://github.com/Unknownplanet40", "_blank");
+  });
+
+  $(".R-Click").click(function () {
+    window.open("./Assets/resume.pdf", "_blank");
+  });
+}
+
+export function SoundEffectSetup() {
+  const audio = new Audio("Assets/Sounds/BtnClickSound.mp3");
+  audio.preload = "auto";
+  audio.volume = 0.3;
+  audio.playsInline = true;
+
+  $(".MC-BTN-CLICK").on("click", function () {
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  });
 }
