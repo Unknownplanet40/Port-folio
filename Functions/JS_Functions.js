@@ -526,6 +526,14 @@ export function ExternalLinkSetup() {
   $(".R-Click").click(function () {
     window.open("./Assets/resume.pdf", "_blank");
   });
+
+  $(".FB-Click").click(function () {
+    window.open("https://www.facebook.com/Cappps.Lock", "_blank");
+  });
+
+  $(".LI-Click").click(function () {
+    window.open("https://www.linkedin.com/in/rj45", "_blank");
+  });
 }
 
 export function SoundEffectSetup() {
