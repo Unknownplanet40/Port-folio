@@ -153,7 +153,7 @@ export function LoadingScreenFadeOut(isUnderDevelopment = false, enableLoadingSc
               const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
               if (isMobile) {
                 setTimeout(() => {
-                   $("#LoadingText").css("font-family", "MinecraftiaRegular").css("font-size", "clamp(14px, 3.5vw, 20px)").text("For the best experience, please use a desktop browser.").fadeIn(500);
+                  $("#LoadingText").css("font-family", "MinecraftiaRegular").css("font-size", "clamp(14px, 3.5vw, 20px)").text("For the best experience, please use a desktop browser.").fadeIn(500);
                 }, 500);
               }
               $(this).remove();
@@ -546,4 +546,294 @@ export function SoundEffectSetup() {
     audio.currentTime = 0;
     audio.play().catch(() => {});
   });
+}
+
+// This function Platertexture is not my original code. its generated from an AI model and modified by me to fit my needs.
+export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCharacter = false) {
+  const $container = $(`#${ContainerID}`);
+  if (!$container.length) {
+    console.warn(`Playertexture: container '#${ContainerID}' not found.`);
+    return null;
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  $container[0].appendChild(canvas);
+
+  const createViewer = (SkinViewerClass) => {
+    if (!SkinViewerClass) {
+      console.error("Playertexture: SkinViewer class not available.");
+      return null;
+    }
+
+    const getBoxSize = () => {
+      const el = $container[0];
+      const cs = window.getComputedStyle(el);
+      const parsedW = parseInt(cs.width, 10);
+      const parsedH = parseInt(cs.height, 10);
+      const w = Number.isFinite(parsedW) && parsedW > 0 ? parsedW : el.clientWidth || 200;
+      const h = Number.isFinite(parsedH) && parsedH > 0 ? parsedH : el.clientHeight || 300;
+      return { w, h };
+    };
+
+    const size = getBoxSize();
+    // Ensure canvas bitmap size matches container (important for crisp rendering)
+    canvas.width = size.w;
+    canvas.height = size.h;
+    canvas.style.width = size.w + "px";
+    canvas.style.height = size.h + "px";
+
+    const viewer = new SkinViewerClass({
+      canvas: canvas,
+      width: size.w,
+      height: size.h,
+      skin: SkinURL || "https://skins.minecraft.net/MinecraftSkins/Steve.png", // this link may be broken in future
+    });
+
+    viewer.autoRotate = RotateCharacter;
+    viewer.zoom = 0.7;
+
+      // Slightly scale the model so it appears a bit larger in the char box
+      try {
+        const scaleFactor = 1.20; // tweak this value to scale more/less
+        if (viewer.playerWrapper && viewer.playerWrapper.scale) {
+          viewer.playerWrapper.scale.set(scaleFactor, scaleFactor, scaleFactor);
+        } else if (viewer.playerObject && viewer.playerObject.scale) {
+          viewer.playerObject.scale.set(scaleFactor, scaleFactor, scaleFactor);
+        }
+      } catch (e) {
+        // ignore if scaling is not available
+      }
+
+    // Make the model follow pointer position over the container
+    try {
+      const cfg = {
+        maxHeadYaw: 0.6, // radians left/right for the head
+        maxHeadPitch: 0.45, // radians up/down for the head
+        wrapperYaw: 0.8, // radians for whole-model yaw
+      };
+
+      const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+      // Smooth reset helpers
+      const cancelSmoothReset = () => {
+        try {
+          if (viewer.__followMouse && viewer.__followMouse.resetAnimationId) {
+            window.cancelAnimationFrame(viewer.__followMouse.resetAnimationId);
+            viewer.__followMouse.resetAnimationId = null;
+          }
+        } catch (e) {}
+      };
+
+      const startSmoothReset = (duration = 300) => {
+        try {
+          const head = viewer.playerObject && viewer.playerObject.skin && viewer.playerObject.skin.head;
+          if (!head) return;
+
+          cancelSmoothReset();
+
+          const startX = head.rotation.x || 0;
+          const startY = head.rotation.y || 0;
+          const startTime = performance.now();
+
+          const step = (now) => {
+            const t = Math.min(1, (now - startTime) / duration);
+            const ease = 1 - Math.pow(1 - t, 3); // ease-out cubic
+            try {
+              head.rotation.x = startX * (1 - ease);
+              head.rotation.y = startY * (1 - ease);
+            } catch (e) {}
+            if (t < 1) {
+              viewer.__followMouse.resetAnimationId = window.requestAnimationFrame(step);
+            } else {
+              viewer.__followMouse.resetAnimationId = null;
+              try {
+                head.rotation.x = 0;
+                head.rotation.y = 0;
+              } catch (e) {}
+            }
+          };
+
+          viewer.__followMouse.resetAnimationId = window.requestAnimationFrame(step);
+        } catch (e) {}
+      };
+
+      const pointerMove = (ev) => {
+        try {
+          // cancel any running smooth reset so user input takes precedence
+          if (viewer.__followMouse) cancelSmoothReset();
+
+          const rect = $container[0].getBoundingClientRect();
+          const clientX = ev.touches && ev.touches[0] ? ev.touches[0].clientX : ev.clientX;
+          const clientY = ev.touches && ev.touches[0] ? ev.touches[0].clientY : ev.clientY;
+
+          const nx = ((clientX - rect.left) / rect.width) * 2 - 1; // -1 .. 1
+          const ny = ((clientY - rect.top) / rect.height) * 2 - 1; // -1 .. 1
+
+          const targetHeadY = nx * cfg.maxHeadYaw;
+          // map vertical so moving pointer up makes the head look up
+          const targetHeadX = clamp(ny * cfg.maxHeadPitch, -cfg.maxHeadPitch, cfg.maxHeadPitch);
+
+          // Only move the head, not the whole wrapper
+          const head = viewer.playerObject && viewer.playerObject.skin && viewer.playerObject.skin.head;
+          if (head) {
+            head.rotation.y = targetHeadY;
+            head.rotation.x = targetHeadX;
+          }
+        } catch (e) {
+          // ignore pointer handler errors
+        }
+      };
+
+      const resetPose = () => {
+        // start a smooth reset when pointer leaves
+        try {
+          if (!viewer.__followMouse) viewer.__followMouse = {};
+          startSmoothReset(300);
+        } catch (e) {}
+      };
+
+      $container[0].addEventListener("pointermove", pointerMove, { passive: true });
+      $container[0].addEventListener("touchmove", pointerMove, { passive: true });
+      $container[0].addEventListener("pointerleave", resetPose, { passive: true });
+      $container[0].addEventListener("touchend", resetPose, { passive: true });
+      $container[0].addEventListener("mouseleave", resetPose, { passive: true });
+      $container[0].addEventListener("mouseout", function (e) {
+        // if relatedTarget is null, pointer left the window
+        if (!e || !e.relatedTarget) resetPose();
+      }, { passive: true });
+
+      // also listen for window-level leave events to reset when the pointer exits the browser window
+      const onWindowPointerLeave = (e) => {
+        resetPose();
+      };
+      const onWindowMouseOut = (e) => {
+        if (!e || !e.relatedTarget) resetPose();
+      };
+      window.addEventListener("pointerleave", onWindowPointerLeave, { passive: true });
+      window.addEventListener("mouseout", onWindowMouseOut, { passive: true });
+
+      // expose handlers for cleanup
+      viewer.__followMouse = { pointerMove, resetPose, onWindowPointerLeave, onWindowMouseOut };
+    } catch (e) {
+      // don't break viewer creation when follow feature fails
+    }
+
+    const onResize = () => {
+      const newSize = getBoxSize();
+      canvas.width = newSize.w;
+      canvas.height = newSize.h;
+      canvas.style.width = newSize.w + "px";
+      canvas.style.height = newSize.h + "px";
+      viewer.width = newSize.w;
+      viewer.height = newSize.h;
+    };
+
+    $(window).on("resize", onResize);
+
+    // attach viewer reference and a destroy helper to the container element so callers can cleanup
+    try {
+      $container[0].__skinViewer = viewer;
+      viewer.__onResize = onResize;
+      viewer.destroyViewer = function () {
+        try {
+          if (viewer.__onResize) {
+            $(window).off("resize", viewer.__onResize);
+          }
+          // stop any animations / auto-rotate
+          try {
+            viewer.autoRotate = false;
+          } catch (e) {}
+
+          // call common cleanup APIs if present
+          if (typeof viewer.dispose === "function") {
+            try {
+              viewer.dispose();
+            } catch (e) {}
+          }
+          if (typeof viewer.destroy === "function") {
+            try {
+              viewer.destroy();
+            } catch (e) {}
+          }
+          if (typeof viewer.stop === "function") {
+            try {
+              viewer.stop();
+            } catch (e) {}
+          }
+
+          // remove canvas from DOM if still present
+          try {
+            if (canvas && canvas.parentNode) canvas.parentNode.removeChild(canvas);
+          } catch (e) {}
+
+          // remove pointer listeners if attached
+          try {
+            if (viewer.__followMouse && $container && $container[0]) {
+              try {
+                $container[0].removeEventListener("pointermove", viewer.__followMouse.pointerMove);
+              } catch (e) {}
+              try {
+                $container[0].removeEventListener("touchmove", viewer.__followMouse.pointerMove);
+              } catch (e) {}
+              try {
+                $container[0].removeEventListener("pointerleave", viewer.__followMouse.resetPose);
+              } catch (e) {}
+              try {
+                $container[0].removeEventListener("touchend", viewer.__followMouse.resetPose);
+              } catch (e) {}
+              try {
+                $container[0].removeEventListener("mouseleave", viewer.__followMouse.resetPose);
+              } catch (e) {}
+              try {
+                // the mouseout handler was added as an anonymous function, so removing by reference isn't possible here;
+                // but we remove window-level handlers below which cover leaving the page as well.
+                $container[0].removeEventListener("mouseout", viewer.__followMouse.resetPose);
+              } catch (e) {}
+              try {
+                if (viewer.__followMouse.onWindowPointerLeave) window.removeEventListener("pointerleave", viewer.__followMouse.onWindowPointerLeave);
+              } catch (e) {}
+              try {
+                if (viewer.__followMouse.onWindowMouseOut) window.removeEventListener("mouseout", viewer.__followMouse.onWindowMouseOut);
+              } catch (e) {}
+              try {
+                // also cancel any smooth reset animation
+                if (viewer.__followMouse && viewer.__followMouse.resetAnimationId) {
+                  window.cancelAnimationFrame(viewer.__followMouse.resetAnimationId);
+                  viewer.__followMouse.resetAnimationId = null;
+                }
+              } catch (e) {}
+            }
+          } catch (e) {}
+
+          try {
+            delete $container[0].__skinViewer;
+          } catch (e) {}
+        } catch (e) {
+          console.warn("Error during viewer.destroyViewer:", e);
+        }
+      };
+    } catch (e) {
+      // ignore attach failures
+    }
+
+    return viewer;
+  };
+
+  // If the global bundle was included via a <script> tag, prefer that. Otherwise dynamically import.
+  if (typeof window !== "undefined" && window.skinview3d && window.skinview3d.SkinViewer) {
+    return createViewer(window.skinview3d.SkinViewer);
+  }
+
+  // Dynamic import returns a Promise that resolves to the created viewer (or null on failure).
+  return import("https://unpkg.com/skinview3d/bundles/skinview3d.bundle.js")
+    .then((mod) => {
+      const SkinViewerClass = mod.SkinViewer || (mod.default && mod.default.SkinViewer) || (window.skinview3d && window.skinview3d.SkinViewer);
+      return createViewer(SkinViewerClass);
+    })
+    .catch((err) => {
+      console.error("Failed to load skinview3d:", err);
+      return null;
+    });
 }

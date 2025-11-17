@@ -243,4 +243,43 @@ canvas {
   height: auto;
   padding: 8px;
 }
+.nofocus:focus {
+  outline: none;
+  box-shadow: none;
+}
 
+.custom-box {
+  background-color: #c8c8c8;
+  border-radius: 6px;
+  border-left: 5px solid #fff;
+  border-top: 5px solid #fff;
+  border-right: 5px solid #7f7f7f;
+  border-bottom: 5px solid #7f7f7f;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
+}
+
+.char-Box {
+  width: 200px;
+  height: 300px;
+  background-color: black;
+  border-top: 4px solid #7f7f7f;
+  border-left: 4px solid #7f7f7f;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+}
+
+.slot {
+  width: 100%;
+  background-color: #8b8b8b;
+  border-top: 4px solid #414141;
+  border-left: 4px solid #414141;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+}
+
+.slot:hover {
+  background-color: #a0a0a0;
+  cursor: pointer;
+}
