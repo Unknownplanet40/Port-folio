@@ -91,7 +91,7 @@
                 </div>
                 <div class="modal-body">
                   <div class="row g-0">
-                    <div class="col-12 col-md-12 col-xl-4" style="height: 380px">
+                    <div class="col-12 col-md-12 col-xl-4" style="height: 330px">
                       <div class="container-fluid h-100 w-100 d-flex justify-content-center align-items-center">
                         <div class="hstack">
                           <div class="char-Box" id="char-box"></div>
@@ -101,15 +101,151 @@
                               <div class="slot MC-BTN-CLICK chestplate-slot" style="width: 48px; height: 48px" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
                               <div class="slot MC-BTN-CLICK leggings-slot" style="width: 48px; height: 48px" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
                               <div class="slot MC-BTN-CLICK boots-slot" style="width: 48px; height: 48px" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
-                              <div class="slot my-2" style="width: 48px; height: 45px; visibility: hidden;">5</div>
-                              <div class="slot elytra-slot" style="width: 48px; height: 48px; visibility: hidden;">6</div>
+                              <div class="slot my-2" style="width: 48px; height: 45px; visibility: hidden">5</div>
+                              <div class="slot elytra-slot" style="width: 48px; height: 48px; visibility: hidden">6</div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 col-md-12 col-xl-8 border border-info p-2" style="height: 380px">asd</div>
-                    <div class="col-12 border border-success" style="height: 200px; max-height: 200px">asd</div>
+                    <div class="col-12 col-md-12 col-xl-8 custom-box box-rev b-size mb-1 d-flex flex-column">
+                      <div class="row m-3">
+                        <div class="col-12 col-md-12 col-xl-5">
+                          <div class="hstack">
+                            <div class="vstack d-flex justify-content-center align-items-center text-center">
+                              <div class="hstack justify-content-center">
+                                <div class="slot slot-inv inv-slot" id="inv-slot-1" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                                <div class="slot slot-inv inv-slot" id="inv-slot-2" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                                <div class="slot slot-inv inv-slot" id="inv-slot-3" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                              </div>
+                              <div class="hstack justify-content-center">
+                                <div class="slot slot-inv inv-slot" id="inv-slot-4" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                                <div class="slot slot-inv inv-slot" id="inv-slot-5" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                                <div class="slot slot-inv inv-slot" id="inv-slot-6" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                              </div>
+                              <div class="hstack justify-content-center">
+                                <div class="slot slot-inv inv-slot" id="inv-slot-7" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                                <div class="slot slot-inv inv-slot" id="inv-slot-8" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                                <div class="slot slot-inv inv-slot" id="inv-slot-9" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                              </div>
+                            </div>
+                            <div class="vstack d-flex justify-content-start align-items-start">
+                              <div class="hstack justify-content-center">
+                                <div class="slot slot-inv" style="visibility: hidden"></div>
+                              </div>
+                              <div class="hstack justify-content-start">
+                                <div class="slot slot-inv inv-slot" id="inv-slot-MAIN" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
+                              </div>
+                              <div class="hstack justify-content-center">
+                                <div class="slot slot-inv" style="visibility: hidden"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-xl-7 order-2 order-xl-1 mt-4 mt-sm-5 mt-md-4 mt-xl-0">
+                          <small class="text-uppercase fw-bold" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 0.8rem">Inventory Items</small>
+                          <div class="container">
+                            <div class="hstack justify-content-center">
+                              <div class="slot slot-inv" id="item-slot-1" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder">
+                                <img src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121" alt="Item" class="slot-image ms-0" id="Dragable-Item-1" draggable="true" data-item-name="Example-1" />
+                              </div>
+                              <div class="slot slot-inv itm-slot" id="item-slot-2" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder">
+                                <img src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121" alt="Item" class="slot-image ms-0" id="Dragable-Item-2" draggable="true" data-item-name="Example-2" />
+                              </div>
+                              <div class="slot slot-inv itm-slot" id="item-slot-3" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder">
+                                <img src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121" alt="Item" class="slot-image ms-0" id="Dragable-Item-3" draggable="true" data-item-name="book" />
+                              </div>
+                              <div class="slot slot-inv itm-slot" id="item-slot-4" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder">
+                                <img src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121" alt="Item" class="slot-image ms-0" id="Dragable-Item-4" draggable="true" data-item-name="Example-4" />
+                              </div>
+                              <div class="slot slot-inv itm-slot" id="item-slot-5" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder">
+                                <img src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121" alt="Item" class="slot-image ms-0" id="Dragable-Item-5" draggable="true" data-item-name="feather" />
+                              </div>
+                              <div class="slot slot-inv itm-slot" id="item-slot-6" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder">
+                                <img src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121" alt="Item" class="slot-image ms-0" id="Dragable-Item-6" draggable="true" data-item-name="ink_sac" />
+                              </div>
+                              <div class="slot slot-inv" style="visibility: hidden"></div>
+                              <div class="slot slot-inv slot-btn MC-BTN-CLICK" id="item-slot-clear" data-tooltip data-title="Clear Items" data-body="Clear all Items in the inventory slots.">
+                                <img src="./Assets/cancel.png" alt="Clear" class="slot-image" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 order-1 order-xl-2 p-2 pt-3" style="font-family: 'MinecraftiaRegular', sans-serif">
+                          <div class="container-fluid h-100 w-100" style="overflow-y: auto; max-height: 120px">
+                            <p class="my-1 mb-3 h6 fw-bolder" id="item-name">Item Name Placeholder</p>
+                            <p class="text-wrap" style="font-size: 0.9rem; text-align: justify; text-indent: 1.2rem" id="item-description">
+                              Item description placeholder. This is where the description of the selected item will be displayed. It can include details about the item's properties, usage, and any
+                              other relevant information that the user might find useful.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 tooltip-box p-4">
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <p class="text-start mb-3 fw-bold">Most used Programming Languages</p>
+                          <div>
+                            <span class="mc-lang-label">PHP</span>
+                            <div class="mc-xp-container">
+                              <div class="mc-xp-bg">
+                                <div class="mc-xp-fill" style="--progress: 67%"></div>
+                                <div class="mc-xp-level">67</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mt-2">
+                            <span class="mc-lang-label">JavaScript</span>
+                            <div class="mc-xp-container">
+                              <div class="mc-xp-bg">
+                                <div class="mc-xp-fill" style="--progress: 36%"></div>
+                                <div class="mc-xp-level">36</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mt-2">
+                            <span class="mc-lang-label">HTML & CSS</span>
+                            <div class="mc-xp-container">
+                              <div class="mc-xp-bg">
+                                <div class="mc-xp-fill" style="--progress: 79%"></div>
+                                <div class="mc-xp-level">79</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <p class="text-start mb-3 fw-bold">Most used Frameworks & Libraries</p>
+                          <div>
+                            <span class="mc-lang-label">Bootstrap</span>
+                            <div class="mc-xp-container">
+                              <div class="mc-xp-bg">
+                                <div class="mc-xp-fill" style="--progress: 85%"></div>
+                                <div class="mc-xp-level">85</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mt-2">
+                            <span class="mc-lang-label">jQuery</span>
+                            <div class="mc-xp-container">
+                              <div class="mc-xp-bg">
+                                <div class="mc-xp-fill" style="--progress: 70%"></div>
+                                <div class="mc-xp-level">70</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mt-2">
+                            <span class="mc-lang-label">MySQL</span>
+                            <div class="mc-xp-container">
+                              <div class="mc-xp-bg">
+                                <div class="mc-xp-fill" style="--progress: 60%"></div>
+                                <div class="mc-xp-level">60</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -197,6 +333,13 @@
                 <span class="mx-3" id="portfolio-version"></span>
                 <span class="mx-auto"></span>
                 <span class="mx-3">Copyright © <span id="current-year"></span> <span id="owner-name">Owner Name</span></span>
+              </div>
+            </span>
+          </div>
+          <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3 w-100 d-block d-md-none">
+            <span class="text-white" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000">
+              <div class="hstack">
+                <span class="mx-3" id="portfolio-version-2"></span>
               </div>
             </span>
           </div>

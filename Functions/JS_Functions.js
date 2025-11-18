@@ -337,7 +337,9 @@ export function CopyRightName(YearContainerID = "current-year", OwnerContainerID
     const owner = urlParams.get("owner") || "Your Name";
     $(`#${OwnerContainerID}`).text(owner);
   }
+
   $(`#portfolio-version`).text(`Portfolio v${PortfolioVersion}`);
+  $(`#portfolio-version-2`).text(`Portfolio v${PortfolioVersion} - © ${new Date().getFullYear()}`);
 }
 
 export function TooltipInit() {
@@ -548,7 +550,7 @@ export function SoundEffectSetup() {
   });
 }
 
-// This function Platertexture is not my original code. its generated from an AI model and modified by me to fit my needs.
+// This function Playertexture is not my original code. its generated from an AI model and modified by me to fit my needs.
 export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCharacter = false) {
   const $container = $(`#${ContainerID}`);
   if (!$container.length) {
@@ -594,17 +596,17 @@ export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCh
     viewer.autoRotate = RotateCharacter;
     viewer.zoom = 0.7;
 
-      // Slightly scale the model so it appears a bit larger in the char box
-      try {
-        const scaleFactor = 1.20; // tweak this value to scale more/less
-        if (viewer.playerWrapper && viewer.playerWrapper.scale) {
-          viewer.playerWrapper.scale.set(scaleFactor, scaleFactor, scaleFactor);
-        } else if (viewer.playerObject && viewer.playerObject.scale) {
-          viewer.playerObject.scale.set(scaleFactor, scaleFactor, scaleFactor);
-        }
-      } catch (e) {
-        // ignore if scaling is not available
+    // Slightly scale the model so it appears a bit larger in the char box
+    try {
+      const scaleFactor = 1.15; // tweak this value to scale more/less
+      if (viewer.playerWrapper && viewer.playerWrapper.scale) {
+        viewer.playerWrapper.scale.set(scaleFactor, scaleFactor, scaleFactor);
+      } else if (viewer.playerObject && viewer.playerObject.scale) {
+        viewer.playerObject.scale.set(scaleFactor, scaleFactor, scaleFactor);
       }
+    } catch (e) {
+      // ignore if scaling is not available
+    }
 
     // Make the model follow pointer position over the container
     try {
@@ -699,10 +701,14 @@ export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCh
       $container[0].addEventListener("pointerleave", resetPose, { passive: true });
       $container[0].addEventListener("touchend", resetPose, { passive: true });
       $container[0].addEventListener("mouseleave", resetPose, { passive: true });
-      $container[0].addEventListener("mouseout", function (e) {
-        // if relatedTarget is null, pointer left the window
-        if (!e || !e.relatedTarget) resetPose();
-      }, { passive: true });
+      $container[0].addEventListener(
+        "mouseout",
+        function (e) {
+          // if relatedTarget is null, pointer left the window
+          if (!e || !e.relatedTarget) resetPose();
+        },
+        { passive: true }
+      );
 
       // also listen for window-level leave events to reset when the pointer exits the browser window
       const onWindowPointerLeave = (e) => {
@@ -836,4 +842,163 @@ export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCh
       console.error("Failed to load skinview3d:", err);
       return null;
     });
+}
+
+// item recipe pattern and inventory interaction
+let FrontENDPattern = [
+  [null, null, "book"],
+  [null, "feather", null],
+  ["ink_sac", null, null],
+];
+
+let BackENDPattern = [
+  ["book", null, null],
+  [null, "feather", null],
+  [null, null, "ink_sac"],
+];
+
+let InventoryItems = {
+  slot1: null,
+  slot2: null,
+  slot3: null,
+  slot4: null,
+  slot5: null,
+  slot6: null,
+  slot7: null,
+  slot8: null,
+  slot9: null,
+};
+
+
+
+
+export function InventorySetup() {
+  function animatePickup(el) {
+    el.classList.remove("item-drop");
+    el.classList.add("item-pickup");
+
+    setTimeout(() => {
+      el.classList.remove("item-pickup");
+    }, 150);
+  }
+
+  function animateDrop(el) {
+    el.classList.remove("item-pickup");
+    el.classList.add("item-drop");
+
+    setTimeout(() => {
+      el.classList.remove("item-drop");
+    }, 150);
+  }
+
+  // collect draggable items in a single pass and preserve individual bindings for backward compatibility
+  const dragItems = Array.from({ length: 6 }, (_, i) =>
+    document.getElementById(`Dragable-Item-${i + 1}`) || null
+  );
+  const [dragItem1, dragItem2, dragItem3, dragItem4, dragItem5, dragItem6] = dragItems;
+
+  let inventorySlots = document.querySelectorAll(".inv-slot");
+  let itemSlots = document.querySelectorAll(".itm-slot");
+  let mainInventorySlot = document.getElementById("inv-slot-MAIN");
+
+  // Make any item draggable
+  function makeDraggable(el) {
+    el.draggable = true;
+    el.addEventListener("dragstart", function (e) {
+      e.dataTransfer.setData("item-id", e.target.id);
+    });
+  }
+
+  // Make the source item draggable
+  dragItems.forEach((item) => {
+    if (item) makeDraggable(item);
+  });
+
+  // Create a clone for original item ONLY
+  function createClone(original) {
+    let clone = original.cloneNode(true);
+    clone.id = original.id + "-clone-" + Date.now();
+    makeDraggable(clone);
+    return clone;
+  }
+
+  // Inventory drop handler
+  function handleDrop(e, slot) {
+    e.preventDefault();
+
+    let itemId = e.dataTransfer.getData("item-id");
+    let original = document.getElementById(itemId);
+
+    let itemName = e.target.getAttribute("data-item-name") || (original ? original.getAttribute("data-item-name") : null);
+    let slotId = slot.id;
+
+    // add to InventoryItems object
+    if (slotId.startsWith("inv-slot-")) {
+      InventoryItems[slotId.replace("inv-slot-", "slot")] = itemName;
+    }
+
+    console.log("Dropped item:", itemName, "into slot:", slotId);
+    console.log("Current InventoryItems state:", InventoryItems);
+    console.log(e)
+
+    if (!original) return;
+
+    let isOriginal = original.closest(".itm-slot") !== null;
+
+    // Clear slot
+    slot.innerHTML = "";
+
+    if (isOriginal) {
+      // Source → clone
+      let clone = createClone(original);
+      slot.appendChild(clone);
+      animatePickup(clone);
+    } else {
+      // Inventory → move item
+      slot.appendChild(original);
+      animateDrop(original);
+    }
+
+    // Optional: output logic
+    mainInventorySlot.innerHTML = "";
+    // compare InventoryItems if it matches FrontENDPattern or BackENDPattern
+    let matchesFrontEND = true;
+    let matchesBackEND = true;
+
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        let expectedItemFront = FrontENDPattern[row][col];
+        let expectedItemBack = BackENDPattern[row][col];
+        let slotKey = "slot" + (row * 3 + col + 1);
+        let actualItem = InventoryItems[slotKey];
+        if (expectedItemFront !== actualItem) {
+          matchesFrontEND = false;
+        }
+        if (expectedItemBack !== actualItem) {
+          matchesBackEND = false;
+        }
+      }
+    }
+
+    if (matchesFrontEND) {
+      console.log("FrontEND Pattern matched!");
+    } else if (matchesBackEND) {
+      console.log("BackEND Pattern matched!");
+    } else {
+      console.log("No pattern matched.");
+    }
+
+  }
+
+  // INVENTORY SLOTS
+  inventorySlots.forEach((slot) => {
+    slot.addEventListener("dragover", (e) => e.preventDefault());
+    slot.addEventListener("drop", (e) => handleDrop(e, slot));
+  });
+
+  // ITEM SLOTS (if moving back from inventory)
+  itemSlots.forEach((slot) => {
+    slot.addEventListener("dragover", (e) => e.preventDefault());
+    slot.addEventListener("drop", (e) => handleDrop(e, slot));
+  });
 }

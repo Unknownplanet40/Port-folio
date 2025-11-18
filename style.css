@@ -243,6 +243,20 @@ canvas {
   height: auto;
   padding: 8px;
 }
+
+.tooltip-box {
+  font-family: "MinecraftiaRegular", sans-serif;
+  font-size: 16px;
+  background-color: #100210d1;
+  border: 4px solid #100210;
+  border-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s;
+  color: gold;
+  z-index: 1000;
+  height: auto;
+}
+
 .nofocus:focus {
   outline: none;
   box-shadow: none;
@@ -255,6 +269,15 @@ canvas {
   border-top: 5px solid #fff;
   border-right: 5px solid #7f7f7f;
   border-bottom: 5px solid #7f7f7f;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
+}
+
+.box-rev {
+  border-radius: 0;
+  border-top: 5px solid #7f7f7f;
+  border-left: 5px solid #7f7f7f;
+  border-right: 5px solid #fff;
+  border-bottom: 5px solid #fff;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
 }
 
@@ -279,7 +302,135 @@ canvas {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
 }
 
+.slot-inv {
+  width: 48px;
+  height: 48px;
+}
+
+.slot-btn {
+  border-left: 4px solid #fff;
+  border-top: 4px solid #fff;
+  border-right: 4px solid #7f7f7f;
+  border-bottom: 4px solid #7f7f7f;
+}
+
 .slot:hover {
   background-color: #a0a0a0;
   cursor: pointer;
+}
+
+.slot-btn:hover {
+  background-color: #707070;
+  cursor: pointer;
+}
+
+.slot-btn:active {
+  border-top: 4px solid #414141;
+  border-left: 4px solid #414141;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+}
+
+.slot-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+  margin-left: 1px;
+  image-rendering: pixelated;
+}
+
+.mc-xp-container {
+  width: 100%;
+  height: 10px;
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.mc-xp-bg {
+  background: url("textures/experience_bar_background.png") no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 10px;
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.mc-xp-fill {
+  background: url("textures/experience_bar_progress.png") no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  image-rendering: pixelated;
+  clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
+  transition: clip-path 0.6s ease-out;
+  animation: xpFillAnimation 0.6s ease-out;
+}
+
+.mc-xp-level {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  color: #80ff00;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 12px;
+  font-weight: bold;
+  pointer-events: none;
+  min-width: 24px; /* Ensure enough space for 2+ digits */
+  text-align: center;
+  white-space: nowrap;
+}
+
+.mc-lang-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: ghostwhite;
+  text-shadow: 1px 1px 0 #000;
+  padding-left: 4px;
+}
+
+@keyframes xpFillAnimation {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
+  }
+}
+
+/* PICKUP ANIMATION */
+.item-pickup {
+  animation: pickup-anim 120ms ease-out forwards;
+}
+
+@keyframes pickup-anim {
+  0% {
+    transform: scale(1) translateY(0px);
+  }
+  100% {
+    transform: scale(1.15) translateY(-4px);
+  }
+}
+
+/* DROP ANIMATION */
+.item-drop {
+  animation: drop-anim 120ms ease-out forwards;
+}
+
+@keyframes drop-anim {
+  0% {
+    transform: scale(1.15) translateY(-4px);
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+  }
+}
+
+/* Smooth transitions when item is moved */
+.slot img {
+  transition: transform 120ms ease-out;
 }
