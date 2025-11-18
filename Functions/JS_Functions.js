@@ -844,35 +844,55 @@ export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCh
     });
 }
 
-// item recipe pattern and inventory interaction
-let FrontENDPattern = [
-  [null, null, "book"],
-  [null, "feather", null],
-  ["ink_sac", null, null],
-];
-
-let BackENDPattern = [
-  ["book", null, null],
-  [null, "feather", null],
-  [null, null, "ink_sac"],
-];
-
-let InventoryItems = {
-  slot1: null,
-  slot2: null,
-  slot3: null,
-  slot4: null,
-  slot5: null,
-  slot6: null,
-  slot7: null,
-  slot8: null,
-  slot9: null,
-};
-
-
-
-
 export function InventorySetup() {
+  // item recipe pattern and inventory interaction
+  let FrontENDPattern = {
+    slot_1: null,
+    slot_2: null,
+    slot_3: "book",
+    slot_4: null,
+    slot_5: "feather",
+    slot_6: null,
+    slot_7: "ink_sac",
+    slot_8: null,
+    slot_9: null,
+  }
+
+
+  let BackENDPattern = {
+    slot_1: "book",
+    slot_2: null,
+    slot_3: null,
+    slot_4: null,
+    slot_5: "feather",
+    slot_6: null,
+    slot_7: null,
+    slot_8: null,
+    slot_9: "ink_sac",
+  }
+
+  let InventoryItems = {
+    slot_1: null,
+    slot_2: null,
+    slot_3: null,
+    slot_4: null,
+    slot_5: null,
+    slot_6: null,
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+  }
+
+  let itemtooltipsData = {
+    book: { title: "Book", body: "A book used for writing and reading.", slotID: "item-slot-3" },
+    feather: { title: "Feather", body: "A light feather, often used for writing.", slotID: "item-slot-5" },
+    ink_sac: { title: "Ink Sac", body: "A sac of ink, used for writing in books.", slotID: "item-slot-7" },
+    crafter: { title: "Crafting Table", body: "Used to craft items with a 3x3 crafting grid.", slotID: "item-slot-1" },
+  };
+
+  let currentDraggedItemName = null;
+  let tooltipsOldItemID = null;
+
   function animatePickup(el) {
     el.classList.remove("item-drop");
     el.classList.add("item-pickup");
@@ -891,11 +911,78 @@ export function InventorySetup() {
     }, 150);
   }
 
-  // collect draggable items in a single pass and preserve individual bindings for backward compatibility
-  const dragItems = Array.from({ length: 6 }, (_, i) =>
-    document.getElementById(`Dragable-Item-${i + 1}`) || null
-  );
-  const [dragItem1, dragItem2, dragItem3, dragItem4, dragItem5, dragItem6] = dragItems;
+    function AddTooltipData(SlotID, itemName, isInvItem = false) {
+    if (itemtooltipsData[itemName]) {
+      const tooltipInfo = itemtooltipsData[itemName];
+      const SlotElement = typeof SlotID === "string" ? document.getElementById(SlotID) : SlotID;
+      if (!SlotElement) return;
+      SlotElement.setAttribute("data-tooltip", "true");
+      SlotElement.setAttribute("data-title", tooltipInfo.title);
+      SlotElement.setAttribute("data-body", tooltipInfo.body);
+
+      // If the tooltip plugin was already initialized on document ready,
+      // re-initialize the newly-marked element so it gets the handlers.
+      try {
+        if (window.jQuery && typeof window.jQuery.fn.mcTooltip === "function") {
+          window.jQuery(SlotElement).mcTooltip();
+        }
+      } catch (e) {
+        // ignore initialization errors
+      }
+
+      tooltipsOldItemID = SlotElement.id;
+      console.log("Added tooltip data to slot:", SlotElement.id, "for item:", itemName);
+    }
+  }
+
+  function RemoveTooltipData(SlotID) {
+    const SlotElement = typeof SlotID === "string" ? document.getElementById(SlotID) : SlotID;
+    if (!SlotElement) return;
+
+    try {
+      // Remove data attributes
+      SlotElement.removeAttribute("data-tooltip");
+      SlotElement.removeAttribute("data-title");
+      SlotElement.removeAttribute("data-body");
+
+      // If jQuery is available, remove mcTooltip namespaced handlers attached by TooltipInit
+      if (window.jQuery) {
+        try {
+          window.jQuery(SlotElement).off(".mcTooltip");
+        } catch (e) {
+          // ignore
+        }
+        // Hide global tooltip element if visible
+        try {
+          const $tooltip = window.jQuery("#tooltip");
+          if ($tooltip.length && $tooltip.is(":visible")) $tooltip.hide();
+        } catch (e) {}
+      } else {
+        // Fallback: hide tooltip element if present
+        const tooltipEl = document.getElementById("tooltip");
+        if (tooltipEl) tooltipEl.style.display = "none";
+      }
+    } catch (err) {
+      console.warn("RemoveTooltipData error:", err);
+    }
+
+    tooltipsOldItemID = null;
+    console.log("Removed tooltip data from slot:", SlotElement.id);
+  }
+
+  const dragItems1 = $("#Dragable-Item-1");
+  const dragItems2 = $("#Dragable-Item-2");
+  const dragItems3 = $("#Dragable-Item-3");
+  const dragItems4 = $("#Dragable-Item-4");
+  const dragItems5 = $("#Dragable-Item-5");
+  const dragItems6 = $("#Dragable-Item-6");
+
+  // for every dragable item add description tooltip
+  [dragItems1, dragItems2, dragItems3, dragItems4, dragItems5, dragItems6].forEach((item) => {
+    const itemName = item[0].getAttribute("data-item-name");
+    AddTooltipData(item[0], itemName, true);
+  });
+
 
   let inventorySlots = document.querySelectorAll(".inv-slot");
   let itemSlots = document.querySelectorAll(".itm-slot");
@@ -906,18 +993,20 @@ export function InventorySetup() {
     el.draggable = true;
     el.addEventListener("dragstart", function (e) {
       e.dataTransfer.setData("item-id", e.target.id);
+      currentDraggedItemName = e.target.getAttribute("data-item-name");
     });
   }
 
   // Make the source item draggable
-  dragItems.forEach((item) => {
-    if (item) makeDraggable(item);
+  [dragItems1, dragItems2, dragItems3, dragItems4, dragItems5, dragItems6].forEach((item) => {
+    makeDraggable(item[0]);
   });
 
   // Create a clone for original item ONLY
   function createClone(original) {
     let clone = original.cloneNode(true);
     clone.id = original.id + "-clone-" + Date.now();
+    clone.setAttribute("data-original", "false");
     makeDraggable(clone);
     return clone;
   }
@@ -928,22 +1017,11 @@ export function InventorySetup() {
 
     let itemId = e.dataTransfer.getData("item-id");
     let original = document.getElementById(itemId);
-
-    let itemName = e.target.getAttribute("data-item-name") || (original ? original.getAttribute("data-item-name") : null);
-    let slotId = slot.id;
-
-    // add to InventoryItems object
-    if (slotId.startsWith("inv-slot-")) {
-      InventoryItems[slotId.replace("inv-slot-", "slot")] = itemName;
-    }
-
-    console.log("Dropped item:", itemName, "into slot:", slotId);
-    console.log("Current InventoryItems state:", InventoryItems);
-    console.log(e)
+    console.log("Dropped item ID:", itemId);
 
     if (!original) return;
 
-    let isOriginal = original.closest(".itm-slot") !== null;
+    let isOriginal = original.hasAttribute("data-original") && original.getAttribute("data-original") === "true";
 
     // Clear slot
     slot.innerHTML = "";
@@ -953,41 +1031,93 @@ export function InventorySetup() {
       let clone = createClone(original);
       slot.appendChild(clone);
       animatePickup(clone);
+
+      // Update InventoryItems
+      let slotKey = slot.id.replace("inv-slot-", "slot_");
+      let InventoryDropSlot = slot.id;
+      InventoryItems[slotKey] = currentDraggedItemName;
+
+      AddTooltipData(InventoryDropSlot, currentDraggedItemName);
+
+      console.group("Original Item Dropped");
+      console.log("Item Name:", currentDraggedItemName);
+      console.log("Slot Key:", slotKey);
+      console.log("Dropped in Inventory Slot:", InventoryDropSlot);
+      console.log("Updated InventoryItems:", InventoryItems);
+      console.groupEnd();
+
     } else {
       // Inventory → move item
       slot.appendChild(original);
       animateDrop(original);
+
+      // Find and clear old slot
+      let oldSlotkey = null;
+      for (let key in InventoryItems) {
+        if (InventoryItems[key] === currentDraggedItemName) {
+          oldSlotkey = key;
+          break;
+        }
+      }
+
+      // Clear old slot
+      if (oldSlotkey) {
+        InventoryItems[oldSlotkey] = null;
+      }
+
+
+      // Set new slot
+      let slotKey = slot.id.replace("inv-slot-", "slot_");
+      let InventoryDropSlot = slot.id;
+      InventoryItems[slotKey] = currentDraggedItemName;
+
+      RemoveTooltipData(tooltipsOldItemID);
+      AddTooltipData(InventoryDropSlot, currentDraggedItemName);
+
+      console.group("Inventory Item Moved");
+      console.log("Item Name:", currentDraggedItemName);
+      console.log("Slot Key:", slotKey);
+      console.log("Updated InventoryItems:", InventoryItems);
+      console.groupEnd();
     }
 
-    // Optional: output logic
-    mainInventorySlot.innerHTML = "";
-    // compare InventoryItems if it matches FrontENDPattern or BackENDPattern
-    let matchesFrontEND = true;
-    let matchesBackEND = true;
+    // Check for crafting recipe
+    let matchFrontEND = true;
+    let matchBackEND = true;
 
-    for (let row = 0; row < 3; row++) {
-      for (let col = 0; col < 3; col++) {
-        let expectedItemFront = FrontENDPattern[row][col];
-        let expectedItemBack = BackENDPattern[row][col];
-        let slotKey = "slot" + (row * 3 + col + 1);
-        let actualItem = InventoryItems[slotKey];
-        if (expectedItemFront !== actualItem) {
-          matchesFrontEND = false;
-        }
-        if (expectedItemBack !== actualItem) {
-          matchesBackEND = false;
-        }
+    for (let key in FrontENDPattern) {
+      if (FrontENDPattern[key] !== InventoryItems[key]) {
+        matchFrontEND = false;
+        break;
       }
     }
 
-    if (matchesFrontEND) {
-      console.log("FrontEND Pattern matched!");
-    } else if (matchesBackEND) {
-      console.log("BackEND Pattern matched!");
-    } else {
-      console.log("No pattern matched.");
+    for (let key in BackENDPattern) {
+      if (BackENDPattern[key] !== InventoryItems[key]) {
+        matchBackEND = false;
+        break;
+      }
     }
 
+    if (matchFrontEND) {
+      mainInventorySlot.innerHTML = "";
+      const crafterItem = createClone(dragItems4[0]);
+      mainInventorySlot.appendChild(crafterItem);
+      animateDrop(crafterItem);
+      AddTooltipData("inv-slot-MAIN", "crafter");
+    }
+
+    if (matchBackEND) {
+      mainInventorySlot.innerHTML = "";
+      const crafterItem = createClone(dragItems4[0]);
+      mainInventorySlot.appendChild(crafterItem);
+      animateDrop(crafterItem);
+      AddTooltipData("inv-slot-MAIN", "crafter");
+    }
+
+    if (!matchFrontEND && !matchBackEND) {
+      mainInventorySlot.innerHTML = "";
+    }
   }
 
   // INVENTORY SLOTS
