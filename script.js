@@ -33,9 +33,9 @@ $(document).ready(function () {
   handleCharacterViewer();
   InventorySetup();
 
-  if (UNDER_DEVELOPMENT) {
+  /* if (UNDER_DEVELOPMENT) {
     $("#Modal-1").modal("show");
-  }
+  } */
 
 });
 
