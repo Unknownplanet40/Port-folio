@@ -36,6 +36,7 @@ $(document).ready(function () {
   if (UNDER_DEVELOPMENT) {
     $("#Modal-1").modal("show");
   }
+
 });
 
 function handleCharacterViewer() {

@@ -846,30 +846,101 @@ export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCh
 
 export function InventorySetup() {
   // item recipe pattern and inventory interaction
-  let FrontENDPattern = {
-    slot_1: null,
+  let FrontendPattern = {
+    slot_1: "book",
     slot_2: null,
-    slot_3: "book",
+    slot_3: "feather",
     slot_4: null,
+    slot_5: "ink_sac",
+    slot_6: null,
+    slot_7: "diamond",
+    slot_8: null,
+    slot_9: null,
+  };
+
+  let BackendPattern = {
+    slot_1: "redstone_dust",
+    slot_2: null,
+    slot_3: "ink_sac",
+    slot_4: null,
+    slot_5: "iron_ingot",
+    slot_6: null,
+    slot_7: "redstone_dust",
+    slot_8: null,
+    slot_9: null,
+  };
+
+  let DatabasePattern = {
+    slot_1: "book",
+    slot_2: null,
+    slot_3: "diamond",
+    slot_4: "ink_sac",
+    slot_5: null,
+    slot_6: "iron_ingot",
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+  };
+
+  let TechnicalSupportPattern = {
+    slot_1: null,
+    slot_2: "iron_ingot",
+    slot_3: null,
+    slot_4: "book",
     slot_5: "feather",
+    slot_6: "book",
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+  };
+
+  let APIIntegrationPattern = {
+    slot_1: "ink_sac",
+    slot_2: null,
+    slot_3: "redstone_dust",
+    slot_4: null,
+    slot_5: "diamond",
     slot_6: null,
     slot_7: "ink_sac",
     slot_8: null,
     slot_9: null,
-  }
+  };
 
-
-  let BackENDPattern = {
-    slot_1: "book",
+  let BootstrapPattern = {
+    slot_1: "feather",
     slot_2: null,
-    slot_3: null,
+    slot_3: "iron_ingot",
     slot_4: null,
-    slot_5: "feather",
+    slot_5: "book",
     slot_6: null,
+    slot_7: "feather",
+    slot_8: null,
+    slot_9: null,
+  };
+
+  let JQueryPattern = {
+    slot_1: null,
+    slot_2: "ink_sac",
+    slot_3: null,
+    slot_4: "feather",
+    slot_5: "feather",
+    slot_6: "ink_sac",
     slot_7: null,
     slot_8: null,
-    slot_9: "ink_sac",
-  }
+    slot_9: null,
+  };
+
+  let TroubleshootingPattern = {
+    slot_1: "ink_sac",
+    slot_2: "redstone_dust",
+    slot_3: null,
+    slot_4: null,
+    slot_5: "redstone_dust",
+    slot_6: null,
+    slot_7: null,
+    slot_8: "book",
+    slot_9: null,
+  };
 
   let InventoryItems = {
     slot_1: null,
@@ -881,14 +952,27 @@ export function InventorySetup() {
     slot_7: null,
     slot_8: null,
     slot_9: null,
-  }
+  };
 
   let itemtooltipsData = {
-    book: { title: "Book", body: "A book used for writing and reading.", slotID: "item-slot-3" },
-    feather: { title: "Feather", body: "A light feather, often used for writing.", slotID: "item-slot-5" },
-    ink_sac: { title: "Ink Sac", body: "A sac of ink, used for writing in books.", slotID: "item-slot-7" },
-    crafter: { title: "Crafting Table", body: "Used to craft items with a 3x3 crafting grid.", slotID: "item-slot-1" },
+    book: { title: "Book", body: "Represents knowledge and studying new concepts.", slotID: "item-slot-1" },
+    feather: { title: "Feather", body: "Represents writing, UI drafting, and quick iteration.", slotID: "item-slot-2" },
+    ink_sac: { title: "Ink Sac", body: "Represents styling, visual design, and creativity.", slotID: "item-slot-3" },
+    redstone_dust: { title: "Redstone", body: "Represents logic, automation, and system flow.", slotID: "item-slot-4" },
+    iron_ingot: { title: "Iron Ingot", body: "Represents structure, stability, and backend strength.", slotID: "item-slot-5" },
+    diamond: { title: "Diamond", body: "Represents advanced problem solving and precision.", slotID: "item-slot-6" },
   };
+
+  let recipeDatas = {
+    frontend: { title: "Frontend Development", body: "Builds clean and interactive user interfaces.", Long_Desc: "Takes design concepts and turns them into responsive, visually appealing interfaces. Focuses on user experience, ensuring that screens are intuitive, interactive, and well-structured.", itemSrc: "https://minecraft.wiki/images/Beacon_JE6_BE2.png?684bf" },
+    backend: { title: "Backend Development", body: "Creates robust server-side applications.", Long_Desc: "Builds server-side systems that handle requests, data processing, and workflows. Ensures that applications run efficiently, reliably, and securely.", itemSrc: "https://minecraft.wiki/images/Dispenser_%28S%29_JE4.png?a8e35" },
+    database: { title: "Database Management", body: "Designs and maintains efficient databases.", Long_Desc: "Creates database schemas, optimizes queries, and ensures data integrity. Focuses on performance and scalability to support application needs.", itemSrc: "https://minecraft.wiki/images/Invicon_Chest.png?1cab7" },
+    technicalsupport: { title: "Technical Support", body: "Provides expert assistance and troubleshooting.", Long_Desc: "Offers technical support to users, diagnosing issues and providing solutions. Ensures smooth operation of systems and applications through effective problem-solving.", itemSrc: "https://minecraft.wiki/images/Anvil_%28N%29_JE3.png?d438e" },
+    apiintegration: { title: "API Integration", body: "Connects applications through APIs.", Long_Desc: "Integrates third-party services and APIs into applications. Facilitates communication between different systems to enhance functionality and user experience.", itemSrc: "https://minecraft.wiki/images/Ender_Pearl_JE3_BE2.png?829a7" },
+    bootstrap: { title: "Bootstrap Framework", body: "Develops responsive web designs.", Long_Desc: "Utilizes the Bootstrap framework to create mobile-first, responsive web designs. Leverages pre-built components and grid systems for efficient development.", itemSrc: "https://minecraft.wiki/images/Slime_Block_JE2_BE3.png?57b93" },
+    jquery: { title: "jQuery Library", body: "Simplifies JavaScript coding.", Long_Desc: "Uses the jQuery library to streamline JavaScript development. Simplifies DOM manipulation, event handling, and AJAX interactions for faster coding.", itemSrc: "https://minecraft.wiki/images/Redstone_Torch_JE5.png?ceef5" },
+    troubleshooting: { title: "Troubleshooting", body: "Diagnoses and resolves technical issues.", Long_Desc: "Identifies and resolves technical problems in systems and applications. Employs systematic approaches to diagnose issues and implement effective solutions.", itemSrc: "https://minecraft.wiki/images/Lodestone_Compass_JE2_BE2.gif?bf28b" },
+  }
 
   let currentDraggedItemName = null;
   let tooltipsOldItemID = null;
@@ -911,10 +995,45 @@ export function InventorySetup() {
     }, 150);
   }
 
-    function AddTooltipData(SlotID, itemName, isInvItem = false) {
+  function AddTooltipData(SlotID, itemName, isMainSlot = false) {
+    // normalize SlotID to a DOM element (accepts id string, DOM element, or jQuery object)
+    const resolveSlotElement = (s) => {
+      if (!s) return null;
+      if (typeof s === "string") return document.getElementById(s);
+      // jQuery object
+      if (s.jquery && s.length) return s[0];
+      // DOM element
+      if (s.nodeType === 1) return s;
+      return null;
+    };
+
+    if (isMainSlot) {
+      if (recipeDatas[itemName]) {
+        const tooltipInfo = recipeDatas[itemName];
+        const SlotElement = resolveSlotElement(SlotID);
+        if (!SlotElement) return;
+        SlotElement.setAttribute("data-tooltip", "true");
+        SlotElement.setAttribute("data-title", tooltipInfo.title);
+        SlotElement.setAttribute("data-body", tooltipInfo.body);
+
+        // If the tooltip plugin was already initialized on document ready, re-init on this element
+        try {
+          if (window.jQuery && typeof window.jQuery.fn.mcTooltip === "function") {
+            window.jQuery(SlotElement).mcTooltip();
+          }
+        } catch (e) {
+          // ignore initialization errors
+        }
+
+        // remember the element id for later removal
+        tooltipsOldItemID = SlotElement.id || null;
+      }
+    }
+
+
     if (itemtooltipsData[itemName]) {
       const tooltipInfo = itemtooltipsData[itemName];
-      const SlotElement = typeof SlotID === "string" ? document.getElementById(SlotID) : SlotID;
+      const SlotElement = resolveSlotElement(SlotID);
       if (!SlotElement) return;
       SlotElement.setAttribute("data-tooltip", "true");
       SlotElement.setAttribute("data-title", tooltipInfo.title);
@@ -930,8 +1049,7 @@ export function InventorySetup() {
         // ignore initialization errors
       }
 
-      tooltipsOldItemID = SlotElement.id;
-      console.log("Added tooltip data to slot:", SlotElement.id, "for item:", itemName);
+      tooltipsOldItemID = SlotElement.id || null;
     }
   }
 
@@ -967,7 +1085,6 @@ export function InventorySetup() {
     }
 
     tooltipsOldItemID = null;
-    console.log("Removed tooltip data from slot:", SlotElement.id);
   }
 
   const dragItems1 = $("#Dragable-Item-1");
@@ -982,7 +1099,6 @@ export function InventorySetup() {
     const itemName = item[0].getAttribute("data-item-name");
     AddTooltipData(item[0], itemName, true);
   });
-
 
   let inventorySlots = document.querySelectorAll(".inv-slot");
   let itemSlots = document.querySelectorAll(".itm-slot");
@@ -1017,7 +1133,6 @@ export function InventorySetup() {
 
     let itemId = e.dataTransfer.getData("item-id");
     let original = document.getElementById(itemId);
-    console.log("Dropped item ID:", itemId);
 
     if (!original) return;
 
@@ -1036,16 +1151,7 @@ export function InventorySetup() {
       let slotKey = slot.id.replace("inv-slot-", "slot_");
       let InventoryDropSlot = slot.id;
       InventoryItems[slotKey] = currentDraggedItemName;
-
       AddTooltipData(InventoryDropSlot, currentDraggedItemName);
-
-      console.group("Original Item Dropped");
-      console.log("Item Name:", currentDraggedItemName);
-      console.log("Slot Key:", slotKey);
-      console.log("Dropped in Inventory Slot:", InventoryDropSlot);
-      console.log("Updated InventoryItems:", InventoryItems);
-      console.groupEnd();
-
     } else {
       // Inventory → move item
       slot.appendChild(original);
@@ -1065,7 +1171,6 @@ export function InventorySetup() {
         InventoryItems[oldSlotkey] = null;
       }
 
-
       // Set new slot
       let slotKey = slot.id.replace("inv-slot-", "slot_");
       let InventoryDropSlot = slot.id;
@@ -1073,52 +1178,45 @@ export function InventorySetup() {
 
       RemoveTooltipData(tooltipsOldItemID);
       AddTooltipData(InventoryDropSlot, currentDraggedItemName);
-
-      console.group("Inventory Item Moved");
-      console.log("Item Name:", currentDraggedItemName);
-      console.log("Slot Key:", slotKey);
-      console.log("Updated InventoryItems:", InventoryItems);
-      console.groupEnd();
     }
 
-    // Check for crafting recipe
-    let matchFrontEND = true;
-    let matchBackEND = true;
+    let FrontendMatch = true;
+    let BackendMatch = true;
+    let DatabaseMatch = true;
+    let TechnicalSupportMatch = true;
+    let APIIntegrationMatch = true;
+    let BootstrapMatch = true;
+    let JQueryMatch = true;
+    let TroubleshootingMatch = true;
 
-    for (let key in FrontENDPattern) {
-      if (FrontENDPattern[key] !== InventoryItems[key]) {
-        matchFrontEND = false;
-        break;
-      }
+    for (let i = 1; i <= 9; i++) {
+      let slotKey = "slot_" + i;
+      if (InventoryItems[slotKey] !== FrontendPattern[slotKey]) FrontendMatch = false;
+      if (InventoryItems[slotKey] !== BackendPattern[slotKey]) BackendMatch = false;
+      if (InventoryItems[slotKey] !== DatabasePattern[slotKey]) DatabaseMatch = false;
+      if (InventoryItems[slotKey] !== TechnicalSupportPattern[slotKey]) TechnicalSupportMatch = false;
+      if (InventoryItems[slotKey] !== APIIntegrationPattern[slotKey]) APIIntegrationMatch = false;
+      if (InventoryItems[slotKey] !== BootstrapPattern[slotKey]) BootstrapMatch = false;
+      if (InventoryItems[slotKey] !== JQueryPattern[slotKey]) JQueryMatch = false;
+      if (InventoryItems[slotKey] !== TroubleshootingPattern[slotKey]) TroubleshootingMatch = false;
     }
 
-    for (let key in BackENDPattern) {
-      if (BackENDPattern[key] !== InventoryItems[key]) {
-        matchBackEND = false;
-        break;
-      }
+    mainInventorySlot.innerHTML = "";
+    $("#item-info-box").css("visibility", "hidden");
+
+    if (FrontendMatch) {
+      const data = recipeDatas["frontend"];
+      mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="FrontEnd-Item" draggable="false"/>`;
+      AddTooltipData(mainInventorySlot, "frontend", true);
+
+      $("#item-info-box").css("visibility", "visible");
+      $("#item-name").text(data.title);
+      $("#item-description").text(data.Long_Desc);
     }
 
-    if (matchFrontEND) {
-      mainInventorySlot.innerHTML = "";
-      const crafterItem = createClone(dragItems4[0]);
-      mainInventorySlot.appendChild(crafterItem);
-      animateDrop(crafterItem);
-      AddTooltipData("inv-slot-MAIN", "crafter");
-    }
-
-    if (matchBackEND) {
-      mainInventorySlot.innerHTML = "";
-      const crafterItem = createClone(dragItems4[0]);
-      mainInventorySlot.appendChild(crafterItem);
-      animateDrop(crafterItem);
-      AddTooltipData("inv-slot-MAIN", "crafter");
-    }
-
-    if (!matchFrontEND && !matchBackEND) {
-      mainInventorySlot.innerHTML = "";
-    }
   }
+
+  $("#item-info-box").css("visibility", "hidden");
 
   // INVENTORY SLOTS
   inventorySlots.forEach((slot) => {
@@ -1130,5 +1228,23 @@ export function InventorySetup() {
   itemSlots.forEach((slot) => {
     slot.addEventListener("dragover", (e) => e.preventDefault());
     slot.addEventListener("drop", (e) => handleDrop(e, slot));
+  });
+
+  $("#item-slot-clear").click(function () {
+    // Clear inventory
+    inventorySlots.forEach((slot) => {
+      slot.innerHTML = "";
+      RemoveTooltipData(slot.id);
+    });
+    $("#item-info-box").css("visibility", "hidden");
+
+    for (let key in InventoryItems) {
+      InventoryItems[key] = null;
+    }
+
+    mainInventorySlot.innerHTML = "";
+
+    currentDraggedItemName = null;
+    tooltipsOldItemID = null;
   });
 }
