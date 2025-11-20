@@ -847,98 +847,86 @@ export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCh
 export function InventorySetup() {
   // item recipe pattern and inventory interaction
   let FrontendPattern = {
-    slot_1: "book",
+    slot_1: "iron_ingot",
     slot_2: null,
     slot_3: "feather",
     slot_4: null,
-    slot_5: "ink_sac",
+    slot_5: "quartz",
     slot_6: null,
-    slot_7: "diamond",
+    slot_7: null,
     slot_8: null,
     slot_9: null,
   };
 
   let BackendPattern = {
-    slot_1: "redstone_dust",
-    slot_2: null,
-    slot_3: "ink_sac",
-    slot_4: null,
-    slot_5: "iron_ingot",
-    slot_6: null,
-    slot_7: "redstone_dust",
+    slot_1: "iron_ingot",
+    slot_2: "redstone_dust",
+    slot_3: null,
+    slot_4: "book",
+    slot_5: null,
+    slot_6: "ender_pearl",
+    slot_7: null,
     slot_8: null,
     slot_9: null,
   };
 
   let DatabasePattern = {
-    slot_1: "book",
-    slot_2: null,
-    slot_3: "diamond",
-    slot_4: "ink_sac",
-    slot_5: null,
-    slot_6: "iron_ingot",
-    slot_7: null,
-    slot_8: null,
-    slot_9: null,
-  };
-
-  let TechnicalSupportPattern = {
-    slot_1: null,
-    slot_2: "iron_ingot",
+    slot_1: "iron_ingot",
+    slot_2: "redstone_dust",
     slot_3: null,
     slot_4: "book",
-    slot_5: "feather",
-    slot_6: "book",
+    slot_5: "quartz",
+    slot_6: "ender_pearl",
     slot_7: null,
-    slot_8: null,
-    slot_9: null,
-  };
-
-  let APIIntegrationPattern = {
-    slot_1: "ink_sac",
-    slot_2: null,
-    slot_3: "redstone_dust",
-    slot_4: null,
-    slot_5: "diamond",
-    slot_6: null,
-    slot_7: "ink_sac",
     slot_8: null,
     slot_9: null,
   };
 
   let BootstrapPattern = {
-    slot_1: "feather",
+    slot_1: "iron_ingot",
     slot_2: null,
-    slot_3: "iron_ingot",
-    slot_4: null,
-    slot_5: "book",
+    slot_3: "feather",
+    slot_4: "book",
+    slot_5: null,
     slot_6: null,
-    slot_7: "feather",
+    slot_7: null,
     slot_8: null,
     slot_9: null,
   };
 
   let JQueryPattern = {
     slot_1: null,
-    slot_2: "ink_sac",
+    slot_2: "redstone_dust",
+    slot_3: "feather",
+    slot_4: null,
+    slot_5: "quartz",
+    slot_6: null,
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+  };
+
+    let APIIntegrationPattern = {
+    slot_1: null,
+    slot_2: "redstone_dust",
     slot_3: null,
-    slot_4: "feather",
-    slot_5: "feather",
-    slot_6: "ink_sac",
+    slot_4: "book",
+    slot_5: null,
+    slot_6: "ender_pearl",
     slot_7: null,
     slot_8: null,
     slot_9: null,
   };
 
   let TroubleshootingPattern = {
-    slot_1: "ink_sac",
+    slot_1: "iron_ingot",
     slot_2: "redstone_dust",
     slot_3: null,
-    slot_4: null,
-    slot_5: "redstone_dust",
+    slot_4: "book",
+    slot_5: "quartz",
     slot_6: null,
     slot_7: null,
-    slot_8: "book",
+    slot_8: null,
     slot_9: null,
   };
 
@@ -955,24 +943,57 @@ export function InventorySetup() {
   };
 
   let itemtooltipsData = {
-    book: { title: "Book", body: "Represents knowledge and studying new concepts.", slotID: "item-slot-1" },
-    feather: { title: "Feather", body: "Represents writing, UI drafting, and quick iteration.", slotID: "item-slot-2" },
-    ink_sac: { title: "Ink Sac", body: "Represents styling, visual design, and creativity.", slotID: "item-slot-3" },
-    redstone_dust: { title: "Redstone", body: "Represents logic, automation, and system flow.", slotID: "item-slot-4" },
-    iron_ingot: { title: "Iron Ingot", body: "Represents structure, stability, and backend strength.", slotID: "item-slot-5" },
-    diamond: { title: "Diamond", body: "Represents advanced problem solving and precision.", slotID: "item-slot-6" },
+    iron_ingot: { title: "Structure & Stability", body: "The secure, durable foundation and core application architecture.", slotID: "item-slot-1" },
+    redstone_dust: { title: "Logic & Automation", body: "Complex business logic, scripting, and control flow for automation.", slotID: "item-slot-2" },
+    feather: { title: "Performance & Optimization", body: "Lightweight code and optimizing for speed and high performance.", slotID: "item-slot-3" },
+    book: { title: "Knowledge & Documentation", body: "Adhering to standards, and meticulous documentation and learning.", slotID: "item-slot-4" },
+    quartz: { title: "Precision & Aesthetics", body: "Clean code, attention to detail, and pixel-perfect UI design.", slotID: "item-slot-5" },
+    ender_pearl: { title: "Connectivity & Telemetry", body: "Managing network requests and connecting disparate systems (APIs).", slotID: "item-slot-6" },
   };
 
   let recipeDatas = {
-    frontend: { title: "Frontend Development", body: "Builds clean and interactive user interfaces.", Long_Desc: "Takes design concepts and turns them into responsive, visually appealing interfaces. Focuses on user experience, ensuring that screens are intuitive, interactive, and well-structured.", itemSrc: "https://minecraft.wiki/images/Beacon_JE6_BE2.png?684bf" },
-    backend: { title: "Backend Development", body: "Creates robust server-side applications.", Long_Desc: "Builds server-side systems that handle requests, data processing, and workflows. Ensures that applications run efficiently, reliably, and securely.", itemSrc: "https://minecraft.wiki/images/Dispenser_%28S%29_JE4.png?a8e35" },
-    database: { title: "Database Management", body: "Designs and maintains efficient databases.", Long_Desc: "Creates database schemas, optimizes queries, and ensures data integrity. Focuses on performance and scalability to support application needs.", itemSrc: "https://minecraft.wiki/images/Invicon_Chest.png?1cab7" },
-    technicalsupport: { title: "Technical Support", body: "Provides expert assistance and troubleshooting.", Long_Desc: "Offers technical support to users, diagnosing issues and providing solutions. Ensures smooth operation of systems and applications through effective problem-solving.", itemSrc: "https://minecraft.wiki/images/Anvil_%28N%29_JE3.png?d438e" },
-    apiintegration: { title: "API Integration", body: "Connects applications through APIs.", Long_Desc: "Integrates third-party services and APIs into applications. Facilitates communication between different systems to enhance functionality and user experience.", itemSrc: "https://minecraft.wiki/images/Ender_Pearl_JE3_BE2.png?829a7" },
-    bootstrap: { title: "Bootstrap Framework", body: "Develops responsive web designs.", Long_Desc: "Utilizes the Bootstrap framework to create mobile-first, responsive web designs. Leverages pre-built components and grid systems for efficient development.", itemSrc: "https://minecraft.wiki/images/Slime_Block_JE2_BE3.png?57b93" },
-    jquery: { title: "jQuery Library", body: "Simplifies JavaScript coding.", Long_Desc: "Uses the jQuery library to streamline JavaScript development. Simplifies DOM manipulation, event handling, and AJAX interactions for faster coding.", itemSrc: "https://minecraft.wiki/images/Redstone_Torch_JE5.png?ceef5" },
-    troubleshooting: { title: "Troubleshooting", body: "Diagnoses and resolves technical issues.", Long_Desc: "Identifies and resolves technical problems in systems and applications. Employs systematic approaches to diagnose issues and implement effective solutions.", itemSrc: "https://minecraft.wiki/images/Lodestone_Compass_JE2_BE2.gif?bf28b" },
-  }
+    frontend: {
+      title: "Frontend Development",
+      body: "Polishing the pixels into a perfect, high-value user experience.",
+      Long_Desc: "This recipe combines structural integrity, clean aesthetics, and performance optimization to craft a visually flawless and high-performing user interface.",
+      itemSrc: "https://minecraft.wiki/images/Diamond_JE3_BE3.png?99d00",
+    },
+    backend: {
+      title: "Backend Development",
+      body: "The hidden logic that runs the world and executes complex server commands.",
+      Long_Desc: "This complex recipe leverages structure, logic, knowledge, and connectivity to build a robust, secure, and standards-compliant server framework.",
+      itemSrc: "https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024",
+    },
+    database: {
+      title: "Database Management",
+      body: "Expertise in structuring, securing, and efficiently querying vast repositories of information.",
+      Long_Desc: "Combining integrity, query logic, storage, clean schemas, and replication establishes secure and high-performance management over vast data repositories.",
+      itemSrc: "https://minecraft.wiki/images/Invicon_Villager_Spawn_Egg.png?ef5c9",
+    },
+    apiintegration: {
+      title: "API Integration & Connectivity",
+      body: "Establishing reliable, fixed, and well-documented endpoints for seamless data flow.",
+      Long_Desc: "Logic, documentation, and connection capability are combined to establish a stable and standards-compliant endpoint for seamless data transfer between systems.",
+      itemSrc: "https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f",
+    },
+    bootstrap: {
+      title: "Bootstrap Framework",
+      body: "Utilizing pre-built, standardized structures for rapid, responsive design implementation.",
+      Long_Desc: "We use structural components, documentation, and optimization to deploy a lightweight, ready-made, and responsive layout solution quickly.",
+      itemSrc: "https://minecraft.wiki/images/Wall_Lever_%28S%29_JE5-L3.png?039e0",
+    },
+    jquery: {
+      title: "jQuery Library",
+      body: "This uses scripting logic, performance, and precision targeting to enable simple control mechanisms for complex DOM manipulation with minimal code.",
+      itemSrc: "https://minecraft.wiki/images/Redstone_Torch_JE5.png?ceef5",
+    },
+    troubleshooting: {
+      title: "Troubleshooting (Technical Support)",
+      body: "Expertise in diagnosing, repairing, and stabilizing technical and hardware issues.",
+      Long_Desc: "We combine logic, knowledge, structure, and precision to effectively diagnose technical faults and restore system stability.",
+      itemSrc: "https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555",
+    },
+  };
 
   let currentDraggedItemName = null;
   let tooltipsOldItemID = null;
@@ -993,6 +1014,34 @@ export function InventorySetup() {
     setTimeout(() => {
       el.classList.remove("item-drop");
     }, 150);
+  }
+
+  function invInstructionTextUpdate(InventoryItems, isforceClear = false) {
+    const $inventoryInstruction = $("#inventory-instruction-text");
+    const $originalText = "You can drag and drop the items into the inventory slots. Try to match the correct patterns to unlock special skills!";
+    const $pickupText = "You can Right-Click to remove items from slots!"
+    let isthereItemInSlot = false;
+
+    for (const slot in InventoryItems) {
+      if (InventoryItems[slot]) {
+        isthereItemInSlot = true;
+        break;
+      }
+    }
+    if (isthereItemInSlot) {
+      $inventoryInstruction.text($pickupText);
+    } else {
+      $inventoryInstruction.text($originalText);
+    }
+
+    if (isforceClear) {
+      if (isthereItemInSlot) {
+        $inventoryInstruction.text($pickupText);
+      } else {
+        $inventoryInstruction.text($originalText);
+      }
+    }
+
   }
 
   function AddTooltipData(SlotID, itemName, isMainSlot = false) {
@@ -1029,7 +1078,6 @@ export function InventorySetup() {
         tooltipsOldItemID = SlotElement.id || null;
       }
     }
-
 
     if (itemtooltipsData[itemName]) {
       const tooltipInfo = itemtooltipsData[itemName];
@@ -1180,10 +1228,11 @@ export function InventorySetup() {
       AddTooltipData(InventoryDropSlot, currentDraggedItemName);
     }
 
+    invInstructionTextUpdate(InventoryItems);
+
     let FrontendMatch = true;
     let BackendMatch = true;
     let DatabaseMatch = true;
-    let TechnicalSupportMatch = true;
     let APIIntegrationMatch = true;
     let BootstrapMatch = true;
     let JQueryMatch = true;
@@ -1194,12 +1243,13 @@ export function InventorySetup() {
       if (InventoryItems[slotKey] !== FrontendPattern[slotKey]) FrontendMatch = false;
       if (InventoryItems[slotKey] !== BackendPattern[slotKey]) BackendMatch = false;
       if (InventoryItems[slotKey] !== DatabasePattern[slotKey]) DatabaseMatch = false;
-      if (InventoryItems[slotKey] !== TechnicalSupportPattern[slotKey]) TechnicalSupportMatch = false;
       if (InventoryItems[slotKey] !== APIIntegrationPattern[slotKey]) APIIntegrationMatch = false;
       if (InventoryItems[slotKey] !== BootstrapPattern[slotKey]) BootstrapMatch = false;
       if (InventoryItems[slotKey] !== JQueryPattern[slotKey]) JQueryMatch = false;
       if (InventoryItems[slotKey] !== TroubleshootingPattern[slotKey]) TroubleshootingMatch = false;
     }
+
+    console.log("FrontendMatch:", FrontendMatch, "BackendMatch:", BackendMatch, "DatabaseMatch:", DatabaseMatch, "APIIntegrationMatch:", APIIntegrationMatch, "BootstrapMatch:", BootstrapMatch, "JQueryMatch:", JQueryMatch, "TroubleshootingMatch:", TroubleshootingMatch);
 
     mainInventorySlot.innerHTML = "";
     $("#item-info-box").css("visibility", "hidden");
@@ -1213,7 +1263,6 @@ export function InventorySetup() {
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
     }
-
   }
 
   $("#item-info-box").css("visibility", "hidden");
@@ -1246,5 +1295,22 @@ export function InventorySetup() {
 
     currentDraggedItemName = null;
     tooltipsOldItemID = null;
+
+    invInstructionTextUpdate(InventoryItems, true);
+  });
+
+  inventorySlots.forEach((slot) => {
+    slot.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      slot.innerHTML = "";
+      RemoveTooltipData(slot.id);
+      let slotKey = slot.id.replace("inv-slot-", "slot_");
+      InventoryItems[slotKey] = null;
+      mainInventorySlot.innerHTML = "";
+      $("#item-info-box").css("visibility", "hidden");
+      invInstructionTextUpdate(InventoryItems, true);
+      console.log("Inventory slot cleared:", slot.id);
+      console.log("Current InventoryItems state:", InventoryItems);
+    });
   });
 }
