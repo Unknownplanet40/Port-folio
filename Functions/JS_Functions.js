@@ -536,6 +536,32 @@ export function ExternalLinkSetup() {
   $(".LI-Click").click(function () {
     window.open("https://www.linkedin.com/in/rj45", "_blank");
   });
+
+  //HintContainer
+  const $hintSidebar = $(".hint-sidebar");
+  const $hintContainer = $("#HintContainer");
+  const $hintButton = $("#hint-button");
+
+  $hintContainer.on("click", function (e) {
+    e.preventDefault();
+    // swap classes: ensure we don't add both classes at once
+    if ($hintSidebar.hasClass("sidebar-in")) {
+      $hintSidebar.removeClass("sidebar-in").addClass("sidebar-out");
+    } else if ($hintSidebar.hasClass("sidebar-out")) {
+      $hintSidebar.removeClass("sidebar-out").addClass("sidebar-in");
+    } else {
+      // default to showing the sidebar
+      $hintSidebar.addClass("sidebar-in");
+    }
+  });
+
+  $hintButton.on("click", function (e) {
+    e.preventDefault();
+    // if the hint sidebar is not visible, show it
+    if ($hintSidebar.hasClass("sidebar-out") || !$hintSidebar.hasClass("sidebar-in")) {
+      $hintSidebar.removeClass("sidebar-out").addClass("sidebar-in");
+    }
+  });
 }
 
 export function SoundEffectSetup() {
@@ -906,7 +932,7 @@ export function InventorySetup() {
     slot_9: null,
   };
 
-    let APIIntegrationPattern = {
+  let APIIntegrationPattern = {
     slot_1: null,
     slot_2: "redstone_dust",
     slot_3: null,
@@ -1019,7 +1045,7 @@ export function InventorySetup() {
   function invInstructionTextUpdate(InventoryItems, isforceClear = false) {
     const $inventoryInstruction = $("#inventory-instruction-text");
     const $originalText = "You can drag and drop the items into the inventory slots. Try to match the correct patterns to unlock special skills!";
-    const $pickupText = "You can Right-Click to remove items from slots!"
+    const $pickupText = "You can Right-Click to remove items from slots!";
     let isthereItemInSlot = false;
 
     for (const slot in InventoryItems) {
@@ -1041,7 +1067,6 @@ export function InventorySetup() {
         $inventoryInstruction.text($originalText);
       }
     }
-
   }
 
   function AddTooltipData(SlotID, itemName, isMainSlot = false) {
@@ -1249,7 +1274,22 @@ export function InventorySetup() {
       if (InventoryItems[slotKey] !== TroubleshootingPattern[slotKey]) TroubleshootingMatch = false;
     }
 
-    console.log("FrontendMatch:", FrontendMatch, "BackendMatch:", BackendMatch, "DatabaseMatch:", DatabaseMatch, "APIIntegrationMatch:", APIIntegrationMatch, "BootstrapMatch:", BootstrapMatch, "JQueryMatch:", JQueryMatch, "TroubleshootingMatch:", TroubleshootingMatch);
+    console.log(
+      "FrontendMatch:",
+      FrontendMatch,
+      "BackendMatch:",
+      BackendMatch,
+      "DatabaseMatch:",
+      DatabaseMatch,
+      "APIIntegrationMatch:",
+      APIIntegrationMatch,
+      "BootstrapMatch:",
+      BootstrapMatch,
+      "JQueryMatch:",
+      JQueryMatch,
+      "TroubleshootingMatch:",
+      TroubleshootingMatch
+    );
 
     mainInventorySlot.innerHTML = "";
     $("#item-info-box").css("visibility", "hidden");
@@ -1262,6 +1302,8 @@ export function InventorySetup() {
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
+      localStorage.setItem("unlockedSkill_diamond", "true");
+      hintrecipeData();
     }
   }
 
@@ -1312,5 +1354,74 @@ export function InventorySetup() {
       console.log("Inventory slot cleared:", slot.id);
       console.log("Current InventoryItems state:", InventoryItems);
     });
+  });
+}
+
+export function hintrecipeData() {
+  const hintData = [
+    {
+      title: "Diamond",
+      hint_desc: "To craft a <b>flawless interface</b>, combine <b>Structure</b>, <b>Performance</b>, and <b>Precision</b> across the <b>top and center slots</b>.",
+      Slots: ["1", "3", "5"],
+    },
+    {
+      title: "Command Block",
+      hint_desc: "<b>Robust servers</b> require <b>Structure</b> and <b>Logic</b> in the <b>top row</b>, supported by <b>Knowledge</b> and <b>Connectivity</b> in the <b>middle row</b>.",
+      Slots: ["1", "2", "4", "6"],
+    },
+    {
+      title: "Spawn Egg",
+      hint_desc: "This <b>complex recipe</b> needs five ingredients! Ensure <b>Structure, Logic, Knowledge, Precision, and Connectivity</b> are all present in the <b>top and middle rows</b>.",
+      Slots: ["1", "2", "4", "5", "6"],
+    },
+    {
+      title: "Armor Stand",
+      hint_desc: "Deploy a <b>standardized structure</b> by combining <b>Structure</b>, <b>Performance</b>, and <b>Knowledge</b> in the <b>top-left and middle-left</b> quadrant.",
+      Slots: ["1", "3", "4"],
+    },
+    {
+      title: "Lever",
+      hint_desc: "Create the <b>simple control</b> by placing <b>Logic</b> next to <b>Performance</b> in the <b>top row</b>, with <b>Precision</b> directly in the <b>center slot</b>.",
+      Slots: ["2", "3", "5"],
+    },
+    {
+      title: "Lodestone",
+      hint_desc: "Establish a <b>stable endpoint</b> by connecting <b>Logic</b>, <b>Knowledge</b>, and <b>Connectivity</b> in a <b>diagonal line</b> across the <b>left side of the grid</b>.",
+      Slots: ["2", "4", "6"],
+    },
+    {
+      title: "Amethyst Shard",
+      hint_desc: "To <b>fix the system</b>, ensure <b>Structure</b> and <b>Logic</b> are in the <b>top-left</b>, and <b>Knowledge</b> and <b>Precision</b> are placed right below them.",
+      Slots: ["1", "2", "4", "5"],
+    },
+  ];
+
+  // create hint boxes dynamically
+  const hintContainer = $("#hint-content");
+  const unlock = "<img src='./Assets/confirm.png' alt='Unlock Icon' class='hint-icon me-2' />";
+  const lock = "<img src='./Assets/cancel.png' alt='Lock Icon' class='hint-icon me-2' />";
+
+  function checkSkillUnlock(skillKey) {
+    return localStorage.getItem(skillKey) === "true";
+  }
+
+  hintContainer.empty();
+
+  hintData.forEach((hint, index) => {
+    const hintBox = $(`
+      <div class="hstack hint-box-container mb-3">
+        ${checkSkillUnlock(`unlockedSkill_${hint.title.toLowerCase()}`) ? unlock : lock}
+        <div class="hint-text p-2">
+          <p class="mb-0 fw-bold">
+            <div class="hstack">
+              <span class="hint-text-title">${hint.title}</span>
+              <small class="ms-auto hint-text-slots">Slots: ${hint.Slots.join(", ")}</small>
+            </div>
+          </p>
+          <p class="mb-0 hint-text-desc" style="font-size: 0.9rem">${hint.hint_desc}</p>
+        </div>
+      </div>
+    `);
+    hintContainer.append(hintBox);
   });
 }

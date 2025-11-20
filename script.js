@@ -1,5 +1,5 @@
 import { PanoramaBackground, LoadingScreenFadeOut, ServiceWorkerRegister, Splashtext, CopyRightName, TooltipInit, ExternalLinkSetup, Playertexture } from "./Functions/JS_Functions.js";
-import { BackgroundMusic, SoundEffectSetup, InventorySetup } from "./Functions/JS_Functions.js";
+import { BackgroundMusic, SoundEffectSetup, InventorySetup, hintrecipeData } from "./Functions/JS_Functions.js";
 
 if (typeof $ === "undefined") {
   throw new Error("jQuery is required for this script to work. Please include jQuery before this script.");
@@ -32,11 +32,11 @@ $(document).ready(function () {
   SoundEffectSetup();
   handleCharacterViewer();
   InventorySetup();
+  hintrecipeData();
 
   if (UNDER_DEVELOPMENT) {
     $("#Modal-1").modal("show");
   }
-
 });
 
 function handleCharacterViewer() {
