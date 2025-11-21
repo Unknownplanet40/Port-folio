@@ -615,7 +615,52 @@ export function ExternalLinkSetup() {
       $hintSidebar.addClass("sidebar-in");
     }
   });
+
+  (function () {
+    const overlay = document.getElementById("WarningOverlay");
+    if (!overlay) return;
+    const box = overlay.closest(".custom-box");
+    if (box) {
+      const pos = getComputedStyle(box).position;
+      if (pos === "static" || !pos) box.style.position = "relative";
+      if (overlay.parentElement !== box) box.appendChild(overlay);
+    }
+  })();
+
+  const mobileTitle = $("#mobile-warning-title");
+  if (mobileTitle.length) {
+    const fullText = mobileTitle.text();
+    mobileTitle.text("");
+    let index = 0;
+    const typingSpeed = 50;
+    const typingResetDelay = 2000;
+    function type() {
+      if (index < fullText.length) {
+        mobileTitle.append(fullText.charAt(index));
+        index++;
+        setTimeout(type, typingSpeed);
+      } else {
+        setTimeout(() => {
+          mobileTitle.text("");
+          index = 0;
+          type();
+        }, typingResetDelay);
+      }
+    }
+    type();
+  }
+
+  const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (isMobileDevice) {
+    $("#WarningOverlay").removeClass("d-none");
+  } else {
+    $("#WarningOverlay").addClass("d-none");
+  }
+
+
 }
+
 
 export function SoundEffectSetup() {
   const audio = new Audio("Assets/Sounds/BtnClickSound.mp3");
@@ -1667,53 +1712,55 @@ export function hintrecipeData() {
 
   hintData.forEach((hint, index) => {
     const hintBox = $(`
-    <div class="vstack hint-box-container">
+    <div class="vstack hint-box-container position-relative">
       <div class="hstack position-relative">
-        ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? unlock : lock}
-        <div class="hint-text p-2 mx-0">
-          <p class="mb-0 fw-bold">
-            <div class="hstack">
-              <span class="hint-text-title">${hint.title}</span>
-              <small class="ms-auto hint-text-slots">Slots: ${hint.Slots.join(", ")}</small>
-            </div>
-          <p class="mb-0 hint-text-desc" style="font-size: 0.9rem">${hint.hint_desc}</p>
+      ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? unlock : lock}
+      <div class="hint-text p-2 mx-0">
+      <p class="mb-0 fw-bold">
+      <div class="hstack">
+        <span class="hint-text-title">${hint.title}</span>
+        <small class="ms-auto hint-text-slots">Slots: ${hint.Slots.join(", ")}</small>
+      </div>
+      <p class="mb-0 hint-text-desc" style="font-size: 0.9rem">${hint.hint_desc}</p>
+      </div>
+      </div>
+      <div class="container-fluid ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? "" : "d-none"}" id="hint-recipe-box-${index}"
+         aria-disabled="true" tabindex="-1" role="region"
+         style="pointer-events: none; ">
+      <div class="row p-2 g-2">
+      <div class="col-6 d-flex justify-content-end align-items-end">
+      <div class="vstack">
+        <div class="hstack justify-content-end">
+        <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "1") || ""}</div>
+        <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "2") || ""}</div>
+        <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "3") || ""}</div>
+        </div>
+        <div class="hstack justify-content-end">
+        <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "4") || ""}</div>
+        <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "5") || ""}</div>
+        <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "6") || ""}</div>
+        </div>
+        <div class="hstack justify-content-end">
+        <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "7") || ""}</div>
+        <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "8") || ""}</div>
+        <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "9") || ""}</div>
         </div>
       </div>
-      <div class="container-fluid ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? "" : "d-none"}">
-        <div class="row p-2 g-2">
-          <div class="col-6 d-flex justify-content-end align-items-end">
-            <div class="vstack">
-              <div class="hstack justify-content-end">
-                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "1") || ""}</div>
-                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "2") || ""}</div>
-                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "3") || ""}</div>
-              </div>
-              <div class="hstack justify-content-end">
-                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "4") || ""}</div>
-                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "5") || ""}</div>
-                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "6") || ""}</div>
-              </div>
-              <div class="hstack justify-content-end">
-                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "7") || ""}</div>
-                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "8") || ""}</div>
-                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "9") || ""}</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6 d-flex justify-content-center align-items-center">
-            <div class="vstack">
-              <div class="hstack justify-content-start">
-                <div class="slot small-slot small-h-slot" style="visibility: hidden;"></div>
-              </div>
-              <div class="hstack justify-content-center">
-                <div class="slot slot-inv" id="hint-outcome-slot-${index}">${displayRequiredItem(hint.item_name, true) || ""}</div>
-              </div>
-              <div class="hstack justify-content-start">
-                <div class="slot small-slot small-h-slot" style="visibility: hidden;"></div>
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="col-6 d-flex justify-content-center align-items-center">
+      <div class="vstack">
+        <div class="hstack justify-content-start">
+        <div class="slot small-slot small-h-slot" style="visibility: hidden;"></div>
         </div>
+        <div class="hstack justify-content-center">
+        <div class="slot slot-inv" id="hint-outcome-slot-${index}">${displayRequiredItem(hint.item_name, true) || ""}</div>
+        </div>
+        <div class="hstack justify-content-start">
+        <div class="slot small-slot small-h-slot" style="visibility: hidden;"></div>
+        </div>
+      </div>
+      </div>
+      </div>
       </div>
     </div>
     `);

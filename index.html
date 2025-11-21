@@ -133,6 +133,16 @@
                       </div>
                     </div>
                     <div class="col-12 col-md-12 col-xl-8 custom-box box-rev b-size mb-1 d-flex flex-column">
+                      <div
+                        id="WarningOverlay"
+                        class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+                      >
+                        <div class="mobileoverlay text-center p-4 h-100 w-100 d-flex flex-column justify-content-center align-items-center">
+                          <p class="text-white fw-bold mb-3" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 1rem; text-shadow: 2px 2px 4px #000000" id="mobile-warning-title">
+                            This feature is unavailable on touch-enabled mobile devices due to limitations with drag-and-drop support on touchscreens.
+                          </p>
+                        </div>
+                      </div>
                       <div class="row m-3">
                         <div class="col-12 col-md-12 col-xl-5">
                           <div class="hstack">
@@ -236,12 +246,11 @@
                                   data-item-name="ender_pearl"
                                 />
                               </div>
-                              <div class="slot slot-inv" style="visibility: hidden"></div>
-                              <div class="slot slot-inv slot-btn MC-BTN-CLICK" id="item-slot-clear" data-tooltip data-title="Clear Items" data-body="Clear all Items in the inventory slots.">
+                              <div class="slot slot-inv slot-btn MC-BTN-CLICK ms-3" id="item-slot-clear" data-tooltip data-title="Clear Items" data-body="Clear all Items in the inventory slots.">
                                 <img src="./Assets/cancel.png" alt="Clear" class="slot-image" />
                               </div>
                             </div>
-                            <div class="hstack mt-2 p-2 rounded-2 fw-bold" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 0.8rem; text-align: center">
+                            <div class="hstack mt-1 p-2 rounded-2 fw-bold" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 0.8rem; text-align: center">
                               <small id="inventory-instruction-text"> You can drag and drop the items into the inventory slots. Try to match the correct patterns to unlock special skills! </small>
                             </div>
                           </div>
