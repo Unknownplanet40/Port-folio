@@ -16,71 +16,216 @@ canvas {
   display: block;
 }
 
+.loading-overlay {
+  background-color: rgb(239, 46, 59);
+  color: white;
+  font-family: "Mojang", sans-serif;
+  text-shadow: 2px 2px 4px #000000;
+}
+
 /* .overlay {
   background: url("textures/panorama_overlay.png") no-repeat center;
   background-size: cover;
   
 } */
 
-.custom-box {
-  background-color: #c8c8c8;
-  border-radius: 6px;
-  border-left: 5px solid #fff;
-  border-top: 5px solid #fff;
-  border-right: 5px solid #7f7f7f;
-  border-bottom: 5px solid #7f7f7f;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
+.MainLOGO {
+  background-image: url("./Assets/Logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  height: clamp(10vh, 20vh, 50vh);
+  width: clamp(615px, 65vw, 745px);
 }
 
-.char-Box {
+.splashtext {
+  font-family: "MinecraftiaRegular", sans-serif;
+  color: #ffcc00;
+  line-height: 1.2;
+  font-size: clamp(2vh, 2vw, 3vh);
+  text-shadow: 2px 2px 4px #000000;
+  transform: rotate(-20deg);
+  max-width: 80%;
+  min-width: 200px;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 10px;
+  right: -15%;
+  animation: splashAnimation 1s infinite;
+}
+
+@keyframes splashAnimation {
+  0%,
+  100% {
+    transform: scale(1) rotate(-15deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(-15deg);
+  }
+}
+
+.mc-btn {
+  display: grid;
+  grid-template-columns: 18px auto 18px;
+  grid-template-rows: 18px auto 18px;
+  width: 300px;
+  height: 50px;
+  image-rendering: pixelated;
+}
+
+.mc-btn {
+  background-image: url(./Assets/button.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
   width: 200px;
-  height: 260px;
-  background-color: black;
-  border-top: 4px solid #7f7f7f;
-  border-left: 4px solid #7f7f7f;
-  border-right: 4px solid #fff;
-  border-bottom: 4px solid #fff;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
-}
-
-.box-1 {
-  width: 100%;
-  background-color: #8b8b8b;
-  border-top: 4px solid #414141;
-  border-left: 4px solid #414141;
-  border-right: 4px solid #fff;
-  border-bottom: 4px solid #fff;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
-}
-
-.item-slot {
+  height: 20px;
+  font-family: "MinecraftiaRegular", sans-serif;
+  transform: scale(2.3);
   position: relative;
-  display: inline-block;
+  filter: brightness(125%);
   cursor: pointer;
 }
 
-.mc-tooltip {
-  visibility: hidden;
-  opacity: 0;
+.n-mc-btn {
+  background-image: url(./Assets/button.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  position: relative;
+  filter: brightness(125%);
+  font-family: "MinecraftiaRegular", sans-serif;
+  cursor: pointer;
+}
+
+.n-mc-btn p {
   position: absolute;
   top: 50%;
-  left: 125%; /* move to right side */
-  transform: translateY(-50%);
-  font-family: "MinecraftiaRegular", sans-serif;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 5px;
   font-size: 16px;
-  white-space: nowrap;
-  z-index: 10;
-  text-align: center;
-  background-color: #100210d1;
-  border: 4px solid #100210;
-  padding: 8px 8px 0 8px;
-  border-radius: 6px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s;
-  color: gold;
-  width: auto;
-  max-width: none;
-  min-width: 0;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  pointer-events: none;
+}
+
+.n-mc-btn:hover {
+  background-image: url(./Assets/button_highlighted.png);
+}
+
+.mc-btn p,
+.mc-btn-md p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 3px;
+  font-size: 7px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  pointer-events: none;
+}
+
+.mc-btn-md p {
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.mc-btn:hover {
+  background-image: url(./Assets/button_highlighted.png);
+}
+
+.mc-btn-sm {
+  background-image: url(./Assets/button_sm.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+  background-size: 100% 100%;
+  position: relative;
+  filter: brightness(125%);
+  font-family: "MinecraftiaRegular", sans-serif;
+  cursor: pointer;
+}
+
+.mc-btn-md {
+  background-image: url(./Assets/button_md.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  position: relative;
+  filter: brightness(125%);
+  font-family: "MinecraftiaRegular", sans-serif;
+  cursor: pointer;
+}
+
+.mc-btn-md:hover {
+  background-image: url(./Assets/button_highlighted_md.png);
+}
+
+.mc-btn-sm:hover {
+  background-image: url(./Assets/button_highlighted_sm.png);
+}
+
+.Icon-Resume {
+  background: url("Assets/info.png") no-repeat center;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.Icon-GitHub {
+  background: url("Assets/github-ico.png") no-repeat center;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  display: block;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+}
+
+.Icon-GitHub-down,
+.Icon-Resume-down {
+  margin-left: 50px;
+}
+.Icon-GitHub-down p {
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.Icon-Resume-down p {
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+@media (max-width: 400px) {
+  .n-mc-btn p {
+    margin-top: 0;
+  }
+
+  .mc-btn-md p {
+    margin-top: 0 !important;
+  }
+
+  .splashtext {
+    font-size: clamp(1.5vh, 3vw, 2.5vh);
+    right: -20%;
+    bottom: 40px;
+  }
+
+  .Icon-GitHub-down,
+  .Icon-Resume-down {
+    margin-left: 25px;
+  }
 }
 
 .tooltip {
@@ -99,310 +244,106 @@ canvas {
   padding: 8px;
 }
 
-.item-slot:hover .mc-tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* change box-1 (item that currently hovered) background color */
-.item-slot:hover {
-  background-color: #bab9b9;
-}
-
-.MC-main {
-  overflow-y: auto;
-  scrollbar-width: thin;
-}
-.MC-Title {
+.tooltip-box {
   font-family: "MinecraftiaRegular", sans-serif;
-  color: #dfdfdf;
-  font-size: 24px;
-  font-weight: bolder;
-  background-color: #212121;
-  border: 4px solid #5d5d5d;
+  font-size: 16px;
+  background-color: #100210d1;
+  border: 4px solid #100210;
   border-radius: 6px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s;
+  color: gold;
+  z-index: 1000;
+  height: auto;
 }
 
-/* Scrollbar Styles */
-.MC-main::-webkit-scrollbar {
-  width: 8px;
+.nofocus:focus {
+  outline: none;
+  box-shadow: none;
 }
-.MC-main::-webkit-scrollbar-track {
-  background: #f1f1f1;
+
+.custom-box {
+  background-color: #c8c8c8;
   border-radius: 6px;
-}
-.MC-main::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 6px;
-}
-.MC-main::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-@media (max-width: 768px) {
-  .MC-Title {
-    font-size: 20px;
-  }
-  .mc-tooltip {
-    font-size: 14px;
-    left: 110%;
-  }
-}
-@media (max-width: 576px) {
-  .MC-Title {
-    font-size: 18px;
-  }
-  .mc-tooltip {
-    font-size: 12px;
-    left: 105%;
-  }
+  border-left: 5px solid #fff;
+  border-top: 5px solid #fff;
+  border-right: 5px solid #7f7f7f;
+  border-bottom: 5px solid #7f7f7f;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
 }
 
-.mlogo {
-  background: url("Assets/Logo.png") no-repeat center;
-  background-size: contain;
-  width: 100%;
-  height: 140px;
-  display: inline-block;
-  margin: 50px 0 0 0;
-  padding: 0;
+.box-rev {
+  border-radius: 0;
+  border-top: 5px solid #7f7f7f;
+  border-left: 5px solid #7f7f7f;
+  border-right: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
 }
 
-.splash {
-  position: absolute;
-  top: 65%;
-  left: 80%;
-  transform: translate(-50%, -50%) rotate(-20deg);
-  width: auto;
-  max-width: 80%;
-  text-align: center;
-
-  animation: splashAnimation 1.5s infinite;
-}
-@keyframes splashAnimation {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) rotate(-20deg) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) rotate(-20deg) scale(1.1);
-  }
-}
-
-.loading-overlay {
-  background-color: rgb(239, 46, 59);
-  color: white;
-  font-family: "Mojang", sans-serif;
-  text-shadow: 2px 2px 4px #000000;
-}
-
-/* loading fadeout effect */
-.loading-overlay.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease-out;
-}
-
-.MC-Btn {
-  background: url("Assets/button.png") no-repeat center;
-  background-size: contain;
-  width: 650px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  filter: brightness(125%);
-}
-
-.MC-Btn-text {
-  font-family: "MinecraftiaRegular", sans-serif;
-  color: #fff;
-  text-shadow: 2px 2px 4px #000000;
-  font-size: 1rem;
-  line-height: 50px;
-  display: block;
-  text-align: center;
-  user-select: none;
-  text-decoration: none;
-  padding-top: 6px;
-}
-
-.MC-Btn:hover {
-  background: url("Assets/button_highlighted.png") no-repeat center;
-  background-size: contain;
-  width: 650px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-.MC-Btn-sm {
-  background: url("Assets/button_sm.png") no-repeat center;
-  background-size: contain;
-  width: 55px;
-  min-width: 55px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  filter: brightness(125%);
-}
-
-.MC-Btn-md {
-  background: url("Assets/button_md.png") no-repeat center;
-  background-size: contain;
-  width: 215px;
-  min-width: 215px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-  filter: brightness(125%);
-}
-
-.MC-Btn-sm:hover {
-  background: url("Assets/button_highlighted_sm.png") no-repeat center;
-  background-size: contain;
-  width: 55px;
-  min-width: 55px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-.MC-Btn-md:hover {
-  background: url("Assets/button_highlighted_md.png") no-repeat center;
-  background-size: contain;
-  width: 215px;
-  min-width: 215px;
-  height: 50px;
-  display: inline-block;
-
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-.MC-Btn-text-sm {
-  font-family: "MinecraftiaRegular", sans-serif;
-  color: #fff;
-  text-shadow: 2px 2px 4px #000000;
-  font-size: 1rem;
-  line-height: 50px;
-  display: block;
-  text-align: center;
-  user-select: none;
-  text-decoration: none;
-  padding-top: 8px;
-}
-
-.MC-Btn-text-md {
-  font-family: "MinecraftiaRegular", sans-serif;
-  color: #fff;
-  text-shadow: 2px 2px 4px #000000;
-  font-size: 1rem;
-  line-height: 50px;
-  display: block;
-  text-align: center;
-  user-select: none;
-  text-decoration: none;
-  padding-top: 8px;
-}
-
-.Icon-GitHub {
-  background: url("Assets/github-ico.png") no-repeat center;
-  background-size: contain;
-  width: 38px;
-  height: 38px;
-  display: block;
-
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 6px;
-}
-
-.Icon-Resume {
-  background: url("Assets/info.png") no-repeat center;
-  background-size: contain;
-  width: 24px;
-  height: 24px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 12px;
-}
-
-.dialogBG {
-  background: url("Assets/dialogBG.png") repeat;
-  background-size: 16px 16px;
-  width: 350px;
-  height: 200px;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 50%;
-  left: 54%;
-  transform: translate(-50%, -50%);
-}
-
-.PopDialog {
-  background: url("Assets/dialog.png") no-repeat center center;
-  background-size: contain;
-  width: 500px;
-  height: 200px;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-}
-
-.popDialogLabel {
-  width: 65%;
-  font-family: "MinecraftiaRegular", sans-serif;
-  color: #fff;
-  text-shadow: 2px 2px 4px #000000;
-}
-
-.btn-close-Custom {
-  width: 0.8rem !important;
-  height: 0.8rem !important;
-  padding: 0 !important;
-  margin-left: 30px !important;
-}
-
-.MidDialogBG {
-  background: url("Assets/dialogBG.png") repeat;
-  background-size: 16px 16px;
-  width: 500px;
-  height: 230px;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-
-.MidPopDialog {
-  background: url("Assets/dialog.png") no-repeat center center;
-  background-size: contain;
-  width: 500px;
+.char-Box {
+  width: 200px;
   height: 300px;
+  background-color: black;
+  border-top: 4px solid #7f7f7f;
+  border-left: 4px solid #7f7f7f;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+}
+
+.slot {
+  width: 100%;
+  background-color: #8b8b8b;
+  border-top: 4px solid #414141;
+  border-left: 4px solid #414141;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+}
+
+.slot-inv {
   display: inline-block;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+}
+
+.slot-btn {
+  border-left: 4px solid #fff;
+  border-top: 4px solid #fff;
+  border-right: 4px solid #7f7f7f;
+  border-bottom: 4px solid #7f7f7f;
+}
+
+.slot:hover {
+  background-color: #a0a0a0;
+  cursor: pointer;
+}
+
+.slot-btn:hover {
+  background-color: #707070;
+  cursor: pointer;
+}
+
+.slot-btn:active {
+  border-top: 4px solid #414141;
+  border-left: 4px solid #414141;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+}
+
+.slot-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+  margin-left: 1px;
+  image-rendering: pixelated;
 }
 
 .mc-xp-container {
@@ -435,15 +376,6 @@ canvas {
   animation: xpFillAnimation 0.6s ease-out;
 }
 
-@keyframes xpFillAnimation {
-  from {
-    clip-path: inset(0 100% 0 0);
-  }
-  to {
-    clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
-  }
-}
-
 .mc-xp-level {
   position: absolute;
   top: 50%;
@@ -459,43 +391,178 @@ canvas {
   white-space: nowrap;
 }
 
-.MC-boxData {
-  width: 100%;
-  height: 100%;
-  background-color: #100210d1;
-  border: 4px solid #100210;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  border-radius: 6px;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  color: gold;
-  font-family: "MinecraftiaRegular", sans-serif;
-  padding: 16px;
+.mc-lang-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: ghostwhite;
+  text-shadow: 1px 1px 0 #000;
+  padding-left: 4px;
 }
 
-.progbar-BG {
-  background-image: url(textures/experience_bar_background.png);
-  background-size: cover;
+@keyframes xpFillAnimation {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
+  }
+}
+
+/* PICKUP ANIMATION */
+.item-pickup {
+  animation: pickup-anim 120ms ease-out forwards;
+}
+
+@keyframes pickup-anim {
+  0% {
+    transform: scale(1) translateY(0px);
+  }
+  100% {
+    transform: scale(1.15) translateY(-4px);
+  }
+}
+
+/* DROP ANIMATION */
+.item-drop {
+  animation: drop-anim 120ms ease-out forwards;
+}
+
+@keyframes drop-anim {
+  0% {
+    transform: scale(1.15) translateY(-4px);
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+  }
+}
+
+/* Smooth transitions when item is moved */
+.slot img {
+  transition: transform 120ms ease-out;
+}
+
+.hint-sidebar {
+  min-width: 300px;
+  max-width: 420px;
+  width: fit-content;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) translateX(-110%);
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1080 !important;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.sidebar-in {
+  transition: transform 1s ease-in-out;
+  animation: slideIn 1s forwards;
+}
+
+.sidebar-out {
+  transition: transform 1s ease-in-out;
+  animation: slideOut 1s forwards;
+}
+
+.btn-hint {
+  border-left: 4px solid #fff;
+  border-top: 4px solid #fff;
+  border-right: 4px solid #7f7f7f;
+  border-bottom: 4px solid #7f7f7f;
+  background-color: #8b8b8b;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
+}
+
+/* Smooth slide-in/out for the hint sidebar.
+  Use will-change and explicit pointer-events on the classes for smoothness
+  (pointer-events are not animatable so set them on the end-state classes). */
+
+@keyframes slideIn {
+  from {
+   transform: translateY(-50%) translateX(-110%) translateZ(0);
+   opacity: 0;
+  }
+  to {
+   transform: translateY(-50%) translateX(0) translateZ(0);
+   opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+   transform: translateY(-50%) translateX(0) translateZ(0);
+   opacity: 1;
+  }
+  to {
+   transform: translateY(-50%) translateX(-110%) translateZ(0);
+   opacity: 0;
+  }
+}
+
+/* Override existing .sidebar-in/.sidebar-out to enable smoother timing and GPU hints */
+.sidebar-in {
+  will-change: transform, opacity;
+  animation: slideIn 420ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+  pointer-events: auto;
+}
+
+.sidebar-out {
+  will-change: transform, opacity;
+  animation: slideOut 320ms cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  pointer-events: none;
+}
+
+.hint-icon{
+  width: 48px;
+  height: 48px;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  border: 2px solid #000;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
-.Progbar-Gold {
-  background-color: #00ff00;
   image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  background-blend-mode: multiply;
-  opacity: 0.7;
+  padding: 4px;
+  margin-left: 1px;
 }
 
-#IncompatibleForMobileText::after {
-  content: "|";
-  animation: blink 0.8s steps(1) infinite;
+.hint-box-container{
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 2px solid gray;
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+/* Remove bottom border if it's the last hint-box-container */
+.hint-box-container:last-child,
+.hint-box-container:last-of-type {
+  border-bottom: none;
+}
+
+.hint-text{
+  max-width: 420px;
+  font-family: "MinecraftiaRegular", sans-serif;
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 2px black;
+  color: white;
+}
+
+.hint-text-title{
+  font-family: "MinecraftiaRegular", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px black;
+  color:royalblue;
+}
+
+.hint-text-desc b{
+  color: gold;
+}
+
+
+.hint-content{
+  max-height: 80vh;
+  padding-right: 8px;
+  box-sizing: border-box;
+  overflow-y: auto;
 }

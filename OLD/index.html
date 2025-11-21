@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <meta name="description" content="Minecraft Themed Portfolio Website" />
+    <meta name="author" content="Your Name" />
+    <meta name="keywords" content="Portfolio, Minecraft, Web Development" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revised" content="Ryan James Capadocia, 10/04/2025" />
+    <meta name="theme-color" content="#ef2e3b" />
+    <link rel="manifest" href="./manifest.json" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="shortcut icon" href="Assets/Gprofile.gif" type="image/x-icon" />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./script.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+      integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body id="IncompatibleForMobile">
+    <div class="loading-overlay w-100 h-100 position-fixed top-0 start-0 z-3" id="loading-screen">
+      <div class="vstack gap-3 d-flex justify-content-center align-items-center h-100 position-relative">
+        <span class="loading-text fs-3 px-1">Loading...</span>
+        <span class="px-auto"></span>
+        <div class="px-1 position-absolute bottom-0 start-50 translate-middle-x mb-4" role="status">
+          <p style="font-size: 0.8rem; font-family: 'MinecraftiaRegular', sans-serif" class="text-white text-center" id="loading-help-text">
+            Stuck on loading? Try refreshing the page or check your internet connection.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="loading-overlay bg-dark w-100 h-100 position-fixed top-0 start-0 d-block d-md-none d-flex justify-content-center align-items-center"
+      style="z-index: 9999; padding: 2rem; box-sizing: border-box"
+      id="Mobile-loading-screen"
+    >
+      <span
+        id="IncompatibleForMobileText"
+        class="text-center mx-3"
+        style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #ffffff3e; font-weight: bold; font-size: clamp(1.5rem, 2.5vw, 2rem)"
+      >
+      </span>
+    </div>
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100">
+      <div class="tooltips-Container position-relative">
+        <div class="tooltip position-fixed" id="tooltip" style="display: none; pointer-events: none; z-index: 1070; top: 0; left: 0">
+          <div class="tooltip-header text-warning" id="tooltip-header">Title</div>
+          <div class="tooltip-body text-secondary" id="tooltip-body">Body</div>
+        </div>
+        <div class="container">
+          <div class="row text-center">
+            <div class="mb-3">
+              <span class="position-relative mlogo align-middle w-100" style="height: clamp(20vh, 20vw, 20vh)">
+                <h1
+                  class="splash text-warning text-nowrap"
+                  style="font-family: 'MinecraftiaRegular', sans-serif; font-size: clamp(2vh, 2vw, 3vh); text-shadow: 2px 2px 4px #000000; font-weight: bold"
+                  id="splash-text"
+                >
+                  it's Fucking Splash Text!
+                </h1>
+              </span>
+            </div>
+
+            <div class="mt-5 pt-5 d-flex flex-column align-items-center">
+              <span class="MC-Btn mb-2">
+                <a class="MC-Btn-text btn-Clicksound" id="AboutMeBtn"> About Me </a>
+              </span>
+
+              <span class="MC-Btn mb-2 btn-Clicksound">
+                <a class="MC-Btn-text"> Projects </a>
+              </span>
+
+              <span class="MC-Btn btn-Clicksound">
+                <a class="MC-Btn-text"> Contact Me </a>
+              </span>
+
+              <div class="hstack w-50 justify-content-center mt-2 mx-auto">
+                <span class="MC-Btn-sm me-2 btn-Clicksound">
+                  <a
+                    class="MC-Btn-text-sm Icon-GitHub"
+                    href="https://github.com/Unknownplanet40"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-tooltip
+                    data-title="GitHub"
+                    data-body="Visit my GitHub profile."
+                  >
+                  </a>
+                </span>
+
+                <span class="MC-Btn-md me-5 btn-Clicksound">
+                  <a class="MC-Btn-text-sm" href="https://www.facebook.com/Cappps.Lock" target="_blank" rel="noopener noreferrer" data-tooltip data-title="Facebook" data-body="Follow me on Facebook.">
+                    Facebook
+                  </a>
+                </span>
+
+                <span class="MC-Btn-md ms-4 btn-Clicksound">
+                  <a class="MC-Btn-text-sm" href="https://www.linkedin.com/in/rj45" target="_blank" rel="noopener noreferrer" data-tooltip data-title="LinkedIn" data-body="Connect on LinkedIn.">
+                    LinkedIn
+                  </a>
+                </span>
+
+                <span class="MC-Btn-sm ms-3 btn-Clicksound">
+                  <a class="MC-Btn-text-sm Icon-Resume" data-tooltip data-title="Resume" data-body="Download or view my resume."> </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-container">
+          <!-- Sound Enable Modal -->
+          <div class="modal fade" id="PopupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content bg-transparent border-0">
+                <div class="modal-body text-center" style="position: relative">
+                  <span class="dialogBG rounded"></span>
+                  <div class="PopDialog position-relative rounded">
+                    <div class="position-absolute top-0 start-50 translate-middle-x" style="width: 68%; right: 16%">
+                      <button
+                        type="button"
+                        class="btn-close btn-close-Custom btn-Clicksound position-absolute top-0 end-0 m-2 z-3"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        id="closePopupBtn"
+                      ></button>
+                    </div>
+                    <div class="d-flex flex-column align-items-center justify-content-center position-relative" style="top: 15%; height: 80%">
+                      <p class="mx-auto popDialogLabel text-center" id="popupModalLabel">You need to interact with the page to enable sound effects.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- About Me Modal -->
+          <div class="modal fade" id="AboutMeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="AboutMeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
+              <div class="modal-content custom-box">
+                <div class="modal-body border-0 p-0">
+                  <div class="row g-0 p-3">
+                    <div class="col-12 d-flex justify-content-end">
+                      <small class="position-absolute start-0 ps-3 text-muted">Note: This is not the final layout. Content will be added soon.</small>
+                      <button type="button" class="btn-close btn-Clicksound" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="col-12" style="height: 360px; max-height: 360px">
+                      <div class="hstack gap-0 p-0 m-0">
+                        <div style="height: 400px; max-height: 400px; padding-top: 6.5%">
+                          <div class="ms-3" style="height: 260px; width: 200px">
+                            <div class="char-Box p-0 m-0"></div>
+                          </div>
+                        </div>
+                        <div class="m-0" style="height: 260px; width: 65px">
+                          <div class="d-flex flex-column h-100 w-100 p-0 m-0">
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div class="item-slot slot-sound" id="slot-1">
+                                <img
+                                  src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121"
+                                  alt="Enchanted_Book"
+                                  style="width: 48px; height: 48px"
+                                  data-tooltip
+                                  data-title="Basic Information"
+                                  data-body="View my basic personal information."
+                                />
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div class="item-slot slot-sound" id="slot-2">
+                                <img
+                                  src="https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024"
+                                  alt="Command_Block"
+                                  style="width: 48px; height: 48px"
+                                  data-tooltip
+                                  data-title="Skills & Experience"
+                                  data-body="Explore my skills and professional experience."
+                                />
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div class="item-slot slot-sound" id="slot-3">
+                                <img
+                                  src="https://minecraft.wiki/images/Book_and_Quill_JE2_BE2.png?2128f"
+                                  alt="Book_and_Quill"
+                                  style="width: 48px; height: 48px"
+                                  data-tooltip
+                                  data-title="Education & Certifications"
+                                  data-body="Check out my educational background and certifications."
+                                />
+                              </div>
+                            </div>
+                            <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                              <div class="item-slot slot-sound" id="slot-4">
+                                <img
+                                  src="https://minecraft.wiki/images/Elytra_%28item%29_JE1_BE1.png?8f01d&20190502042255"
+                                  alt="Elytra"
+                                  style="width: 48px; height: 48px"
+                                  data-tooltip
+                                  data-title="Goals & Aspirations"
+                                  data-body="Learn about my future goals and aspirations."
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="me-3 ms-1 MC-main" style="width: calc(100% - 265px)">
+                          <div class="h-100 p-3" style="overflow-y: auto; max-height: 400px; height: 400px" id="Info-1">
+                            <span class="d-block">
+                              <h3 class="MC-Title p-3 pb-0 text-center mb-3 text-truncate">Basic Information</h3>
+                            </span>
+                            <div class="hstack p-3 custom-box">
+                              <div class="position-relative">
+                                <span>
+                                  <img src="Assets/map.png" alt="Enchanted_Book" style="width: 230px; height: 230px; image-rendering: pixelated; image-rendering: crisp-edges" />
+                                </span>
+                                <span class="position-absolute top-50 start-50 translate-middle">
+                                  <img src="https://minecraft.wiki/images/Enchanted_Book.gif?b21c4&20240620151121" alt="Enchanted_Book" style="width: 128px; height: 128px" />
+                                </span>
+                              </div>
+                              <div class="flex-fill ms-3">
+                                <table class="text-justify" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 16px; color: #100210">
+                                  <tr>
+                                    <td>
+                                      <span class="text-muted">Name:</span>
+                                    </td>
+                                    <td>
+                                      <span class="ms-3 fw-bold" id="playerName"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <span class="text-muted">Age:</span>
+                                    </td>
+                                    <td>
+                                      <span class="ms-3 fw-bold" id="age"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <span class="text-muted">Location:</span>
+                                    </td>
+                                    <td>
+                                      <span class="ms-3 fw-bold" id="location"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <span class="text-muted">Email:</span>
+                                    </td>
+                                    <td>
+                                      <span class="ms-3 fw-bold" id="email"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <span class="text-muted">Title:</span>
+                                    </td>
+                                    <td>
+                                      <span class="ms-3 fw-bold" id="title"></span>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      <span class="text-muted">Motto:</span>
+                                    </td>
+                                    <td>
+                                      <span class="ms-3 fw-bold fst-italic" style="font-size: 14px" id="statusMessage"></span>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="h-100 p-3 d-none" style="overflow-y: auto; max-height: 400px; height: 400px" id="Info-2">
+                            <span class="d-block">
+                              <h3 class="MC-Title p-3 pb-0 text-center mb-3 text-truncate">Skills & Experience</h3>
+                            </span>
+                            <div class="hstack p-3 custom-box">
+                              <div class="d-flex flex-column">
+                                <div class="d-flex">
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="inv-slot-1" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges" class="p-1 d-none" id="inv-item-1" />
+                                      <div class="mc-tooltip d-none" id="inv-tooltip-1"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="inv-slot-2" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges" class="p-1 d-none" id="inv-item-2" />
+                                      <div class="mc-tooltip d-none" id="inv-tooltip-2"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="inv-slot-3" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges" class="p-1 d-none" id="inv-item-3" />
+                                      <div class="mc-tooltip d-none" id="inv-tooltip-3"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="d-flex">
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="inv-slot-4" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges" class="p-1 d-none" id="inv-item-4" />
+                                      <div class="mc-tooltip d-none" id="inv-tooltip-4"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="inv-slot-5" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges" class="p-1 d-none" id="inv-item-5" />
+                                      <div class="mc-tooltip d-none" id="inv-tooltip-5"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="inv-slot-6" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges" class="p-1 d-none" id="inv-item-6" />
+                                      <div class="mc-tooltip d-none" id="inv-tooltip-6"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="d-flex">
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="inv-slot-7" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges" class="p-1 d-none" id="inv-item-7" />
+                                      <div class="mc-tooltip d-none" id="inv-tooltip-7"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="inv-slot-8" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges" class="p-1 d-none" id="inv-item-8" />
+                                      <div class="mc-tooltip d-none" id="inv-tooltip-8"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="inv-slot-9" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges" class="p-1 d-none" id="inv-item-9" />
+                                      <div class="mc-tooltip d-none" id="inv-tooltip-9"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="flex-fill ms-3" style="overflow-y: auto; max-height: 230px; height: 230px; text-align: justify">
+                                <div class="hstack position-fixed gap-0 px-3 z-2">
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="skill-slot-1" style="height: 48px; width: 48px">
+                                      <img
+                                        src="https://minecraft.wiki/images/Brush_JE1_BE1.png?fd417&20230319032249"
+                                        alt="Brush"
+                                        style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges"
+                                        class="p-1"
+                                        id="skill-item-1"
+                                        data-tooltip
+                                        data-title="Web Dev (Frontend)"
+                                        data-body="Skilled in HTML, CSS, and JavaScript for responsive web design."
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="skill-slot-2" style="height: 48px; width: 48px">
+                                      <img
+                                        src="https://minecraft.wiki/images/Invicon_Observer.png?639d1"
+                                        alt="Observer"
+                                        style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges"
+                                        class="p-1"
+                                        id="skill-item-2"
+                                        data-tooltip
+                                        data-title="Web Dev (Backend)"
+                                        data-body="Experienced with PHP and MySQL for server-side development."
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="skill-slot-3" style="height: 48px; width: 48px">
+                                      <img
+                                        src="https://minecraft.wiki/images/Ender_Chest_%28S%29_JE1_BE1.png?946a4&20191024103351"
+                                        alt="Ender_Chest"
+                                        style="width: 48px; height: 48px; image-rendering: pixelated; image-rendering: crisp-edges"
+                                        class="p-1"
+                                        id="skill-item-3"
+                                        data-tooltip
+                                        data-title="Database Management"
+                                        data-body="Skilled in MySQL for efficient data storage and retrieval."
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="skill-slot-4" style="height: 48px; width: 48px">
+                                      <img
+                                        src="https://minecraft.wiki/images/Bookshelf_JE4_BE2.png"
+                                        alt="Bookshelf"
+                                        style="width: 48px; height: 48px"
+                                        class="p-1"
+                                        id="skill-item-4"
+                                        ,
+                                        data-tooltip
+                                        data-title="Frameworks & Libraries"
+                                        data-body="Familiar with various frameworks and libraries to enhance web development."
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="skill-slot-5" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px" class="p-1 d-none" id="skill-item-5" />
+                                      <div class="mc-tooltip d-none" id="skill-tooltip-5"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="skill-slot-6" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px" class="p-1 d-none" id="skill-item-6" />
+                                      <div class="mc-tooltip d-none" id="skill-tooltip-6"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="skill-slot-7" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px" class="p-1 d-none" id="skill-item-7" />
+                                      <div class="mc-tooltip d-none" id="skill-tooltip-7"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="skill-slot-8" style="height: 48px; width: 48px">
+                                      <img src="" alt="" style="width: 48px; height: 48px" class="p-1 d-none" id="skill-item-8" />
+                                      <div class="mc-tooltip d-none" id="skill-tooltip-8"></div>
+                                    </div>
+                                  </div>
+                                  <div class="box-1 flex-fill d-flex align-items-center justify-content-center">
+                                    <div class="item-slot" id="skill-slot-9" style="height: 48px; width: 48px">
+                                      <img
+                                        src="https://minecraft.wiki/images/Barrier_%28held%29_JE1_BE1.png?49087&20190811152525"
+                                        alt="Barrier"
+                                        style="width: 50px; height: 50px"
+                                        class="p-1"
+                                        id="skill-item-9"
+                                        data-tooltip
+                                        data-title="Clear Slot"
+                                        data-body="Clear Crafting Slot"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <span style="height: 56px; display: block; width: 555px; background-color: #c8c8c8" class="position-fixed z-1"> &nbsp; </span>
+                                <p class="mt-5 pt-4 mb-0">
+                                  <span class="fw-bold" style="font-family: 'MinecraftiaRegular', sans-serif" id="legend"></span>
+                                </p>
+                                <p>
+                                  <small style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 12px" id="description"></small>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 p-3 pt-0 mb-3" style="height: auto">
+                    <div class="row g-0 h-100 row-cols-1 row-cols-lg-2">
+                      <div class="col-6 mx-auto">
+                        <div class="MC-boxData">
+                          <p class="text-start mb-3 fw-bold">Most used Programming Languages</p>
+                          <table class="w-100" style="font-size: 16px">
+                            <tr>
+                              <td class="text-start p-2 pb-0">PHP</td>
+                              <td class="text-end w-100">
+                                <div class="mc-xp-container">
+                                  <div class="mc-xp-bg">
+                                    <div class="mc-xp-fill" style="--progress: 67%"></div>
+                                    <div class="mc-xp-level">67</div>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr class="">
+                              <td class="text-start p-2 pb-0">JavaScript</td>
+                              <td class="text-end w-100">
+                                <div class="mc-xp-container">
+                                  <div class="mc-xp-bg">
+                                    <div class="mc-xp-fill" style="--progress: 36%"></div>
+                                    <div class="mc-xp-level">36</div>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr class="">
+                              <td class="text-start p-2 pb-0">HTML - CSS</td>
+                              <td class="text-end w-100">
+                                <div class="mc-xp-container">
+                                  <div class="mc-xp-bg">
+                                    <div class="mc-xp-fill" style="--progress: 79%"></div>
+                                    <div class="mc-xp-level">79</div>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="col-6 mx-auto border">
+                        <div class="MC-boxData">
+                          <p class="text-start mb-3 fw-bold">Most used Frameworks & Libraries</p>
+                          <table class="w-100" style="font-size: 16px">
+                            <tr class="">
+                              <td class="text-start p-2 pb-0 text-nowrap">Bootstrap 5</td>
+                              <td class="text-end w-100">
+                                <div class="mc-xp-container">
+                                  <div class="mc-xp-bg">
+                                    <div class="mc-xp-fill" style="--progress: 76%"></div>
+                                    <div class="mc-xp-level">76</div>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr class="">
+                              <td class="text-start p-2 pb-0">jQuery</td>
+                              <td class="text-end w-100">
+                                <div class="mc-xp-container">
+                                  <div class="mc-xp-bg">
+                                    <div class="mc-xp-fill" style="--progress: 54%"></div>
+                                    <div class="mc-xp-level">54</div>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr class="">
+                              <td class="text-start p-2 pb-0">MySQL</td>
+                              <td class="text-end w-100">
+                                <div class="mc-xp-container">
+                                  <div class="mc-xp-bg">
+                                    <div class="mc-xp-fill" style="--progress: 40%"></div>
+                                    <div class="mc-xp-level">40</div>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3 w-100">
+        <span class="text-white" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000">
+          <div class="hstack">
+            <span class="mx-3">Portfolio v1.0</span>
+            <span class="mx-auto"></span>
+            <span class="mx-3">Copyright © <span id="current-year"></span> <span id="owner-name">Owner Name</span></span>
+          </div>
+        </span>
+      </div>
+    </div>
+  </body>
+</html>
