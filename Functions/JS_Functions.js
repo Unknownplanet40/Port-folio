@@ -1,5 +1,58 @@
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.module.min.js";
 
+let recipeDatas = {
+  frontend: {
+    title: "Frontend Development",
+    body: "Polishing the pixels into a perfect, high-value user experience.",
+    Long_Desc: "This recipe combines structural integrity, clean aesthetics, and performance optimization to craft a visually flawless and high-performing user interface.",
+    itemSrc: "https://minecraft.wiki/images/Diamond_JE3_BE3.png?99d00",
+  },
+  backend: {
+    title: "Backend Development",
+    body: "The hidden logic that runs the world and executes complex server commands.",
+    Long_Desc: "This complex recipe leverages structure, logic, knowledge, and connectivity to build a robust, secure, and standards-compliant server framework.",
+    itemSrc: "https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024",
+  },
+  database: {
+    title: "Database Management",
+    body: "Expertise in structuring, securing, and efficiently querying vast repositories of information.",
+    Long_Desc: "Combining integrity, query logic, storage, clean schemas, and replication establishes secure and high-performance management over vast data repositories.",
+    itemSrc: "https://minecraft.wiki/images/Invicon_Villager_Spawn_Egg.png?ef5c9",
+  },
+  apiintegration: {
+    title: "API Integration & Connectivity",
+    body: "Establishing reliable, fixed, and well-documented endpoints for seamless data flow.",
+    Long_Desc: "Logic, documentation, and connection capability are combined to establish a stable and standards-compliant endpoint for seamless data transfer between systems.",
+    itemSrc: "https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f",
+  },
+  bootstrap: {
+    title: "Bootstrap Framework",
+    body: "Utilizing pre-built, standardized structures for rapid, responsive design implementation.",
+    Long_Desc: "We use structural components, documentation, and optimization to deploy a lightweight, ready-made, and responsive layout solution quickly.",
+    itemSrc: "https://minecraft.wiki/images/Wall_Lever_%28S%29_JE5-L3.png?039e0",
+  },
+  jquery: {
+    title: "jQuery Library",
+    body: "This uses scripting logic, performance, and precision targeting to enable simple control mechanisms for complex DOM manipulation with minimal code.",
+    itemSrc: "https://minecraft.wiki/images/Redstone_Torch_JE5.png?ceef5",
+  },
+  troubleshooting: {
+    title: "Troubleshooting (Technical Support)",
+    body: "Expertise in diagnosing, repairing, and stabilizing technical and hardware issues.",
+    Long_Desc: "We combine logic, knowledge, structure, and precision to effectively diagnose technical faults and restore system stability.",
+    itemSrc: "https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555",
+  },
+};
+
+let itemtooltipsData = {
+  iron_ingot: { title: "Structure & Stability", body: "The secure, durable foundation and core application architecture.", slotID: "item-slot-1" },
+  redstone_dust: { title: "Logic & Automation", body: "Complex business logic, scripting, and control flow for automation.", slotID: "item-slot-2" },
+  feather: { title: "Performance & Optimization", body: "Lightweight code and optimizing for speed and high performance.", slotID: "item-slot-3" },
+  book: { title: "Knowledge & Documentation", body: "Adhering to standards, and meticulous documentation and learning.", slotID: "item-slot-4" },
+  quartz: { title: "Precision & Aesthetics", body: "Clean code, attention to detail, and pixel-perfect UI design.", slotID: "item-slot-5" },
+  ender_pearl: { title: "Connectivity & Telemetry", body: "Managing network requests and connecting disparate systems (APIs).", slotID: "item-slot-6" },
+};
+
 export function PanoramaBackground(ContainerID = "PanoramaContainerNONE", EnableBackgroundAnimation = true, RotationSpeed = 0.001) {
   if (ContainerID === "PanoramaContainerNONE") {
     console.warn("PanoramaBackground: No container ID provided, panorama background will not be initialized.");
@@ -537,29 +590,29 @@ export function ExternalLinkSetup() {
     window.open("https://www.linkedin.com/in/rj45", "_blank");
   });
 
-  //HintContainer
   const $hintSidebar = $(".hint-sidebar");
   const $hintContainer = $("#HintContainer");
   const $hintButton = $("#hint-button");
 
   $hintContainer.on("click", function (e) {
     e.preventDefault();
-    // swap classes: ensure we don't add both classes at once
     if ($hintSidebar.hasClass("sidebar-in")) {
       $hintSidebar.removeClass("sidebar-in").addClass("sidebar-out");
     } else if ($hintSidebar.hasClass("sidebar-out")) {
       $hintSidebar.removeClass("sidebar-out").addClass("sidebar-in");
     } else {
-      // default to showing the sidebar
       $hintSidebar.addClass("sidebar-in");
     }
   });
 
   $hintButton.on("click", function (e) {
     e.preventDefault();
-    // if the hint sidebar is not visible, show it
-    if ($hintSidebar.hasClass("sidebar-out") || !$hintSidebar.hasClass("sidebar-in")) {
+    if ($hintSidebar.hasClass("sidebar-in")) {
+      $hintSidebar.removeClass("sidebar-in").addClass("sidebar-out");
+    } else if ($hintSidebar.hasClass("sidebar-out")) {
       $hintSidebar.removeClass("sidebar-out").addClass("sidebar-in");
+    } else {
+      $hintSidebar.addClass("sidebar-in");
     }
   });
 }
@@ -968,59 +1021,6 @@ export function InventorySetup() {
     slot_9: null,
   };
 
-  let itemtooltipsData = {
-    iron_ingot: { title: "Structure & Stability", body: "The secure, durable foundation and core application architecture.", slotID: "item-slot-1" },
-    redstone_dust: { title: "Logic & Automation", body: "Complex business logic, scripting, and control flow for automation.", slotID: "item-slot-2" },
-    feather: { title: "Performance & Optimization", body: "Lightweight code and optimizing for speed and high performance.", slotID: "item-slot-3" },
-    book: { title: "Knowledge & Documentation", body: "Adhering to standards, and meticulous documentation and learning.", slotID: "item-slot-4" },
-    quartz: { title: "Precision & Aesthetics", body: "Clean code, attention to detail, and pixel-perfect UI design.", slotID: "item-slot-5" },
-    ender_pearl: { title: "Connectivity & Telemetry", body: "Managing network requests and connecting disparate systems (APIs).", slotID: "item-slot-6" },
-  };
-
-  let recipeDatas = {
-    frontend: {
-      title: "Frontend Development",
-      body: "Polishing the pixels into a perfect, high-value user experience.",
-      Long_Desc: "This recipe combines structural integrity, clean aesthetics, and performance optimization to craft a visually flawless and high-performing user interface.",
-      itemSrc: "https://minecraft.wiki/images/Diamond_JE3_BE3.png?99d00",
-    },
-    backend: {
-      title: "Backend Development",
-      body: "The hidden logic that runs the world and executes complex server commands.",
-      Long_Desc: "This complex recipe leverages structure, logic, knowledge, and connectivity to build a robust, secure, and standards-compliant server framework.",
-      itemSrc: "https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024",
-    },
-    database: {
-      title: "Database Management",
-      body: "Expertise in structuring, securing, and efficiently querying vast repositories of information.",
-      Long_Desc: "Combining integrity, query logic, storage, clean schemas, and replication establishes secure and high-performance management over vast data repositories.",
-      itemSrc: "https://minecraft.wiki/images/Invicon_Villager_Spawn_Egg.png?ef5c9",
-    },
-    apiintegration: {
-      title: "API Integration & Connectivity",
-      body: "Establishing reliable, fixed, and well-documented endpoints for seamless data flow.",
-      Long_Desc: "Logic, documentation, and connection capability are combined to establish a stable and standards-compliant endpoint for seamless data transfer between systems.",
-      itemSrc: "https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f",
-    },
-    bootstrap: {
-      title: "Bootstrap Framework",
-      body: "Utilizing pre-built, standardized structures for rapid, responsive design implementation.",
-      Long_Desc: "We use structural components, documentation, and optimization to deploy a lightweight, ready-made, and responsive layout solution quickly.",
-      itemSrc: "https://minecraft.wiki/images/Wall_Lever_%28S%29_JE5-L3.png?039e0",
-    },
-    jquery: {
-      title: "jQuery Library",
-      body: "This uses scripting logic, performance, and precision targeting to enable simple control mechanisms for complex DOM manipulation with minimal code.",
-      itemSrc: "https://minecraft.wiki/images/Redstone_Torch_JE5.png?ceef5",
-    },
-    troubleshooting: {
-      title: "Troubleshooting (Technical Support)",
-      body: "Expertise in diagnosing, repairing, and stabilizing technical and hardware issues.",
-      Long_Desc: "We combine logic, knowledge, structure, and precision to effectively diagnose technical faults and restore system stability.",
-      itemSrc: "https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555",
-    },
-  };
-
   let currentDraggedItemName = null;
   let tooltipsOldItemID = null;
 
@@ -1305,6 +1305,78 @@ export function InventorySetup() {
       localStorage.setItem("unlockedSkill_diamond", "true");
       hintrecipeData();
     }
+
+    if (BackendMatch) {
+      const data = recipeDatas["backend"];
+      mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="BackEnd-Item" draggable="false"/>`;
+      AddTooltipData(mainInventorySlot, "backend", true);
+
+      $("#item-info-box").css("visibility", "visible");
+      $("#item-name").text(data.title);
+      $("#item-description").text(data.Long_Desc);
+      localStorage.setItem("unlockedSkill_commandblock", "true");
+      hintrecipeData();
+    }
+
+    if (DatabaseMatch) {
+      const data = recipeDatas["database"];
+      mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="Database-Item" draggable="false"/>`;
+      AddTooltipData(mainInventorySlot, "database", true);
+
+      $("#item-info-box").css("visibility", "visible");
+      $("#item-name").text(data.title);
+      $("#item-description").text(data.Long_Desc);
+      localStorage.setItem("unlockedSkill_spawnegg", "true");
+      hintrecipeData();
+    }
+
+    if (APIIntegrationMatch) {
+      const data = recipeDatas["api_integration"];
+      mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="APIIntegration-Item" draggable="false"/>`;
+      AddTooltipData(mainInventorySlot, "api_integration", true);
+
+      $("#item-info-box").css("visibility", "visible");
+      $("#item-name").text(data.title);
+      $("#item-description").text(data.Long_Desc);
+      localStorage.setItem("unlockedSkill_lodestone", "true");
+      hintrecipeData();
+    }
+
+    if (BootstrapMatch) {
+      const data = recipeDatas["bootstrap"];
+      mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="Bootstrap-Item" draggable="false"/>`;
+      AddTooltipData(mainInventorySlot, "bootstrap", true);
+
+      $("#item-info-box").css("visibility", "visible");
+      $("#item-name").text(data.title);
+      $("#item-description").text(data.Long_Desc);
+      localStorage.setItem("unlockedSkill_lever", "true");
+      hintrecipeData();
+    }
+
+    if (JQueryMatch) {
+      const data = recipeDatas["jquery"];
+      mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="JQuery-Item" draggable="false"/>`;
+      AddTooltipData(mainInventorySlot, "jquery", true);
+
+      $("#item-info-box").css("visibility", "visible");
+      $("#item-name").text(data.title);
+      $("#item-description").text(data.Long_Desc);
+      localStorage.setItem("unlockedSkill_rockstone_dust", "true");
+      hintrecipeData();
+    }
+
+    if (TroubleshootingMatch) {
+      const data = recipeDatas["troubleshooting"];
+      mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="Troubleshooting-Item" draggable="false"/>`;
+      AddTooltipData(mainInventorySlot, "troubleshooting", true);
+      $("#item-info-box").css("visibility", "visible");
+
+      $("#item-name").text(data.title);
+      $("#item-description").text(data.Long_Desc);
+      localStorage.setItem("unlockedSkill_amethystshard", "true");
+      hintrecipeData();
+    }
   }
 
   $("#item-info-box").css("visibility", "hidden");
@@ -1361,66 +1433,289 @@ export function hintrecipeData() {
   const hintData = [
     {
       title: "Diamond",
+      item_name: "diamond",
       hint_desc: "To craft a <b>flawless interface</b>, combine <b>Structure</b>, <b>Performance</b>, and <b>Precision</b> across the <b>top and center slots</b>.",
       Slots: ["1", "3", "5"],
     },
     {
       title: "Command Block",
+      item_name: "commandblock",
       hint_desc: "<b>Robust servers</b> require <b>Structure</b> and <b>Logic</b> in the <b>top row</b>, supported by <b>Knowledge</b> and <b>Connectivity</b> in the <b>middle row</b>.",
       Slots: ["1", "2", "4", "6"],
     },
     {
       title: "Spawn Egg",
+      item_name: "spawnegg",
       hint_desc: "This <b>complex recipe</b> needs five ingredients! Ensure <b>Structure, Logic, Knowledge, Precision, and Connectivity</b> are all present in the <b>top and middle rows</b>.",
       Slots: ["1", "2", "4", "5", "6"],
     },
     {
       title: "Armor Stand",
+      item_name: "armorstand",
       hint_desc: "Deploy a <b>standardized structure</b> by combining <b>Structure</b>, <b>Performance</b>, and <b>Knowledge</b> in the <b>top-left and middle-left</b> quadrant.",
       Slots: ["1", "3", "4"],
     },
     {
       title: "Lever",
+      item_name: "lever",
       hint_desc: "Create the <b>simple control</b> by placing <b>Logic</b> next to <b>Performance</b> in the <b>top row</b>, with <b>Precision</b> directly in the <b>center slot</b>.",
       Slots: ["2", "3", "5"],
     },
     {
       title: "Lodestone",
+      item_name: "lodestone",
       hint_desc: "Establish a <b>stable endpoint</b> by connecting <b>Logic</b>, <b>Knowledge</b>, and <b>Connectivity</b> in a <b>diagonal line</b> across the <b>left side of the grid</b>.",
       Slots: ["2", "4", "6"],
     },
     {
       title: "Amethyst Shard",
+      item_name: "amethystshard",
       hint_desc: "To <b>fix the system</b>, ensure <b>Structure</b> and <b>Logic</b> are in the <b>top-left</b>, and <b>Knowledge</b> and <b>Precision</b> are placed right below them.",
       Slots: ["1", "2", "4", "5"],
     },
   ];
 
+  const Skill_diamond = {
+    slot_1: "iron_ingot",
+    slot_2: null,
+    slot_3: "feather",
+    slot_4: null,
+    slot_5: "quartz",
+    slot_6: null,
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+    outcome: "diamond",
+  };
+
+  const Skill_commandblock = {
+    slot_1: "iron_ingot",
+    slot_2: "redstone_dust",
+    slot_3: null,
+    slot_4: "book",
+    slot_5: null,
+    slot_6: "ender_pearl",
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+    outcome: "commandblock",
+  };
+
+  const Skill_spawnegg = {
+    slot_1: "iron_ingot",
+    slot_2: "redstone_dust",
+    slot_3: null,
+    slot_4: "book",
+    slot_5: "quartz",
+    slot_6: "ender_pearl",
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+    outcome: "spawnegg",
+  };
+
+  const Skill_redstone_torch = {
+    slot_1: "iron_ingot",
+    slot_2: null,
+    slot_3: "feather",
+    slot_4: "book",
+    slot_5: null,
+    slot_6: null,
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+    outcome: "armorstand",
+  };
+
+  const Skill_lever = {
+    slot_1: null,
+    slot_2: "redstone_dust",
+    slot_3: "feather",
+    slot_4: null,
+    slot_5: "quartz",
+    slot_6: null,
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+    outcome: "lever",
+  };
+
+  const Skill_lodestone = {
+    slot_1: null,
+    slot_2: "redstone_dust",
+    slot_3: null,
+    slot_4: "book",
+    slot_5: null,
+    slot_6: "ender_pearl",
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+    outcome: "lodestone",
+  };
+
+  const Skill_amethystshard = {
+    slot_1: "iron_ingot",
+    slot_2: "redstone_dust",
+    slot_3: null,
+    slot_4: "book",
+    slot_5: "quartz",
+    slot_6: null,
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+    outcome: "amethystshard",
+  };
+
   // create hint boxes dynamically
   const hintContainer = $("#hint-content");
-  const unlock = "<img src='./Assets/confirm.png' alt='Unlock Icon' class='hint-icon me-2' />";
-  const lock = "<img src='./Assets/cancel.png' alt='Lock Icon' class='hint-icon me-2' />";
+  const unlock = "<img src='./Assets/confirm.png' alt='Unlock Icon' class='hint-icon align-self-start me-0' />";
+  const lock = "<img src='./Assets/cancel.png' alt='Lock Icon' class='hint-icon align-self-start me-0' />";
+  const iron_ingot = "<img src='https://minecraft.wiki/images/Iron_Ingot_JE3_BE2.png?849cb' alt='Iron Ingot' class='slot-image-small' draggable='false' />";
+  const redstone_dust = "<img src='https://minecraft.wiki/images/Redstone_Dust_JE2_BE2.png?8cf17' alt='Redstone Dust' class='slot-image-small' draggable='false' />";
+  const feather = "<img src='https://minecraft.wiki/images/Feather_JE3_BE2.png?b869b' alt='Feather' class='slot-image-small' draggable='false' />";
+  const book = "<img src='https://minecraft.wiki/images/Book_and_Quill_JE2_BE2.png?2128f' alt='Book' class='slot-image-small' draggable='false' />";
+  const quartz = "<img src='https://minecraft.wiki/images/Nether_Quartz_JE2_BE2.png?d0049' alt='Quartz' class='slot-image-small' draggable='false' />";
+  const ender_pearl = "<img src='https://minecraft.wiki/images/Ender_Pearl_JE3_BE2.png?829a7' alt='Ender Pearl' class='slot-image-small' draggable='false' />";
+
+  const diamond = "<img src='https://minecraft.wiki/images/Diamond_JE3_BE3.png?99d00' alt='Diamond' class='slot-image' draggable='false' />";
+  const command_block = "<img src='https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024' alt='Command Block' class='slot-image' draggable='false' />";
+  const spawn_egg = "<img src='https://minecraft.wiki/images/Invicon_Villager_Spawn_Egg.png?ef5c9' alt='Spawn Egg' class='slot-image' draggable='false' />";
+  const lodestone = "<img src='https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f' alt='Lodestone' class='slot-image' />";
+  const redstone_torch = "<img src='https://minecraft.wiki/images/Redstone_Torch_JE5.png?ceef5' alt='Armor Stand' class='slot-image' draggable='false' />";
+  const lever = "<img src='https://minecraft.wiki/images/Wall_Lever_%28S%29_JE5-L3.png?039e0' alt='Lever' class='slot-image' />";
+  const amethyst_shard = "<img src='https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555' alt='Amethyst Shard' class='slot-image' draggable='false' />";
 
   function checkSkillUnlock(skillKey) {
     return localStorage.getItem(skillKey) === "true";
+  }
+
+  function displayRequiredItem(itemName, isoutcome = false, slotID = null) {
+    const skillsMap = {
+      diamond: Skill_diamond,
+      commandblock: Skill_commandblock,
+      spawnegg: Skill_spawnegg,
+      redstone_torch: Skill_redstone_torch,
+      lever: Skill_lever,
+      lodestone: Skill_lodestone,
+      amethystshard: Skill_amethystshard,
+    };
+
+    const skillObj = skillsMap[itemName];
+    if (!skillObj) return "";
+    let itemimage = "";
+
+    if (slotID) {
+      const slotKey = `slot_${slotID}`;
+      const requiredItem = skillObj[slotKey];
+      switch (requiredItem) {
+        case "iron_ingot":
+          itemimage = iron_ingot;
+          break;
+        case "redstone_dust":
+          itemimage = redstone_dust;
+          break;
+        case "feather":
+          itemimage = feather;
+          break;
+        case "book":
+          itemimage = book;
+          break;
+        case "quartz":
+          itemimage = quartz;
+          break;
+        case "ender_pearl":
+          itemimage = ender_pearl;
+          break;
+        default:
+          return "";
+      }
+    }
+
+    if (isoutcome) {
+      switch (skillObj.outcome) {
+        case "diamond":
+          itemimage = diamond;
+          break;
+        case "commandblock":
+          itemimage = command_block;
+          break;
+        case "spawnegg":
+          itemimage = spawn_egg;
+          break;
+        case "redstone_torch":
+          itemimage = redstone_torch;
+          break;
+        case "lever":
+          itemimage = lever;
+          break;
+        case "lodestone":
+          itemimage = lodestone;
+          break;
+        case "amethystshard":
+          itemimage = amethyst_shard;
+          break;
+        default:
+          itemimage = "";
+          break;
+      }
+    }
+
+    return itemimage;
   }
 
   hintContainer.empty();
 
   hintData.forEach((hint, index) => {
     const hintBox = $(`
-      <div class="hstack hint-box-container mb-3">
-        ${checkSkillUnlock(`unlockedSkill_${hint.title.toLowerCase()}`) ? unlock : lock}
-        <div class="hint-text p-2">
+    <div class="vstack hint-box-container">
+      <div class="hstack position-relative">
+        ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? unlock : lock}
+        <div class="hint-text p-2 mx-0">
           <p class="mb-0 fw-bold">
             <div class="hstack">
               <span class="hint-text-title">${hint.title}</span>
               <small class="ms-auto hint-text-slots">Slots: ${hint.Slots.join(", ")}</small>
             </div>
-          </p>
           <p class="mb-0 hint-text-desc" style="font-size: 0.9rem">${hint.hint_desc}</p>
         </div>
       </div>
+      <div class="container-fluid ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? "" : "d-none"}">
+        <div class="row p-2 g-2">
+          <div class="col-6 d-flex justify-content-end align-items-end">
+            <div class="vstack">
+              <div class="hstack justify-content-end">
+                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "1") || ""}</div>
+                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "2") || ""}</div>
+                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "3") || ""}</div>
+              </div>
+              <div class="hstack justify-content-end">
+                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "4") || ""}</div>
+                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "5") || ""}</div>
+                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "6") || ""}</div>
+              </div>
+              <div class="hstack justify-content-end">
+                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "7") || ""}</div>
+                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "8") || ""}</div>
+                <div class="slot small-slot">${displayRequiredItem(hint.item_name, false, "9") || ""}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 d-flex justify-content-center align-items-center">
+            <div class="vstack">
+              <div class="hstack justify-content-start">
+                <div class="slot small-slot small-h-slot" style="visibility: hidden;"></div>
+              </div>
+              <div class="hstack justify-content-center">
+                <div class="slot slot-inv" id="hint-outcome-slot-${index}">${displayRequiredItem(hint.item_name, true) || ""}</div>
+              </div>
+              <div class="hstack justify-content-start">
+                <div class="slot small-slot small-h-slot" style="visibility: hidden;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     `);
     hintContainer.append(hintBox);
   });
