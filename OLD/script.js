@@ -84,7 +84,7 @@ function MobileDisplayCheck() {
     enablebackgroundAnimation = false;
     enableBGMusic = false;
 
-    if (!enableBGMusic && BGMUSIC) {
+    if (BGMUSIC) {
       BGMUSIC = null;
     }
     if ($incompatText.length) {
