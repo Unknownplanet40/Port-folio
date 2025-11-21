@@ -10,8 +10,8 @@ let ENABLE_BACKGROUND_ANIMATION = true;
 let BACKGROUND_ROTATION_SPEED = 0.001;
 let ENABLE_LOADING_SCREEN = true;
 let PORTFOLIOVERSION = "2.0";
-let ROTATE_CHARACTER = true;
-let devmode = true;
+let ROTATE_CHARACTER = false;
+let devmode = false;
 
 if (devmode) {
   console.log("Development Mode is ON");
@@ -34,9 +34,9 @@ $(document).ready(function () {
   InventorySetup();
   hintrecipeData();
 
-  if (UNDER_DEVELOPMENT) {
+/*   if (UNDER_DEVELOPMENT) {
     $("#Modal-1").modal("show");
-  }
+  } */
 });
 
 function handleCharacterViewer() {
