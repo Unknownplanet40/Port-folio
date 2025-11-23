@@ -293,6 +293,13 @@ canvas {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.307);
 }
 
+.char-Box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
 .slot {
   width: 100%;
   background-color: #8b8b8b;
@@ -619,4 +626,97 @@ canvas {
   inset: 0;
   position: absolute;
   pointer-events: auto;
+}
+
+.staticBG {
+  background-image: url(./Assets/StaticBG.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.mc-toast-top {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.mc-toast {
+  width: 400px;
+  height: 100px;
+  transform: translateX(450px);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border-style: solid;
+  border-width: 10px;
+  border-image-source: url("Assets/MC_Toast.png");
+  border-image-slice: 3 fill;
+  border-image-repeat: stretch;
+
+  background: transparent;
+  box-sizing: border-box;
+  padding: 10px 10px;
+  image-rendering: pixelated;
+
+  font-family: "MinecraftiaRegular", sans-serif;
+  will-change: transform, opacity;
+}
+
+.mc-toast-in {
+  animation: mcSlideIn 0.5s ease-in forwards;
+}
+
+.mc-toast-out {
+  animation: mcSlideOut 0.5s ease-out forwards;
+}
+
+.mc-toast-icon {
+  width: 48px;
+  height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  background: url("Assets/Gprofile.gif") no-repeat center;
+  background-size: contain;
+  image-rendering: pixelated;
+}
+
+.mc-toast-title {
+  color: #ffd800;
+  font-size: 14px;
+  line-height: 1.2;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  position: relative;
+}
+
+.mc-toast-desc {
+  color: #ffffff;
+  font-size: 13px;
+  max-width: inherit;
+}
+
+.mc-toast-progress-bar {
+  margin-top: 6px;
+  width: 300px;
+}
+
+@keyframes mcSlideIn {
+  0% {
+    transform: translateX(450px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes mcSlideOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(450px);
+  }
 }
