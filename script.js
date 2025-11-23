@@ -4,7 +4,7 @@ import { BackgroundMusic, SoundEffectSetup, InventorySetup, hintrecipeData } fro
 if (typeof $ === "undefined") {
   throw new Error("jQuery is required for this script to work. Please include jQuery before this script.");
 }
-let devmode = true;
+let devmode = false;
 let UNDER_DEVELOPMENT = false;
 let ENABLE_BACKGROUND_ANIMATION = true;
 let BACKGROUND_ROTATION_SPEED = 0.001;
