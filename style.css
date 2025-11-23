@@ -643,7 +643,7 @@ canvas {
 
 .mc-toast {
   width: 400px;
-  height: 100px;
+  height: auto;
   transform: translateX(450px);
 
   display: flex;
@@ -658,7 +658,7 @@ canvas {
 
   background: transparent;
   box-sizing: border-box;
-  padding: 10px 10px;
+  padding: 15px 10px;
   image-rendering: pixelated;
 
   font-family: "MinecraftiaRegular", sans-serif;
@@ -687,15 +687,15 @@ canvas {
   color: #ffd800;
   font-size: 14px;
   line-height: 1.2;
-  margin-top: 4px;
+  margin-top: 6px;
   margin-bottom: 2px;
   position: relative;
 }
 
 .mc-toast-desc {
   color: #ffffff;
-  font-size: 13px;
-  max-width: inherit;
+  font-size: 14px;
+  width: 100%;
 }
 
 .mc-toast-progress-bar {
