@@ -53,7 +53,11 @@ let itemtooltipsData = {
   ender_pearl: { title: "Connectivity & Telemetry", body: "Managing network requests and connecting disparate systems (APIs).", slotID: "item-slot-6" },
 };
 
-export function PanoramaBackground(ContainerID = "PanoramaContainerNONE", EnableBackgroundAnimation = true, RotationSpeed = 0.001) {
+export function PanoramaBackground(ContainerID = "PanoramaContainerNONE", EnableBackgroundAnimation = true, RotationSpeed = 0.001, isStatic = false) {
+  if (isStatic) {
+    return;
+  }
+
   if (ContainerID === "PanoramaContainerNONE") {
     console.warn("PanoramaBackground: No container ID provided, panorama background will not be initialized.");
     return;
@@ -579,7 +583,151 @@ export function ExternalLinkSetup() {
   });
 
   $(".R-Click").click(function () {
-    window.open("./Assets/resume.pdf", "_blank");
+    const BtnCooldown = localStorage.getItem("Cooldown");
+    const now = Date.now();
+
+    if (BtnCooldown && now < Number(BtnCooldown)) {
+      const remainingMs = Number(BtnCooldown) - now;
+      const remainingSecTotal = Math.ceil(Math.max(0, remainingMs) / 1000);
+      const mins = Math.floor(remainingSecTotal / 60);
+      const secs = remainingSecTotal % 60;
+      const minuteLabel = mins === 1 ? "minute" : "minutes";
+      const remainingSec = mins > 0 ? `${mins} ${minuteLabel} ${secs} ` : `${secs} `;
+
+      $("#mcToast").addClass("mc-toast-in").removeClass("mc-toast-top");
+      $("#mc-toast-title").text("Please wait...").fadeIn(1500);
+      $("#mc-toast-desc").removeClass("d-none").text(`${remainingSec}sec.`);
+      $("#mc-toast-progress-bar").addClass("d-none");
+      $(".R-Click").css("pointer-events", "none");
+
+      $("#mc-toast-icon").css({
+        "background-image": 'url("Assets/unavailable.png")',
+        "background-size": "contain",
+        "background-repeat": "no-repeat",
+        "background-position": "center",
+      });
+
+      setTimeout(() => {
+        $("#mcToast").removeClass("mc-toast-in").addClass("mc-toast-out");
+      }, 2000);
+
+      setTimeout(() => {
+        $("#mcToast").removeClass("mc-toast-out").addClass("mc-toast-top");
+        $("#mc-toast-title").text("");
+        $("#mc-toast-desc").text("");
+        $(".R-Click").css("pointer-events", "auto");
+      }, 2500);
+      return;
+    }
+
+    $("#mcToast").addClass("mc-toast-in").removeClass("mc-toast-top");
+    $("#mc-toast-desc").addClass("d-none");
+    $("#mc-toast-progress-bar").removeClass("d-none");
+    $("#mc-toast-title").text("We are preparing the file...").fadeIn(1500);
+    $(".R-Click").css("pointer-events", "none");
+
+    $("#mc-toast-icon").css({
+      "background-image": 'url("Assets/paper.png")',
+      "background-size": "contain",
+      "background-repeat": "no-repeat",
+      "background-position": "center",
+    });
+
+    let currentProgress = 0;
+    let maxProgress = 100;
+    const pauseTitle = {
+      10: "Collecting resources...",
+      25: "Compiling data...",
+      50: "Optimizing content...",
+      75: "Finalizing document...",
+      90: "Almost done...",
+      100: "Download Ready!",
+    };
+
+    setTimeout(() => {
+      let progressInterval = null;
+      let pauseTimeout = null;
+
+      const startProgress = () => {
+        if (progressInterval) clearInterval(progressInterval);
+
+        progressInterval = setInterval(() => {
+          const pauseChance = 0.12;
+          if (Math.random() < pauseChance) {
+            if (typeof currentProgress === "number" && currentProgress > 0) {
+              const thresholds = Object.keys(pauseTitle)
+                .map(Number)
+                .filter((n) => !Number.isNaN(n))
+                .sort((a, b) => a - b);
+              let matched = null;
+              for (let i = 0; i < thresholds.length; i++) {
+                if (currentProgress >= thresholds[i]) matched = thresholds[i];
+                else break;
+              }
+              if (matched !== null) {
+                const titleText = pauseTitle[matched];
+                if (titleText) $("#mc-toast-title").text(titleText).fadeIn(500);
+              }
+            }
+            clearInterval(progressInterval);
+            pauseTimeout = setTimeout(() => {
+              startProgress();
+            }, 500 + Math.floor(Math.random() * 1000));
+            return;
+          }
+
+          const r = Math.random();
+          let step;
+          if (r < 0.7) step = 1;
+          else if (r < 0.9) step = 5;
+          else step = 10;
+
+          currentProgress = Math.min(maxProgress, currentProgress + step);
+
+          $("#mc-toast-xp-fill").css("--progress", currentProgress + "%");
+          $("#mc-toast-xp-level").text(currentProgress);
+
+          if (currentProgress >= maxProgress) {
+            clearInterval(progressInterval);
+            setTimeout(() => {
+              $("#mc-toast-title").text("Download Ready!").fadeIn(500);
+              $("#mc-toast-progress-bar").addClass("d-none");
+              $("#mc-toast-desc").removeClass("d-none").text("File is Ready for Download.");
+
+              setTimeout(() => {
+                $("#mcToast").removeClass("mc-toast-in").addClass("mc-toast-out");
+                const cooldownUntil = Date.now() + 10 * 60 * 1000;
+                localStorage.setItem("Cooldown", String(cooldownUntil));
+              }, 2000);
+
+              setTimeout(() => {
+                $("#mcToast").removeClass("mc-toast-out").addClass("mc-toast-top");
+                $("#mc-toast-title").text("");
+                $("#mc-toast-desc").text("");
+                currentProgress = 0;
+                $("#mc-toast-xp-fill").css("--progress", "0%");
+                $("#mc-toast-xp-level").text("0");
+                $(".R-Click").css("pointer-events", "auto");
+              }, 2500);
+
+              const link = document.createElement("a");
+              link.href = "Assets/AboutMe.png";
+              link.download = "AboutMe.png";
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }, 500);
+            progressInterval = null;
+            if (pauseTimeout) {
+              clearTimeout(pauseTimeout);
+              pauseTimeout = null;
+            }
+          }
+        }, 50);
+      };
+
+      startProgress();
+    }, 1000);
   });
 
   $(".FB-Click").click(function () {
@@ -657,10 +805,7 @@ export function ExternalLinkSetup() {
   } else {
     $("#WarningOverlay").addClass("d-none");
   }
-
-
 }
-
 
 export function SoundEffectSetup() {
   const audio = new Audio("Assets/Sounds/BtnClickSound.mp3");
@@ -675,7 +820,7 @@ export function SoundEffectSetup() {
 }
 
 // This function Playertexture is not my original code. its generated from an AI model and modified by me to fit my needs.
-export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCharacter = false) {
+function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCharacter = false) {
   const $container = $(`#${ContainerID}`);
   if (!$container.length) {
     console.warn(`Playertexture: container '#${ContainerID}' not found.`);
@@ -966,6 +1111,76 @@ export function Playertexture(ContainerID = "char-box", SkinURL = null, RotateCh
       console.error("Failed to load skinview3d:", err);
       return null;
     });
+}
+
+export function handleCharacterViewer(ROTATE_CHARACTER = true, isStaticPlayerCharacter = false) {
+  if (isStaticPlayerCharacter) {
+    $("#player-skin-image").removeClass("d-none");
+    return;
+  }
+
+  //player-skin-image
+  $("#player-skin-image").addClass("d-none");
+
+  let __charViewerRef = null;
+  const initCharViewer = () => {
+    const res = Playertexture("char-box", "Assets/custom-skin.png", ROTATE_CHARACTER);
+    // handle promise or sync return
+    if (res && typeof res.then === "function") {
+      res.then((v) => {
+        __charViewerRef = v;
+      });
+    } else {
+      __charViewerRef = res;
+    }
+  };
+
+  const destroyCharViewer = () => {
+    const cleanup = (v) => {
+      if (!v) return;
+      try {
+        if (typeof v.destroyViewer === "function") {
+          v.destroyViewer();
+        } else {
+          try {
+            v.autoRotate = false;
+          } catch (e) {}
+          if (typeof v.dispose === "function")
+            try {
+              v.dispose();
+            } catch (e) {}
+          if (typeof v.destroy === "function")
+            try {
+              v.destroy();
+            } catch (e) {}
+          if (typeof v.stop === "function")
+            try {
+              v.stop();
+            } catch (e) {}
+        }
+      } catch (e) {
+        console.warn("Error destroying char viewer:", e);
+      }
+      __charViewerRef = null;
+      try {
+        $("#char-box").empty();
+      } catch (e) {}
+    };
+
+    if (__charViewerRef && typeof __charViewerRef.then === "function") {
+      __charViewerRef.then(cleanup).catch(() => {});
+    } else {
+      cleanup(__charViewerRef);
+    }
+  };
+
+  // Bind to Bootstrap modal events (Modal id: Modal-1)
+  $(document).on("show.bs.modal", "#Modal-1", function () {
+    initCharViewer();
+  });
+  $(document).on("hidden.bs.modal", "#Modal-1", function () {
+    destroyCharViewer();
+  });
 }
 
 export function InventorySetup() {
@@ -1376,9 +1591,9 @@ export function InventorySetup() {
     }
 
     if (APIIntegrationMatch) {
-      const data = recipeDatas["api_integration"];
+      const data = recipeDatas["apiintegration"];
       mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="APIIntegration-Item" draggable="false"/>`;
-      AddTooltipData(mainInventorySlot, "api_integration", true);
+      AddTooltipData(mainInventorySlot, "apiintegration", true);
 
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);

@@ -42,7 +42,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
-    <div id="PanoramaContainer" class="w-100 vh-100 position-relative overflow-hidden">
+    <div id="PanoramaContainer" class="staticBG w-100 vh-100 position-relative overflow-hidden">
       <div id="LoadingScreen" class="loading-overlay d-flex flex-column justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100 z-1">
         <h1 id="LoadingText" class="text-white mb-3">Loading...</h1>
         <p id="SubLoadingText" class="position-absolute bottom-0 w-100 text-center pb-2 text-wrap d-none px-5" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 0.9rem">
@@ -62,6 +62,25 @@
         </div>
       </div>
       <!-- Acheivement Toast Container -->
+      <div class="position-relative">
+        <div class="toast-container position-fixed bottom-0 end-0 m-4" id="toast-container" style="z-index: 1090">
+          <div class="mc-toast mc-toast-top" id="mcToast">
+            <div class="mc-toast-icon" id="mc-toast-icon"></div>
+            <div class="mc-toast-text">
+              <div class="mc-toast-title" id="mc-toast-title">Achievement Unlocked!</div>
+              <div class="mc-toast-desc text-wrap" id="mc-toast-desc">You have unlocked a new achievement.</div>
+              <div class="mc-toast-progress-bar d-none" id="mc-toast-progress-bar">
+                <div class="mc-xp-container">
+                  <div class="mc-xp-bg">
+                    <div class="mc-xp-fill" style="--progress: 0%" id="mc-toast-xp-fill"></div>
+                    <div class="mc-xp-level" id="mc-toast-xp-level">0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Main Content Container -->
       <div class="tooltips-Container position-relative">
         <div class="tooltip position-fixed" id="tooltip" style="display: none; pointer-events: none; z-index: 1090; top: 0; left: 0">
@@ -108,7 +127,9 @@
                     <div class="col-12 col-md-12 col-xl-4" style="height: 330px">
                       <div class="container-fluid h-100 w-100 d-flex justify-content-center align-items-center">
                         <div class="hstack">
-                          <div class="char-Box" id="char-box"></div>
+                          <div class="char-Box" id="char-box">
+                            <img src="Assets/pixelprofile.png" alt="Player Character" draggable="false" id="player-skin-image" />
+                          </div>
                           <div class="armorslot">
                             <div class="vstack">
                               <div class="slot MC-BTN-CLICK helmet-slot" style="width: 48px; height: 48px" data-tooltip data-title="Title Placeholder" data-body="Body Placeholder"></div>
@@ -133,10 +154,7 @@
                       </div>
                     </div>
                     <div class="col-12 col-md-12 col-xl-8 custom-box box-rev b-size mb-1 d-flex flex-column">
-                      <div
-                        id="WarningOverlay"
-                        class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
-                      >
+                      <div id="WarningOverlay" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
                         <div class="mobileoverlay text-center p-4 h-100 w-100 d-flex flex-column justify-content-center align-items-center">
                           <p class="text-white fw-bold mb-3" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 1rem; text-shadow: 2px 2px 4px #000000" id="mobile-warning-title">
                             This feature is unavailable on touch-enabled mobile devices due to limitations with drag-and-drop support on touchscreens.
