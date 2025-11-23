@@ -67,7 +67,6 @@ const command_block = "<img src='https://minecraft.wiki/images/Impulse_Command_B
 const spawn_egg = "<img src='https://minecraft.wiki/images/Invicon_Villager_Spawn_Egg.png?ef5c9' alt='Spawn Egg' class='slot-image' draggable='false' />";
 const lodestone = "<img src='https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f' alt='Lodestone' class='slot-image' />";
 const redstone_torch = "<img src='https://minecraft.wiki/images/Invicon_Redstone_Torch.png?e8629' alt='Redstone Torch' class='slot-image' draggable='false' />";
-const lever = "<img src='https://minecraft.wiki/images/Wall_Lever_%28S%29_JE5-L3.png?039e0' alt='Lever' class='slot-image' />";
 const amethyst_shard = "<img src='https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555' alt='Amethyst Shard' class='slot-image' draggable='false' />";
 
 function AchevementUnlock(achievementName, skilltype = "general") {
@@ -106,7 +105,7 @@ function AchevementUnlock(achievementName, skilltype = "general") {
     command_block: "https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024",
     spawn_egg: "https://minecraft.wiki/images/Invicon_Villager_Spawn_Egg.png?ef5c9",
     lodestone: "https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f",
-    lever: "https://minecraft.wiki/images/Wall_Lever_%28S%29_JE5-L3.png?039e0",
+    redstone_torch: "https://minecraft.wiki/images/Invicon_Redstone_Torch.png?e8629",
     amethyst_shard: "https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555",
     mastery: "https://minecraft.wiki/images/Enchanted_Golden_Apple_JE2_BE2.gif?f4719",
   };
@@ -122,6 +121,9 @@ function AchevementUnlock(achievementName, skilltype = "general") {
       break;
     case "spawnegg":
       imageURL = images.spawn_egg;
+      break;
+    case "redstone_torch":
+      imageURL = images.redstone_torch;
       break;
     case "lodestone":
       imageURL = images.lodestone;
@@ -2033,12 +2035,12 @@ export function hintrecipeData() {
       <p class="mb-0 fw-bold">
       <div class="hstack">
         <span class="hint-text-title">${hint.title}</span>
-        <small class="ms-auto hint-text-slots d-none">Slots: ${hint.Slots.join(", ")}</small>
+        <small class="ms-auto hint-text-slots">Slots: ${hint.Slots.join(", ")}</small>
       </div>
       <p class="mb-0 hint-text-desc" style="font-size: 0.9rem">${hint.hint_desc}</p>
       </div>
       </div>
-      <div class="container-fluid ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? "" : "d-none"}" id="hint-recipe-box-${index}"
+      <div class="container-fluid custom-box box-rev ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? "" : "d-none"}" id="hint-recipe-box-${index}"
          aria-disabled="true" tabindex="-1" role="region"
          style="pointer-events: none; ">
       <div class="row p-2 g-2">

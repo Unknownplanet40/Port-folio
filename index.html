@@ -91,10 +91,9 @@
           <div class="modal fade overflow-hidden" id="Modal-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="Modal-1Label" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
               <div class="modal-content rounded-1 custom-box">
-                <div class="modal-header border-bottom-0">
+                <div class="modal-header border-bottom-0 pb-0">
                   <h5 class="modal-title" id="Modal-1-HL"></h5>
                   <script>
-                    // dispaly cuurent modal size
                     function displayModalSize() {
                       const modal = document.getElementById("Modal-1");
                       const modalLabel = document.getElementById("Modal-1-HL");
@@ -118,7 +117,7 @@
                       window.addEventListener("resize", updateModalSize);
                       updateModalSize();
                     }
-                    displayModalSize();
+                    //displayModalSize();
                   </script>
                   <button type="button" class="btn-close MC-BTN-CLICK nofocus" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -153,7 +152,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 col-md-12 col-xl-8 custom-box box-rev b-size mb-1 d-flex flex-column">
+                    <div class="col-12 col-md-12 col-xl-8 d-flex flex-column custom-box box-rev">
                       <div id="WarningOverlay" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
                         <div class="mobileoverlay text-center p-4 h-100 w-100 d-flex flex-column justify-content-center align-items-center">
                           <p class="text-white fw-bold mb-3" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 1rem; text-shadow: 2px 2px 4px #000000" id="mobile-warning-title">
@@ -161,7 +160,7 @@
                           </p>
                         </div>
                       </div>
-                      <div class="row m-3">
+                      <div class="row mx-2 mt-2">
                         <div class="col-12 col-md-12 col-xl-5">
                           <div class="hstack">
                             <div class="vstack d-flex justify-content-center align-items-center text-center">
@@ -194,7 +193,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-12 col-md-12 col-xl-7 order-2 order-xl-1 mt-4 mt-sm-5 mt-md-4 mt-xl-0">
+                        <div class="col-12 col-md-12 col-xl-7 order-2 order-xl-1 mt-sm-5 mt-md-4 mt-xl-0">
                           <small class="text-uppercase fw-bold" style="font-family: 'MinecraftiaRegular', sans-serif; font-size: 0.8rem">Inventory Items</small>
                           <div class="container">
                             <div class="hstack justify-content-center">
@@ -273,8 +272,8 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-12 order-1 order-xl-2 p-2 pt-3" style="font-family: 'MinecraftiaRegular', sans-serif">
-                          <div class="container-fluid h-100 w-100" style="overflow-y: auto; max-height: 120px" id="item-info-box">
+                        <div class="col-12 order-1 order-xl-2 p-1 pt-3" style="font-family: 'MinecraftiaRegular', sans-serif">
+                          <div class="container-fluid h-100 w-100 p-2" style="overflow-y: auto;" id="item-info-box">
                             <p class="my-1 mb-3 h6 fw-bolder" id="item-name">Item Name Placeholder</p>
                             <p class="text-wrap" style="font-size: 0.9rem; text-align: justify; text-indent: 1.2rem" id="item-description">
                               Item description placeholder. This is where the description of the selected item will be displayed. It can include details about the item's properties, usage, and any
@@ -284,12 +283,12 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-12 tooltip-box p-4">
+                    <div class="col-12 tooltip-box p-3">
                       <div class="row g-3">
                         <div class="col-md-6">
                           <p class="text-start mb-3 fw-bold">Most used Programming Languages</p>
                           <div>
-                            <span class="mc-lang-label">PHP</span>
+                            <span class="mc-lang-label ms-5">PHP</span>
                             <div class="mc-xp-container">
                               <div class="mc-xp-bg">
                                 <div class="mc-xp-fill" style="--progress: 67%"></div>
@@ -298,7 +297,7 @@
                             </div>
                           </div>
                           <div class="mt-2">
-                            <span class="mc-lang-label">JavaScript</span>
+                            <span class="mc-lang-label ms-5">JavaScript</span>
                             <div class="mc-xp-container">
                               <div class="mc-xp-bg">
                                 <div class="mc-xp-fill" style="--progress: 36%"></div>
@@ -307,7 +306,7 @@
                             </div>
                           </div>
                           <div class="mt-2">
-                            <span class="mc-lang-label">HTML & CSS</span>
+                            <span class="mc-lang-label ms-5">HTML & CSS</span>
                             <div class="mc-xp-container">
                               <div class="mc-xp-bg">
                                 <div class="mc-xp-fill" style="--progress: 79%"></div>
@@ -319,7 +318,7 @@
                         <div class="col-md-6">
                           <p class="text-start mb-3 fw-bold">Most used Frameworks & Libraries</p>
                           <div>
-                            <span class="mc-lang-label">Bootstrap</span>
+                            <span class="mc-lang-label ms-5">Bootstrap</span>
                             <div class="mc-xp-container">
                               <div class="mc-xp-bg">
                                 <div class="mc-xp-fill" style="--progress: 85%"></div>
@@ -328,7 +327,7 @@
                             </div>
                           </div>
                           <div class="mt-2">
-                            <span class="mc-lang-label">jQuery</span>
+                            <span class="mc-lang-label ms-5">jQuery</span>
                             <div class="mc-xp-container">
                               <div class="mc-xp-bg">
                                 <div class="mc-xp-fill" style="--progress: 70%"></div>
@@ -337,7 +336,7 @@
                             </div>
                           </div>
                           <div class="mt-2">
-                            <span class="mc-lang-label">MySQL</span>
+                            <span class="mc-lang-label ms-5">MySQL</span>
                             <div class="mc-xp-container">
                               <div class="mc-xp-bg">
                                 <div class="mc-xp-fill" style="--progress: 60%"></div>
