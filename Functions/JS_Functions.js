@@ -34,7 +34,7 @@ let recipeDatas = {
   jquery: {
     title: "jQuery Library",
     body: "This uses scripting logic, performance, and precision targeting to enable simple control mechanisms for complex DOM manipulation with minimal code.",
-    itemSrc: "https://minecraft.wiki/images/Redstone_Torch_JE5.png?ceef5",
+    itemSrc: "https://minecraft.wiki/images/Invicon_Redstone_Torch.png?e8629",
   },
   troubleshooting: {
     title: "Troubleshooting (Technical Support)",
@@ -52,6 +52,100 @@ let itemtooltipsData = {
   quartz: { title: "Precision & Aesthetics", body: "Clean code, attention to detail, and pixel-perfect UI design.", slotID: "item-slot-5" },
   ender_pearl: { title: "Connectivity & Telemetry", body: "Managing network requests and connecting disparate systems (APIs).", slotID: "item-slot-6" },
 };
+
+const unlock = "<img src='./Assets/confirm.png' alt='Unlock Icon' class='hint-icon align-self-start me-0' />";
+const lock = "<img src='./Assets/cancel.png' alt='Lock Icon' class='hint-icon align-self-start me-0' />";
+const iron_ingot = "<img src='https://minecraft.wiki/images/Iron_Ingot_JE3_BE2.png?849cb' alt='Iron Ingot' class='slot-image-small' draggable='false' />";
+const redstone_dust = "<img src='https://minecraft.wiki/images/Redstone_Dust_JE2_BE2.png?8cf17' alt='Redstone Dust' class='slot-image-small' draggable='false' />";
+const feather = "<img src='https://minecraft.wiki/images/Feather_JE3_BE2.png?b869b' alt='Feather' class='slot-image-small' draggable='false' />";
+const book = "<img src='https://minecraft.wiki/images/Book_and_Quill_JE2_BE2.png?2128f' alt='Book' class='slot-image-small' draggable='false' />";
+const quartz = "<img src='https://minecraft.wiki/images/Nether_Quartz_JE2_BE2.png?d0049' alt='Quartz' class='slot-image-small' draggable='false' />";
+const ender_pearl = "<img src='https://minecraft.wiki/images/Ender_Pearl_JE3_BE2.png?829a7' alt='Ender Pearl' class='slot-image-small' draggable='false' />";
+
+const diamond = "<img src='https://minecraft.wiki/images/Diamond_JE3_BE3.png?99d00' alt='Diamond' class='slot-image' draggable='false' />";
+const command_block = "<img src='https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024' alt='Command Block' class='slot-image' draggable='false' />";
+const spawn_egg = "<img src='https://minecraft.wiki/images/Invicon_Villager_Spawn_Egg.png?ef5c9' alt='Spawn Egg' class='slot-image' draggable='false' />";
+const lodestone = "<img src='https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f' alt='Lodestone' class='slot-image' />";
+const redstone_torch = "<img src='https://minecraft.wiki/images/Invicon_Redstone_Torch.png?e8629' alt='Redstone Torch' class='slot-image' draggable='false' />";
+const amethyst_shard = "<img src='https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555' alt='Amethyst Shard' class='slot-image' draggable='false' />";
+
+function AchevementUnlock(achievementName, skilltype = "general") {
+  if (localStorage.getItem(`unlockedSkill_${skilltype}`) === "true") {
+    $("#mcToast").removeClass("mc-toast-out").addClass("mc-toast-top");
+    $("#mc-toast-title").text("");
+    $("#mc-toast-desc").text("");
+    return;
+  }
+
+  $("#mcToast").addClass("mc-toast-in mc-toast-top");
+  $("#mc-toast-desc").removeClass("d-none").html(`Skill Unlocked: <strong class="text-primary">${achievementName}</strong>`);
+  $("#mc-toast-progress-bar").addClass("d-none");
+  $("#mc-toast-title").text("Achievement Unlocked!").fadeIn(1500);
+
+  setTimeout(() => {
+    $("#mcToast").removeClass("mc-toast-in").addClass("mc-toast-out");
+  }, 5000);
+
+  setTimeout(() => {
+    $("#mcToast").removeClass("mc-toast-out").addClass("mc-toast-top");
+    $("#mc-toast-title").text("");
+    $("#mc-toast-desc").text("");
+  }, 5500);
+
+  const audio = new Audio("Assets/Sounds/Achievement_Unlock.mp3");
+  audio.preload = "auto";
+  audio.volume = skilltype === "mastery" ? 1 : 0.5;
+  audio.playsInline = true;
+  audio.play().catch(() => {
+    console.warn("Achievement sound playback was prevented due to browser restrictions.");
+  });
+
+  const images = {
+    diamond: "https://minecraft.wiki/images/Diamond_JE3_BE3.png?99d00",
+    command_block: "https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024",
+    spawn_egg: "https://minecraft.wiki/images/Invicon_Villager_Spawn_Egg.png?ef5c9",
+    lodestone: "https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f",
+    redstone_torch: "https://minecraft.wiki/images/Invicon_Redstone_Torch.png?e8629",
+    amethyst_shard: "https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555",
+    mastery: "https://minecraft.wiki/images/Enchanted_Golden_Apple_JE2_BE2.gif?f4719",
+  };
+
+  let imageURL = null;
+
+  switch (skilltype) {
+    case "diamond":
+      imageURL = images.diamond;
+      break;
+    case "commandblock":
+      imageURL = images.command_block;
+      break;
+    case "spawnegg":
+      imageURL = images.spawn_egg;
+      break;
+    case "redstone_torch":
+      imageURL = images.redstone_torch;
+      break;
+    case "lodestone":
+      imageURL = images.lodestone;
+      break;
+    case "amethystshard":
+      imageURL = images.amethyst_shard;
+      break;
+    case "mastery":
+      imageURL = images.mastery;
+      break;
+    default:
+      imageURL = "Assets/unavailable.png";
+      break;
+  }
+
+  $("#mc-toast-icon").css({
+    "background-image": `url(${imageURL})`,
+    "background-size": "contain",
+    "background-repeat": "no-repeat",
+    "background-position": "center",
+  });
+}
 
 export function PanoramaBackground(ContainerID = "PanoramaContainerNONE", EnableBackgroundAnimation = true, RotationSpeed = 0.001, isStatic = false) {
   if (isStatic) {
@@ -1562,6 +1656,7 @@ export function InventorySetup() {
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
+      AchevementUnlock("Frontend Development", "diamond");
       localStorage.setItem("unlockedSkill_diamond", "true");
       hintrecipeData();
     }
@@ -1574,6 +1669,7 @@ export function InventorySetup() {
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
+      AchevementUnlock("Backend Development", "commandblock");
       localStorage.setItem("unlockedSkill_commandblock", "true");
       hintrecipeData();
     }
@@ -1586,6 +1682,7 @@ export function InventorySetup() {
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
+      AchevementUnlock("Database Management", "spawnegg");
       localStorage.setItem("unlockedSkill_spawnegg", "true");
       hintrecipeData();
     }
@@ -1598,6 +1695,7 @@ export function InventorySetup() {
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
+      AchevementUnlock("API Integration", "lodestone");
       localStorage.setItem("unlockedSkill_lodestone", "true");
       hintrecipeData();
     }
@@ -1610,6 +1708,7 @@ export function InventorySetup() {
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
+      AchevementUnlock("Bootstrap Framework", "lever");
       localStorage.setItem("unlockedSkill_lever", "true");
       hintrecipeData();
     }
@@ -1622,7 +1721,8 @@ export function InventorySetup() {
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
-      localStorage.setItem("unlockedSkill_rockstone_dust", "true");
+      AchevementUnlock("jQuery Library", "redstone_torch");
+      localStorage.setItem("unlockedSkill_redstone_torch", "true");
       hintrecipeData();
     }
 
@@ -1634,6 +1734,7 @@ export function InventorySetup() {
 
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
+      AchevementUnlock("Troubleshooting", "amethystshard");
       localStorage.setItem("unlockedSkill_amethystshard", "true");
       hintrecipeData();
     }
@@ -1710,14 +1811,8 @@ export function hintrecipeData() {
       Slots: ["1", "2", "4", "5", "6"],
     },
     {
-      title: "Armor Stand",
-      item_name: "armorstand",
-      hint_desc: "Deploy a <b>standardized structure</b> by combining <b>Structure</b>, <b>Performance</b>, and <b>Knowledge</b> in the <b>top-left and middle-left</b> quadrant.",
-      Slots: ["1", "3", "4"],
-    },
-    {
-      title: "Lever",
-      item_name: "lever",
+      title: "Redstone Torch",
+      item_name: "redstone_torch",
       hint_desc: "Create the <b>simple control</b> by placing <b>Logic</b> next to <b>Performance</b> in the <b>top row</b>, with <b>Precision</b> directly in the <b>center slot</b>.",
       Slots: ["2", "3", "5"],
     },
@@ -1735,6 +1830,7 @@ export function hintrecipeData() {
     },
   ];
 
+  // frontend skill recipe data
   const Skill_diamond = {
     slot_1: "iron_ingot",
     slot_2: null,
@@ -1748,6 +1844,7 @@ export function hintrecipeData() {
     outcome: "diamond",
   };
 
+  // backend skill recipe data
   const Skill_commandblock = {
     slot_1: "iron_ingot",
     slot_2: "redstone_dust",
@@ -1761,6 +1858,7 @@ export function hintrecipeData() {
     outcome: "commandblock",
   };
 
+  // database skill recipe data
   const Skill_spawnegg = {
     slot_1: "iron_ingot",
     slot_2: "redstone_dust",
@@ -1774,20 +1872,8 @@ export function hintrecipeData() {
     outcome: "spawnegg",
   };
 
+  // jquery skill recipe data
   const Skill_redstone_torch = {
-    slot_1: "iron_ingot",
-    slot_2: null,
-    slot_3: "feather",
-    slot_4: "book",
-    slot_5: null,
-    slot_6: null,
-    slot_7: null,
-    slot_8: null,
-    slot_9: null,
-    outcome: "armorstand",
-  };
-
-  const Skill_lever = {
     slot_1: null,
     slot_2: "redstone_dust",
     slot_3: "feather",
@@ -1797,9 +1883,10 @@ export function hintrecipeData() {
     slot_7: null,
     slot_8: null,
     slot_9: null,
-    outcome: "lever",
+    outcome: "redstone_torch",
   };
 
+   // bootstrap skill recipe data
   const Skill_lodestone = {
     slot_1: null,
     slot_2: "redstone_dust",
@@ -1813,6 +1900,7 @@ export function hintrecipeData() {
     outcome: "lodestone",
   };
 
+  // troubleshooting skill recipe data
   const Skill_amethystshard = {
     slot_1: "iron_ingot",
     slot_2: "redstone_dust",
@@ -1828,22 +1916,37 @@ export function hintrecipeData() {
 
   // create hint boxes dynamically
   const hintContainer = $("#hint-content");
-  const unlock = "<img src='./Assets/confirm.png' alt='Unlock Icon' class='hint-icon align-self-start me-0' />";
-  const lock = "<img src='./Assets/cancel.png' alt='Lock Icon' class='hint-icon align-self-start me-0' />";
-  const iron_ingot = "<img src='https://minecraft.wiki/images/Iron_Ingot_JE3_BE2.png?849cb' alt='Iron Ingot' class='slot-image-small' draggable='false' />";
-  const redstone_dust = "<img src='https://minecraft.wiki/images/Redstone_Dust_JE2_BE2.png?8cf17' alt='Redstone Dust' class='slot-image-small' draggable='false' />";
-  const feather = "<img src='https://minecraft.wiki/images/Feather_JE3_BE2.png?b869b' alt='Feather' class='slot-image-small' draggable='false' />";
-  const book = "<img src='https://minecraft.wiki/images/Book_and_Quill_JE2_BE2.png?2128f' alt='Book' class='slot-image-small' draggable='false' />";
-  const quartz = "<img src='https://minecraft.wiki/images/Nether_Quartz_JE2_BE2.png?d0049' alt='Quartz' class='slot-image-small' draggable='false' />";
-  const ender_pearl = "<img src='https://minecraft.wiki/images/Ender_Pearl_JE3_BE2.png?829a7' alt='Ender Pearl' class='slot-image-small' draggable='false' />";
 
-  const diamond = "<img src='https://minecraft.wiki/images/Diamond_JE3_BE3.png?99d00' alt='Diamond' class='slot-image' draggable='false' />";
-  const command_block = "<img src='https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024' alt='Command Block' class='slot-image' draggable='false' />";
-  const spawn_egg = "<img src='https://minecraft.wiki/images/Invicon_Villager_Spawn_Egg.png?ef5c9' alt='Spawn Egg' class='slot-image' draggable='false' />";
-  const lodestone = "<img src='https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f' alt='Lodestone' class='slot-image' />";
-  const redstone_torch = "<img src='https://minecraft.wiki/images/Redstone_Torch_JE5.png?ceef5' alt='Armor Stand' class='slot-image' draggable='false' />";
-  const lever = "<img src='https://minecraft.wiki/images/Wall_Lever_%28S%29_JE5-L3.png?039e0' alt='Lever' class='slot-image' />";
-  const amethyst_shard = "<img src='https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555' alt='Amethyst Shard' class='slot-image' draggable='false' />";
+  function skillProgressStatus() {
+    let unlockedCount = 0;
+    // check if any skill is unlocked
+    const skills = ["unlockedSkill_diamond", "unlockedSkill_commandblock", "unlockedSkill_spawnegg", "unlockedSkill_redstone_torch", "unlockedSkill_lodestone", "unlockedSkill_amethystshard"];
+
+    skills.forEach((skill) => {
+      if (localStorage.getItem(skill) === "true") {
+        unlockedCount += 1;
+      }
+    });
+    const progressPercent = Math.floor((unlockedCount / skills.length) * 100);
+
+    const progressBar = $(`
+    <div class="mc-xp-container my-2">
+      <div class="mc-xp-bg">
+        <div class="mc-xp-fill" style="--progress: ${progressPercent}%;"></div>
+        <div class="mc-xp-level">${progressPercent >= 100 ? "Mastery Unlocked!" : progressPercent + "%"}</div>
+      </div>
+    </div>
+  `);
+
+    hintContainer.append(progressBar);
+
+    if (progressPercent >= 100) {
+      setTimeout(() => {
+        AchevementUnlock("All Skills Unlocked!", "mastery");
+        localStorage.setItem("unlockedSkill_mastery", "true");  
+      }, 6000);
+    }
+  }
 
   function checkSkillUnlock(skillKey) {
     return localStorage.getItem(skillKey) === "true";
@@ -1855,7 +1958,6 @@ export function hintrecipeData() {
       commandblock: Skill_commandblock,
       spawnegg: Skill_spawnegg,
       redstone_torch: Skill_redstone_torch,
-      lever: Skill_lever,
       lodestone: Skill_lodestone,
       amethystshard: Skill_amethystshard,
     };
@@ -1905,9 +2007,6 @@ export function hintrecipeData() {
         case "redstone_torch":
           itemimage = redstone_torch;
           break;
-        case "lever":
-          itemimage = lever;
-          break;
         case "lodestone":
           itemimage = lodestone;
           break;
@@ -1925,6 +2024,8 @@ export function hintrecipeData() {
 
   hintContainer.empty();
 
+  skillProgressStatus();
+
   hintData.forEach((hint, index) => {
     const hintBox = $(`
     <div class="vstack hint-box-container position-relative">
@@ -1939,7 +2040,7 @@ export function hintrecipeData() {
       <p class="mb-0 hint-text-desc" style="font-size: 0.9rem">${hint.hint_desc}</p>
       </div>
       </div>
-      <div class="container-fluid ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? "" : "d-none"}" id="hint-recipe-box-${index}"
+      <div class="container-fluid custom-box box-rev ${checkSkillUnlock(`unlockedSkill_${hint.item_name}`) ? "" : "d-none"}" id="hint-recipe-box-${index}"
          aria-disabled="true" tabindex="-1" role="region"
          style="pointer-events: none; ">
       <div class="row p-2 g-2">

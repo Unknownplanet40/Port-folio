@@ -273,13 +273,21 @@ canvas {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
 }
 
+.cus-box {
+  border-left: 3px solid #fff;
+  border-top: 3px solid #fff;
+  border-right: 3px solid #7f7f7f;
+  border-bottom: 3px solid #7f7f7f;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.667);
+}
+
 .box-rev {
   border-radius: 0;
   border-top: 5px solid #7f7f7f;
   border-left: 5px solid #7f7f7f;
   border-right: 5px solid #fff;
   border-bottom: 5px solid #fff;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.667);
+  box-shadow: 2px 2px 5px rgb(0, 0, 0);
 }
 
 .char-Box {
@@ -643,7 +651,7 @@ canvas {
 
 .mc-toast {
   width: 400px;
-  height: 100px;
+  height: auto;
   transform: translateX(450px);
 
   display: flex;
@@ -658,7 +666,7 @@ canvas {
 
   background: transparent;
   box-sizing: border-box;
-  padding: 10px 10px;
+  padding: 15px 10px;
   image-rendering: pixelated;
 
   font-family: "MinecraftiaRegular", sans-serif;
@@ -687,15 +695,15 @@ canvas {
   color: #ffd800;
   font-size: 14px;
   line-height: 1.2;
-  margin-top: 4px;
+  margin-top: 6px;
   margin-bottom: 2px;
   position: relative;
 }
 
 .mc-toast-desc {
   color: #ffffff;
-  font-size: 13px;
-  max-width: inherit;
+  font-size: 14px;
+  width: 100%;
 }
 
 .mc-toast-progress-bar {
@@ -719,4 +727,20 @@ canvas {
   100% {
     transform: translateX(450px);
   }
+}
+
+.invBG {
+  border-style: solid;
+  border-width: 24px;
+  border-image-source: url("./Assets/map.png");
+  border-image-slice: 12 fill;
+  border-image-repeat: round;
+  background: transparent;
+  box-sizing: border-box;
+  image-rendering: pixelated;
+}
+
+.hint-text-slots{
+  font-size: 0.8rem;
+  color: #ffffff0f;
 }
