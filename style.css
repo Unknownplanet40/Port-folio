@@ -740,7 +740,33 @@ canvas {
   image-rendering: pixelated;
 }
 
-.hint-text-slots{
+.hint-text-slots {
   font-size: 0.8rem;
   color: #ffffff0f;
 }
+
+.counterimg {
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+}
+
+@keyframes counterBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.counterimg:hover {
+  animation: counterBounce 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.counterimg img {
+  width: 100%;
+  height: auto;
+}
+

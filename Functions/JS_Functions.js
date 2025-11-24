@@ -68,6 +68,7 @@ const spawn_egg = "<img src='https://minecraft.wiki/images/Invicon_Villager_Spaw
 const lodestone = "<img src='https://minecraft.wiki/images/Lodestone_JE1_BE1.png?3348f' alt='Lodestone' class='slot-image' />";
 const redstone_torch = "<img src='https://minecraft.wiki/images/Invicon_Redstone_Torch.png?e8629' alt='Redstone Torch' class='slot-image' draggable='false' />";
 const amethyst_shard = "<img src='https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555' alt='Amethyst Shard' class='slot-image' draggable='false' />";
+let isLoadingDone = false;
 
 function AchevementUnlock(achievementName, skilltype = "general") {
   if (localStorage.getItem(`unlockedSkill_${skilltype}`) === "true") {
@@ -276,6 +277,8 @@ export function PanoramaBackground(ContainerID = "PanoramaContainerNONE", Enable
 export function LoadingScreenFadeOut(isUnderDevelopment = false, enableLoadingScreen = true) {
   if (!enableLoadingScreen) {
     $("#LoadingScreen").remove();
+    localStorage.setItem("StarttheSound", "true");
+    isLoadingDone = true;
     return;
   }
 
@@ -309,6 +312,7 @@ export function LoadingScreenFadeOut(isUnderDevelopment = false, enableLoadingSc
               }
               $(this).remove();
               localStorage.setItem("StarttheSound", "true");
+              isLoadingDone = true;
             });
           }, 2500);
         });
@@ -899,6 +903,30 @@ export function ExternalLinkSetup() {
   } else {
     $("#WarningOverlay").addClass("d-none");
   }
+
+  if (isLoadingDone) {
+    setTimeout(() => {
+      const $visitorCounter = $("#site-visitor-counter");
+      if ($visitorCounter.length) {
+        $visitorCounter.toggleClass("d-none");
+      }
+    }, 3000);
+  }
+
+  $(".vcounter").click(function () {
+    const $visitorCounter = $("#site-visitor-counter");
+    if ($visitorCounter.length) {
+      $visitorCounter.toggleClass("d-none");
+    }
+
+    setTimeout(() => {
+      if ($visitorCounter.length && !$visitorCounter.hasClass("d-none")) {
+        $visitorCounter.addClass("d-none");
+      }
+    }, 10000);
+  });
+
+  $(".counterimg").addClass("MC-BTN-CLICK");
 }
 
 export function SoundEffectSetup() {
@@ -1886,7 +1914,7 @@ export function hintrecipeData() {
     outcome: "redstone_torch",
   };
 
-   // bootstrap skill recipe data
+  // bootstrap skill recipe data
   const Skill_lodestone = {
     slot_1: null,
     slot_2: "redstone_dust",
@@ -1943,7 +1971,7 @@ export function hintrecipeData() {
     if (progressPercent >= 100) {
       setTimeout(() => {
         AchevementUnlock("All Skills Unlocked!", "mastery");
-        localStorage.setItem("unlockedSkill_mastery", "true");  
+        localStorage.setItem("unlockedSkill_mastery", "true");
       }, 6000);
     }
   }
