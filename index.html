@@ -273,7 +273,7 @@
                           </div>
                         </div>
                         <div class="col-12 order-1 order-xl-2 p-1 pt-3" style="font-family: 'MinecraftiaRegular', sans-serif">
-                          <div class="container-fluid h-100 w-100 p-2" style="overflow-y: auto;" id="item-info-box">
+                          <div class="container-fluid h-100 w-100 p-2" style="overflow-y: auto" id="item-info-box">
                             <p class="my-1 mb-3 h6 fw-bolder" id="item-name">Item Name Placeholder</p>
                             <p class="text-wrap" style="font-size: 0.9rem; text-align: justify; text-indent: 1.2rem" id="item-description">
                               Item description placeholder. This is where the description of the selected item will be displayed. It can include details about the item's properties, usage, and any
@@ -428,17 +428,31 @@
               </div>
             </div>
           </div>
+          <div
+            class="position-absolute mb-3 ms-3"
+            id="site-visitor-counter"
+            style="bottom: 5%; width: auto"
+            data-tooltip
+            data-title="Visitor Counter"
+            data-body="Number of visitors who have visited this portfolio website."
+          >
+            <div class="position-relative">
+              <a href="http://www.freevisitorcounters.com"></a>
+              <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=01c85d8adba43a3875e86cd5115b5a26312cc738'></script>
+              <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1446660/t/2"></script>
+            </div>
+          </div>
           <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3 w-100 d-none d-md-block">
-            <span class="text-white" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000">
+            <span class="text-white" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000; cursor: pointer">
               <div class="hstack">
-                <span class="mx-3" id="portfolio-version"></span>
+                <span class="mx-3 vcounter" id="portfolio-version"></span>
                 <span class="mx-auto"></span>
-                <span class="mx-3">Copyright © <span id="current-year"></span> <span id="owner-name">Owner Name</span></span>
+                <span class="mx-3" style="cursor: default">Copyright © <span id="current-year"></span> <span id="owner-name">Owner Name</span></span>
               </div>
             </span>
           </div>
           <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3 w-100 d-block d-md-none">
-            <span class="text-white" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000">
+            <span class="text-white vcounter" style="font-family: 'MinecraftiaRegular', sans-serif; text-shadow: 2px 2px 4px #000000">
               <div class="hstack">
                 <span class="mx-3" id="portfolio-version-2"></span>
               </div>
