@@ -770,3 +770,137 @@ canvas {
   height: auto;
 }
 
+.textfield-MC {
+  font-family: "MinecraftiaRegular", sans-serif;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  line-height: normal;
+  border-radius: 0;
+  background-color: #c2ac88;
+  border-left: 4px solid #7f7f7f;
+  border-top: 4px solid #7f7f7f;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+  text-transform: capitalize;
+}
+
+.textfield-MC:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: #c2ac88;
+  filter: brightness(110%);
+  border-left: 4px solid #414141;
+  border-top: 4px solid #414141;
+  border-right: 4px solid #fff;
+  border-bottom: 4px solid #fff;
+}
+
+.textfield-MC::placeholder,
+.textfield-MC::-webkit-input-placeholder,
+.textfield-MC:-ms-input-placeholder,
+.textfield-MC::-ms-input-placeholder {
+  color: gray;
+}
+
+.textfield-MC-INVALID {
+  background-color: #ffcccc;
+  animation: invalidFlash 0.5s ease-in-out infinite;
+}
+
+@keyframes invalidFlash {
+  0% {
+    background-color: #ffcccc;
+  }
+  40% {
+    background-color: #ffebeb;
+  }
+  60% {
+    background-color: #ffffff;
+  }
+  100% {
+    background-color: #ffcccc;
+  }
+}
+
+.textfield-MC:autofill {
+  box-shadow: 0 0 0px 1000px #c2ac88 inset !important;
+  -webkit-text-fill-color: black !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.MCinfo {
+  display: none;
+}
+
+.MCinfo-in{
+  display: block;
+  animation: infoFadeIn 0.5s ease-in forwards;
+}
+
+@keyframes infoFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.MCinfo-out{
+  display: block;
+  animation: infoFadeOut 0.5s ease-out forwards;
+}
+
+@keyframes infoFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+.mapbox{
+  border-style: solid;
+  border-width: 24px;
+  border-image-source: url("./Assets/map.png");
+  border-image-slice: 10 fill;
+  border-image-repeat: round;
+  background: transparent;
+  box-sizing: border-box;
+  image-rendering: pixelated;
+}
+
+@media screen and (max-width: 576px) {
+  .mapbox{
+    background: #c2ac88;
+    border-radius: 0;
+  }
+}
+
+/* .modal-backdrop {
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  will-change: backdrop-filter, background-color, transform;
+  animation: fadeInBackdrop 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeInBackdrop {
+  from {
+    backdrop-filter: blur(0px) saturate(100%);
+    background-color: rgba(255, 255, 255, 0);
+  }
+  to {
+    backdrop-filter: blur(8px) saturate(120%);
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+} */
+
