@@ -43,7 +43,7 @@ $(document).ready(function () {
   InventorySetup();
   hintrecipeData();
 
-  /*   if (UNDER_DEVELOPMENT) {
-    $("#Modal-1").modal("show");
-  } */
+  if (UNDER_DEVELOPMENT) {
+    $("#Modal-2").modal("show");
+  }
 });

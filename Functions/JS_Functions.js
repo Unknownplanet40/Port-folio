@@ -927,6 +927,10 @@ export function ExternalLinkSetup() {
   });
 
   $(".counterimg").addClass("MC-BTN-CLICK");
+
+  $("#contact-submit-button").on("click", function () {
+    SendEmail($("#contact-name").val(), $("#contact-email").val(), $("#contact-subject").val(), $("#contact-message").val());
+  });
 }
 
 export function SoundEffectSetup() {
@@ -2110,4 +2114,107 @@ export function hintrecipeData() {
     `);
     hintContainer.append(hintBox);
   });
+}
+
+function SendEmail(name, email, subject, message) {
+  const contactInfoText = $("#contact-info-text");
+  const contactSubmitButton = $("#contact-submit-button");
+  contactSubmitButton.css("pointer-events", "none");
+  contactInfoText.addClass("tooltip-box MCinfo-in").removeClass("MCinfo-out");
+  const randomTimeout = Math.floor(Math.random() * 3000) + 2000;
+  const mailto = `mailto:mymovies1.out.of.5@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+    `Name: ${name}\nEmail: ${email}\n\n${message}\n\n\n-- Sent Directly from Portfolio Website Contact Form`
+  )} `;
+
+  if (name.trim().length === 0 || email.trim().length === 0 || subject.trim().length === 0 || message.trim().length === 0) {
+    contactInfoText.addClass("MCinfo-in").removeClass("MCinfo-out").html("<p class='mb-0 text-danger'>Please fill in all fields before submitting.</p>");
+    contactSubmitButton.css("pointer-events", "auto");
+    setTimeout(() => {
+      contactInfoText.addClass("MCinfo-out").removeClass("MCinfo-in");
+    }, 3000);
+    return;
+  }
+
+  if (!/^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim())) {
+    contactInfoText.addClass("MCinfo-in").removeClass("MCinfo-out").html("<p class='mb-0 text-danger'>Please enter a valid email address.</p>");
+    contactSubmitButton.css("pointer-events", "auto");
+    setTimeout(() => {
+      contactInfoText.addClass("MCinfo-out").removeClass("MCinfo-in");
+    }, 3000);
+    return;
+  }
+
+  if (message.trim().length < 10) {
+    contactInfoText.addClass("MCinfo-in").removeClass("MCinfo-out").html("<p class='mb-0 text-danger'>Message is too short. Please provide more details.</p>");
+    contactSubmitButton.css("pointer-events", "auto");
+    setTimeout(() => {
+      contactInfoText.addClass("MCinfo-out").removeClass("MCinfo-in");
+    }, 3000);
+    return;
+  }
+
+  if (message.trim().length > 2000) {
+    contactInfoText.addClass("MCinfo-in").removeClass("MCinfo-out").html("<p class='mb-0 text-danger'>Message is too long. Please limit to 2000 characters.</p>");
+    contactSubmitButton.css("pointer-events", "auto");
+    setTimeout(() => {
+      contactInfoText.addClass("MCinfo-out").removeClass("MCinfo-in");
+    }, 3000);
+    return;
+  }
+
+  if (subject.trim().length > 100) {
+    contactInfoText.addClass("MCinfo-in").removeClass("MCinfo-out").html("<p class='mb-0 text-danger'>Subject is too long. Please limit to 100 characters.</p>");
+    contactSubmitButton.css("pointer-events", "auto");
+    setTimeout(() => {
+      contactInfoText.addClass("MCinfo-out").removeClass("MCinfo-in");
+    }, 3000);
+    return;
+  }
+
+  if (name.trim().length > 50) {
+    contactInfoText.addClass("MCinfo-in").removeClass("MCinfo-out").html("<p class='mb-0 text-danger'>Name is too long. Please limit to 50 characters.</p>");
+    contactSubmitButton.css("pointer-events", "auto");
+    setTimeout(() => {
+      contactInfoText.addClass("MCinfo-out").removeClass("MCinfo-in");
+    }, 3000);
+    return;
+  }
+
+  if (!navigator.onLine) {
+    contactInfoText.addClass("MCinfo-in").removeClass("MCinfo-out").html("<p class='mb-0 text-danger'>You are currently offline. Please check your internet connection and try again.</p>");
+    contactSubmitButton.css("pointer-events", "auto");
+    setTimeout(() => {
+      contactInfoText.addClass("MCinfo-out").removeClass("MCinfo-in");
+    }, 3000);
+    return;
+  }
+
+  contactInfoText.addClass("MCinfo-in").removeClass("MCinfo-out").html("<p class='mb-0 text-secondary'>Processing your request...</p>");
+
+  setTimeout(() => {
+    contactInfoText.html("<p class='mb-0 text-danger'>Oh no! Our email service is currently unavailable.</p>").fadeIn();
+    setTimeout(() => {
+      contactInfoText.addClass("MCinfo-out").removeClass("MCinfo-in");
+      contactSubmitButton.css("pointer-events", "auto");
+      setTimeout(() => {
+        contactInfoText.html("");
+        contactInfoText
+          .removeClass("tooltip-box MCinfo MCinfo-out")
+          .html(
+            "<p class='mb-0'>Can't Send Message? Click <a id='contact-email-link' class='MC-BTN-CLICK text-primary text-decoration-none' style='cursor: pointer;'>here</a> to send using your default email client.</p>"
+          );
+      }, 500);
+    }, randomTimeout + 3000);
+  }, randomTimeout);
+
+  $(document)
+    .off("click", "#contact-email-link")
+    .on("click", "#contact-email-link", function (e) {
+      e.preventDefault();
+      if (typeof mailto === "string" && mailto.length) {
+        window.location.href = mailto;
+      }
+    });
+
+  return;
 }
