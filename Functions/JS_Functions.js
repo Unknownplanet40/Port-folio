@@ -676,6 +676,46 @@ export function TooltipInit() {
 }
 
 export function ExternalLinkSetup() {
+
+  let modalOpenCloseSound = {
+    Open: new Audio("https://minecraft.wiki/images/Shulker_box_open.ogg?69091"),
+    Close: new Audio("https://minecraft.wiki/images/Shulker_box_close.ogg?7f6e1"),
+  }
+  let listOfModals = ['#modal-1', '#modal-2'];
+
+  if (window.jQuery && modalOpenCloseSound) {
+    const $ = window.jQuery;
+
+    // build selector from listOfModals and include capitalized variants (#modal -> #Modal)
+    const modalSelectors = listOfModals
+      .flatMap((id) => {
+        if (typeof id !== "string") return [];
+        const variants = [id];
+        if (id.toLowerCase().startsWith("#modal")) variants.push(id.replace(/^#modal/i, "#Modal"));
+        return variants;
+      })
+      .join(", ");
+
+    // delegated handlers using the computed selector string
+    $(document).on("show.bs.modal", modalSelectors, function () {
+      try {
+        modalOpenCloseSound.Open.volume = 0.3;
+        modalOpenCloseSound.Open.currentTime = 0;
+        modalOpenCloseSound.Open.play().catch(() => {});
+      } catch (e) {}
+    });
+
+    $(document).on("hide.bs.modal", modalSelectors, function () {
+      try {
+        modalOpenCloseSound.Close.volume = 0.3;
+        modalOpenCloseSound.Close.currentTime = 0;
+        modalOpenCloseSound.Close.play().catch(() => {});
+      } catch (e) {}
+    });
+  }
+
+
+
   $(".GH-Click").click(function () {
     window.open("https://github.com/Unknownplanet40", "_blank");
   });
@@ -1590,6 +1630,20 @@ export function InventorySetup() {
   function handleDrop(e, slot) {
     e.preventDefault();
 
+    let dropsound = [
+      "https://minecraft.wiki/images/transcoded/End_portal_eye_place1.ogg/End_portal_eye_place1.ogg.mp3",
+      "https://minecraft.wiki/images/transcoded/End_portal_eye_place2.ogg/End_portal_eye_place2.ogg.mp3",
+      "https://minecraft.wiki/images/transcoded/End_portal_eye_place3.ogg/End_portal_eye_place3.ogg.mp3",
+    ];
+
+    const audio = new Audio(dropsound[Math.floor(Math.random() * dropsound.length)]);
+    audio.preload = "auto";
+    audio.volume = 0.8;
+    audio.playsInline = true;
+    audio.play().catch((err) => {
+      console.warn("Audio playback failed:", err);
+    });
+
     let itemId = e.dataTransfer.getData("item-id");
     let original = document.getElementById(itemId);
 
@@ -1660,23 +1714,6 @@ export function InventorySetup() {
       if (InventoryItems[slotKey] !== TroubleshootingPattern[slotKey]) TroubleshootingMatch = false;
     }
 
-    console.log(
-      "FrontendMatch:",
-      FrontendMatch,
-      "BackendMatch:",
-      BackendMatch,
-      "DatabaseMatch:",
-      DatabaseMatch,
-      "APIIntegrationMatch:",
-      APIIntegrationMatch,
-      "BootstrapMatch:",
-      BootstrapMatch,
-      "JQueryMatch:",
-      JQueryMatch,
-      "TroubleshootingMatch:",
-      TroubleshootingMatch
-    );
-
     mainInventorySlot.innerHTML = "";
     $("#item-info-box").css("visibility", "hidden");
 
@@ -1684,6 +1721,16 @@ export function InventorySetup() {
       const data = recipeDatas["frontend"];
       mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="FrontEnd-Item" draggable="false"/>`;
       AddTooltipData(mainInventorySlot, "frontend", true);
+
+      if (localStorage.getItem("unlockedSkill_diamond") === "true") {
+        const audio = new Audio("https://minecraft.wiki/images/Random_levelup.ogg?3bb41");
+        audio.preload = "auto";
+        audio.volume = 0.3;
+        audio.playsInline = true;
+        audio.play().catch((err) => {
+          console.warn("Audio playback failed:", err);
+        });
+      }
 
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
@@ -1780,7 +1827,6 @@ export function InventorySetup() {
     slot.addEventListener("drop", (e) => handleDrop(e, slot));
   });
 
-  // ITEM SLOTS (if moving back from inventory)
   itemSlots.forEach((slot) => {
     slot.addEventListener("dragover", (e) => e.preventDefault());
     slot.addEventListener("drop", (e) => handleDrop(e, slot));
@@ -1809,6 +1855,9 @@ export function InventorySetup() {
   inventorySlots.forEach((slot) => {
     slot.addEventListener("contextmenu", (e) => {
       e.preventDefault();
+
+      if (slot.id === "inv-slot-MAIN") return;
+
       slot.innerHTML = "";
       RemoveTooltipData(slot.id);
       let slotKey = slot.id.replace("inv-slot-", "slot_");
@@ -1962,13 +2011,13 @@ export function hintrecipeData() {
     const progressPercent = Math.floor((unlockedCount / skills.length) * 100);
 
     const progressBar = $(`
-    <div class="mc-xp-container my-2">
+    <div class="py-3">
       <div class="mc-xp-bg">
-        <div class="mc-xp-fill" style="--progress: ${progressPercent}%;"></div>
-        <div class="mc-xp-level">${progressPercent >= 100 ? "Mastery Unlocked!" : progressPercent + "%"}</div>
+      <div class="mc-xp-fill" style="--progress: ${progressPercent}%;"></div>
+      <div class="mc-xp-level">${progressPercent >= 100 ? "Mastery Unlocked!" : progressPercent + "%"}</div>
       </div>
     </div>
-  `);
+    `);
 
     hintContainer.append(progressBar);
 

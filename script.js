@@ -42,8 +42,4 @@ $(document).ready(function () {
   handleCharacterViewer(ROTATE_CHARACTER, isStaticPlayerCharacter);
   InventorySetup();
   hintrecipeData();
-
-  if (UNDER_DEVELOPMENT) {
-    $("#Modal-2").modal("show");
-  }
 });
