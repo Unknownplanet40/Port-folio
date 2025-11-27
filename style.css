@@ -888,7 +888,7 @@ canvas {
   }
 }
 
-.modal-backdrop {
+/* .modal-backdrop {
   backdrop-filter: blur(10px) saturate(120%);
   -webkit-backdrop-filter: blur(10px) saturate(120%);
   background-color: rgba(255, 255, 255, 0.06);
@@ -896,4 +896,26 @@ canvas {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   will-change: backdrop-filter, background-color, transform;
+} */
+
+.slot-selected {
+  box-sizing: border-box;
+  image-rendering: pixelated;
+  border-style: solid;
+  border-width: 2px;
+  border-image-source: url("./Assets/Selected.png");
+  border-image-slice: 1 fill;
+  border-image-repeat: round;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.slot-selected img {
+  padding: 8px;
+}
+
+
+.mh {
+  max-height: 330px;
+  min-height: 330px;
 }

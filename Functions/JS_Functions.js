@@ -714,7 +714,41 @@ export function ExternalLinkSetup() {
     });
   }
 
+  $(".helmet-slot").click(function () {
+    $("#helmet-content").removeClass("d-none");
+    $("#chestplate-content").addClass("d-none");
+    $("#leggings-content").addClass("d-none");
+    $("#boots-content").addClass("d-none");
+    $(this).addClass("slot-selected");
+    $(".chestplate-slot, .leggings-slot, .boots-slot").removeClass("slot-selected");
+  });
 
+  $(".chestplate-slot").click(function () {
+    $("#helmet-content").addClass("d-none");
+    $("#chestplate-content").removeClass("d-none");
+    $("#leggings-content").addClass("d-none");
+    $("#boots-content").addClass("d-none");
+    $(this).addClass("slot-selected");
+    $(".helmet-slot, .leggings-slot, .boots-slot").removeClass("slot-selected");
+  });
+
+  $(".leggings-slot").click(function () {
+    $("#helmet-content").addClass("d-none");
+    $("#chestplate-content").addClass("d-none");
+    $("#leggings-content").removeClass("d-none");
+    $("#boots-content").addClass("d-none");
+    $(this).addClass("slot-selected");
+    $(".helmet-slot, .chestplate-slot, .boots-slot").removeClass("slot-selected");
+  });
+
+  $(".boots-slot").click(function () {
+    $("#helmet-content").addClass("d-none");
+    $("#chestplate-content").addClass("d-none");
+    $("#leggings-content").addClass("d-none");
+    $("#boots-content").removeClass("d-none");
+    $(this).addClass("slot-selected");
+    $(".helmet-slot, .chestplate-slot, .leggings-slot").removeClass("slot-selected");
+  });
 
   $(".GH-Click").click(function () {
     window.open("https://github.com/Unknownplanet40", "_blank");
