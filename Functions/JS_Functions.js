@@ -721,6 +721,7 @@ export function ExternalLinkSetup() {
     $("#boots-content").addClass("d-none");
     $(this).addClass("slot-selected");
     $(".chestplate-slot, .leggings-slot, .boots-slot").removeClass("slot-selected");
+    $(".hint-btn").css("visibility", "hidden");
   });
 
   $(".chestplate-slot").click(function () {
@@ -730,6 +731,7 @@ export function ExternalLinkSetup() {
     $("#boots-content").addClass("d-none");
     $(this).addClass("slot-selected");
     $(".helmet-slot, .leggings-slot, .boots-slot").removeClass("slot-selected");
+    $(".hint-btn").css("visibility", "visible");
   });
 
   $(".leggings-slot").click(function () {
@@ -739,6 +741,7 @@ export function ExternalLinkSetup() {
     $("#boots-content").addClass("d-none");
     $(this).addClass("slot-selected");
     $(".helmet-slot, .chestplate-slot, .boots-slot").removeClass("slot-selected");
+    $(".hint-btn").css("visibility", "hidden");
   });
 
   $(".boots-slot").click(function () {
@@ -748,6 +751,7 @@ export function ExternalLinkSetup() {
     $("#boots-content").removeClass("d-none");
     $(this).addClass("slot-selected");
     $(".helmet-slot, .chestplate-slot, .leggings-slot").removeClass("slot-selected");
+    $(".hint-btn").css("visibility", "hidden");
   });
 
   $(".GH-Click").click(function () {

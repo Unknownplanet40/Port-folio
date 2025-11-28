@@ -423,7 +423,7 @@ canvas {
   image-rendering: pixelated;
   clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
   transition: clip-path 0.6s ease-out;
-  animation: xpFillAnimation 0.6s ease-out;
+  animation: xpFillAnimation 0.6s ease-out forwards;
 }
 
 .mc-xp-level {
@@ -450,10 +450,19 @@ canvas {
 }
 
 @keyframes xpFillAnimation {
-  from {
+  0% {
     clip-path: inset(0 100% 0 0);
   }
-  to {
+  60% {
+    clip-path: inset(0 calc(100% - (var(--progress, 0%) + 6%)) 0 0);
+  }
+  70% {
+    clip-path: inset(0 calc(100% - (var(--progress, 0%) + 3%)) 0 0);
+  }
+  80% {
+    clip-path: inset(0 calc(100% - (var(--progress, 0%) + 1%)) 0 0);
+  }
+  100% {
     clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
   }
 }
@@ -918,4 +927,21 @@ canvas {
 .mh {
   max-height: 330px;
   min-height: 330px;
+  animation: mhAnim 0.5s ease-in-out forwards;
+}
+
+@keyframes mhAnim {
+  from {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(10px);
+    opacity: 1;
+  }
+}
+
+.hint-btn{
+  transition: opacity 360ms cubic-bezier(0.2,0.9,0.2,1), transform 360ms cubic-bezier(0.2,0.9,0.2,1);
+  will-change: opacity, transform;
 }
