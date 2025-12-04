@@ -1,11 +1,11 @@
 import { PanoramaBackground, LoadingScreenFadeOut, ServiceWorkerRegister, Splashtext, CopyRightName, TooltipInit, ExternalLinkSetup, handleCharacterViewer } from "./Functions/JS_Functions.js";
-import { BackgroundMusic, SoundEffectSetup, InventorySetup, hintrecipeData } from "./Functions/JS_Functions.js";
+import { BackgroundMusic, SoundEffectSetup, InventorySetup, hintrecipeData, hideshowprogressbar } from "./Functions/JS_Functions.js";
 
 if (typeof $ === "undefined") {
   throw new Error("jQuery is required for this script to work. Please include jQuery before this script.");
 }
 
-let devmode = true;
+let devmode = false;
 let UNDER_DEVELOPMENT = false;
 let ENABLE_BACKGROUND_ANIMATION = true;
 let BACKGROUND_ROTATION_SPEED = 0.001;
@@ -42,4 +42,5 @@ $(document).ready(function () {
   handleCharacterViewer(ROTATE_CHARACTER, isStaticPlayerCharacter);
   InventorySetup();
   hintrecipeData();
+  hideshowprogressbar();
 });

@@ -401,6 +401,30 @@ canvas {
   height: 10px;
   position: relative;
   image-rendering: pixelated;
+  animation: xpContainerFadeIn 0.3s ease-in forwards;
+}
+
+.MC-pb-container-1,
+.MC-pb-container-2 {
+  animation: pbContainerFadeIn 0.5s ease-in forwards;
+}
+
+@keyframes pbContainerFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes xpContainerFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .mc-xp-bg {
@@ -446,7 +470,6 @@ canvas {
   font-weight: bold;
   color: ghostwhite;
   text-shadow: 1px 1px 0 #000;
-  padding-left: 4px;
 }
 
 @keyframes xpFillAnimation {
@@ -897,7 +920,7 @@ canvas {
   }
 }
 
-/* .modal-backdrop {
+.modal-backdrop {
   backdrop-filter: blur(10px) saturate(120%);
   -webkit-backdrop-filter: blur(10px) saturate(120%);
   background-color: rgba(255, 255, 255, 0.06);
@@ -905,7 +928,7 @@ canvas {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   will-change: backdrop-filter, background-color, transform;
-} */
+}
 
 .slot-selected {
   box-sizing: border-box;
@@ -925,8 +948,8 @@ canvas {
 
 
 .mh {
-  max-height: 330px;
-  min-height: 330px;
+  max-height: 300px;
+  min-height: 300px;
   animation: mhAnim 0.5s ease-in-out forwards;
 }
 

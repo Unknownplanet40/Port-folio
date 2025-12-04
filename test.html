@@ -37,110 +37,105 @@
       referrerpolicy="no-referrer"
     ></script>
     <style>
-      body {
-        background-color: #121212;
-        /* hide scroll bar but still able to scroll */
-        overflow: hidden;
+      :root {
+        --icon-scale: 5; /* change this to make the icon bigger/smaller */
       }
 
-      .mc-xp-container {
-        width: 100%;
-        height: 24px;
-        position: relative;
+      .icon {
+        width: 16px;
+        height: 16px;
+        background-repeat: no-repeat;
         image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+        -webkit-transform: scale(var(--icon-scale));
+        transform: scale(var(--icon-scale));
+        transform-origin: 0 0;
+        will-change: transform;
       }
 
-      .mc-xp-bg {
-        background: url("textures/experience_bar_background.png") no-repeat;
-        background-size: 100% 100%;
-        width: 100%;
-        height: 24px;
-        position: relative;
+      .icon-sea_grass {
+        background-image: url("tall_seagrass_top.png");
+        background-position: 0 0;
+        animation: seag-animation 1.5s steps(19) infinite;
+      }
+      .icon-fire {
+        background-image: url("fire_0.png");
+        background-position: 0 0;
+        animation: fire-animation 1.5s steps(32) infinite;
+      }
+
+      .icon-fire-soul {
+        background-image: url("soul_fire_1.png");
+        background-position: 0 0;
+        animation: fire-animation 1.5s steps(32) infinite;
+      }
+
+      .icon-nether {
+        background-image: url("nether_portal.png");
+        background-position: 0 0;
+        animation: fire-animation 1.5s steps(32) infinite;
+      }
+
+
+      @keyframes seag-animation {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 0 -304px;
+        }
+      }
+
+      @keyframes fire-animation {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 0 -512px;
+        }
+      }
+
+      .font {
+        background-image: url("asciillager.png");
+        background-position: 0 0;
         image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+        -webkit-transform: scale(var(--icon-scale));
+        transform: scale(var(--icon-scale));
+        transform-origin: 0 0;
+        will-change: transform;
       }
 
-      .mc-xp-fill {
-        background: url("textures/experience_bar_progress.png") no-repeat;
-        background-size: 100% 100%;
-        width: 100%;
-        height: 24px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        image-rendering: pixelated;
-        clip-path: inset(0 calc(100% - var(--progress, 0%)) 0 0);
-        transition: clip-path 0.6s ease-out;
+      .font-1 {
+        width: 3px;
+        height: 8px;
+        background-position: 0 0;
       }
 
-      .mc-xp-level {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(
-          -50%,
-          -60%
-        ); /* Slightly above center like in Minecraft */
-        color: #80ff00;
-        text-shadow: 1px 1px 0 #000;
-        font-size: 14px;
-        font-weight: bold;
-        pointer-events: none; /* don’t block clicks */
+      .font-2 {
+        width: 3px;
+        height: 8px;
+        background-position: -6px 0;
       }
     </style>
   </head>
 
   <body>
-    <div
-      class="modal fade"
-      id="AboutMeModal"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="AboutMeModalLabel"
-      aria-hidden="true"
-    >
-      <div
-        class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-md-down modal-dialog-scrollable"
-      >
-        <div class="modal-content custom-box">
-          <div class="modal-body border-0 p-0">
-            <div class="row g-0 p-3">
-              <div class="col-12 d-flex justify-content-end">
-                <small class="position-absolute start-0 ps-3 text-muted"
-                  >Note: This is not the final layout. Content will be
-                  addedsoon.</small
-                >
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="col-12" style="height: 360px; max-height: 360px">
-                <div class="mc-xp-container">
-                  <div class="mc-xp-bg">
-                    <div
-                      class="mc-xp-fill"
-                      style="--progress: 0%"
-                      id="mc-xp-fill"
-                    ></div>
-                    <div class="mc-xp-level" id="mc-xp-level"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <div class="icon icon-sea_grass"></div>
+      </div>
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <div class="icon icon-fire"></div>
+      </div>
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <div class="icon icon-fire-soul"></div>
+      </div>
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <div class="icon icon-nether"></div>
       </div>
     </div>
-    <script>
-      $(document).ready(function () {
-        var aboutMeModal = new bootstrap.Modal($("#AboutMeModal")[0], {
-          keyboard: false,
-        });
-        aboutMeModal.show();
-      });
-    </script>
   </body>
 </html>
