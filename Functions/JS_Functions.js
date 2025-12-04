@@ -676,6 +676,82 @@ export function TooltipInit() {
 }
 
 export function ExternalLinkSetup() {
+  let modalOpenCloseSound = {
+    Open: new Audio("https://minecraft.wiki/images/Shulker_box_open.ogg?69091"),
+    Close: new Audio("https://minecraft.wiki/images/Shulker_box_close.ogg?7f6e1"),
+  };
+  let listOfModals = ["#modal-1", "#modal-2"];
+
+  if (window.jQuery && modalOpenCloseSound) {
+    const $ = window.jQuery;
+
+    const modalSelectors = listOfModals
+      .flatMap((id) => {
+        if (typeof id !== "string") return [];
+        const variants = [id];
+        if (id.toLowerCase().startsWith("#modal")) variants.push(id.replace(/^#modal/i, "#Modal"));
+        return variants;
+      })
+      .join(", ");
+
+    // delegated handlers using the computed selector string
+    $(document).on("show.bs.modal", modalSelectors, function () {
+      try {
+        modalOpenCloseSound.Open.volume = 0.3;
+        modalOpenCloseSound.Open.currentTime = 0;
+        modalOpenCloseSound.Open.play().catch(() => {});
+      } catch (e) {}
+    });
+
+    $(document).on("hide.bs.modal", modalSelectors, function () {
+      try {
+        modalOpenCloseSound.Close.volume = 0.3;
+        modalOpenCloseSound.Close.currentTime = 0;
+        modalOpenCloseSound.Close.play().catch(() => {});
+      } catch (e) {}
+    });
+  }
+
+  $(".helmet-slot").click(function () {
+    $("#helmet-content").removeClass("d-none");
+    $("#chestplate-content").addClass("d-none");
+    $("#leggings-content").addClass("d-none");
+    $("#boots-content").addClass("d-none");
+    $(this).addClass("slot-selected");
+    $(".chestplate-slot, .leggings-slot, .boots-slot").removeClass("slot-selected");
+    $(".hint-btn").css("visibility", "hidden");
+  });
+
+  $(".chestplate-slot").click(function () {
+    $("#helmet-content").addClass("d-none");
+    $("#chestplate-content").removeClass("d-none");
+    $("#leggings-content").addClass("d-none");
+    $("#boots-content").addClass("d-none");
+    $(this).addClass("slot-selected");
+    $(".helmet-slot, .leggings-slot, .boots-slot").removeClass("slot-selected");
+    $(".hint-btn").css("visibility", "visible");
+  });
+
+  $(".leggings-slot").click(function () {
+    $("#helmet-content").addClass("d-none");
+    $("#chestplate-content").addClass("d-none");
+    $("#leggings-content").removeClass("d-none");
+    $("#boots-content").addClass("d-none");
+    $(this).addClass("slot-selected");
+    $(".helmet-slot, .chestplate-slot, .boots-slot").removeClass("slot-selected");
+    $(".hint-btn").css("visibility", "hidden");
+  });
+
+  $(".boots-slot").click(function () {
+    $("#helmet-content").addClass("d-none");
+    $("#chestplate-content").addClass("d-none");
+    $("#leggings-content").addClass("d-none");
+    $("#boots-content").removeClass("d-none");
+    $(this).addClass("slot-selected");
+    $(".helmet-slot, .chestplate-slot, .leggings-slot").removeClass("slot-selected");
+    $(".hint-btn").css("visibility", "hidden");
+  });
+
   $(".GH-Click").click(function () {
     window.open("https://github.com/Unknownplanet40", "_blank");
   });
@@ -1590,6 +1666,20 @@ export function InventorySetup() {
   function handleDrop(e, slot) {
     e.preventDefault();
 
+    let dropsound = [
+      "https://minecraft.wiki/images/transcoded/End_portal_eye_place1.ogg/End_portal_eye_place1.ogg.mp3",
+      "https://minecraft.wiki/images/transcoded/End_portal_eye_place2.ogg/End_portal_eye_place2.ogg.mp3",
+      "https://minecraft.wiki/images/transcoded/End_portal_eye_place3.ogg/End_portal_eye_place3.ogg.mp3",
+    ];
+
+    const audio = new Audio(dropsound[Math.floor(Math.random() * dropsound.length)]);
+    audio.preload = "auto";
+    audio.volume = 0.8;
+    audio.playsInline = true;
+    audio.play().catch((err) => {
+      console.warn("Audio playback failed:", err);
+    });
+
     let itemId = e.dataTransfer.getData("item-id");
     let original = document.getElementById(itemId);
 
@@ -1660,23 +1750,6 @@ export function InventorySetup() {
       if (InventoryItems[slotKey] !== TroubleshootingPattern[slotKey]) TroubleshootingMatch = false;
     }
 
-    console.log(
-      "FrontendMatch:",
-      FrontendMatch,
-      "BackendMatch:",
-      BackendMatch,
-      "DatabaseMatch:",
-      DatabaseMatch,
-      "APIIntegrationMatch:",
-      APIIntegrationMatch,
-      "BootstrapMatch:",
-      BootstrapMatch,
-      "JQueryMatch:",
-      JQueryMatch,
-      "TroubleshootingMatch:",
-      TroubleshootingMatch
-    );
-
     mainInventorySlot.innerHTML = "";
     $("#item-info-box").css("visibility", "hidden");
 
@@ -1685,11 +1758,22 @@ export function InventorySetup() {
       mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="FrontEnd-Item" draggable="false"/>`;
       AddTooltipData(mainInventorySlot, "frontend", true);
 
+      if (localStorage.getItem("unlockedSkill_diamond") === "true") {
+        const audio = new Audio("https://minecraft.wiki/images/Random_levelup.ogg?3bb41");
+        audio.preload = "auto";
+        audio.volume = 0.3;
+        audio.playsInline = true;
+        audio.play().catch((err) => {
+          console.warn("Audio playback failed:", err);
+        });
+      }
+
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
       AchevementUnlock("Frontend Development", "diamond");
       localStorage.setItem("unlockedSkill_diamond", "true");
+      localStorage.setItem("diamondSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
       hintrecipeData();
     }
 
@@ -1703,6 +1787,7 @@ export function InventorySetup() {
       $("#item-description").text(data.Long_Desc);
       AchevementUnlock("Backend Development", "commandblock");
       localStorage.setItem("unlockedSkill_commandblock", "true");
+      localStorage.setItem("commandblockSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
       hintrecipeData();
     }
 
@@ -1716,6 +1801,7 @@ export function InventorySetup() {
       $("#item-description").text(data.Long_Desc);
       AchevementUnlock("Database Management", "spawnegg");
       localStorage.setItem("unlockedSkill_spawnegg", "true");
+      localStorage.setItem("spawneggSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
       hintrecipeData();
     }
 
@@ -1729,6 +1815,7 @@ export function InventorySetup() {
       $("#item-description").text(data.Long_Desc);
       AchevementUnlock("API Integration", "lodestone");
       localStorage.setItem("unlockedSkill_lodestone", "true");
+      localStorage.setItem("lodestoneSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
       hintrecipeData();
     }
 
@@ -1742,6 +1829,7 @@ export function InventorySetup() {
       $("#item-description").text(data.Long_Desc);
       AchevementUnlock("Bootstrap Framework", "lever");
       localStorage.setItem("unlockedSkill_lever", "true");
+      localStorage.setItem("leverSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
       hintrecipeData();
     }
 
@@ -1755,6 +1843,7 @@ export function InventorySetup() {
       $("#item-description").text(data.Long_Desc);
       AchevementUnlock("jQuery Library", "redstone_torch");
       localStorage.setItem("unlockedSkill_redstone_torch", "true");
+      localStorage.setItem("redstone_torchSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
       hintrecipeData();
     }
 
@@ -1768,6 +1857,7 @@ export function InventorySetup() {
       $("#item-description").text(data.Long_Desc);
       AchevementUnlock("Troubleshooting", "amethystshard");
       localStorage.setItem("unlockedSkill_amethystshard", "true");
+      localStorage.setItem("amethystshardSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
       hintrecipeData();
     }
   }
@@ -1780,7 +1870,6 @@ export function InventorySetup() {
     slot.addEventListener("drop", (e) => handleDrop(e, slot));
   });
 
-  // ITEM SLOTS (if moving back from inventory)
   itemSlots.forEach((slot) => {
     slot.addEventListener("dragover", (e) => e.preventDefault());
     slot.addEventListener("drop", (e) => handleDrop(e, slot));
@@ -1809,6 +1898,9 @@ export function InventorySetup() {
   inventorySlots.forEach((slot) => {
     slot.addEventListener("contextmenu", (e) => {
       e.preventDefault();
+
+      if (slot.id === "inv-slot-MAIN") return;
+
       slot.innerHTML = "";
       RemoveTooltipData(slot.id);
       let slotKey = slot.id.replace("inv-slot-", "slot_");
@@ -1823,6 +1915,27 @@ export function InventorySetup() {
 }
 
 export function hintrecipeData() {
+
+  // check skill expirity and remove hints if expired
+
+  const now = Date.now();
+  const skills = [
+    "diamond",
+    "commandblock",
+    "spawnegg",
+    "lever",
+    "redstone_torch",
+    "amethystshard"
+  ];
+
+  skills.forEach(skill => {
+    const expiry = localStorage.getItem(`${skill}Skill_Expirity`);
+    if (expiry && now > parseInt(expiry)) {
+      localStorage.removeItem(`unlockedSkill_${skill}`);
+      localStorage.removeItem(`${skill}Skill_Expirity`);
+    }
+  });
+
   const hintData = [
     {
       title: "Diamond",
@@ -1962,13 +2075,13 @@ export function hintrecipeData() {
     const progressPercent = Math.floor((unlockedCount / skills.length) * 100);
 
     const progressBar = $(`
-    <div class="mc-xp-container my-2">
+    <div class="py-3">
       <div class="mc-xp-bg">
-        <div class="mc-xp-fill" style="--progress: ${progressPercent}%;"></div>
-        <div class="mc-xp-level">${progressPercent >= 100 ? "Mastery Unlocked!" : progressPercent + "%"}</div>
+      <div class="mc-xp-fill" style="--progress: ${progressPercent}%;"></div>
+      <div class="mc-xp-level">${progressPercent >= 100 ? "Mastery Unlocked!" : progressPercent + "%"}</div>
       </div>
     </div>
-  `);
+    `);
 
     hintContainer.append(progressBar);
 
@@ -2217,4 +2330,57 @@ function SendEmail(name, email, subject, message) {
     });
 
   return;
+}
+
+export function hideshowprogressbar() {
+  $(".MC-pb-2, .MC-pb-3").addClass("d-none");
+  $(".MC-pb-container-2").addClass("d-none");
+  let isContainer1Visible = true;
+  
+  $(document).on("show.bs.modal", "#Modal-1", function () {
+    function toggleProgressBarContainers() {
+      if (isContainer1Visible) {
+        $(".MC-pb-container-1").addClass("d-none");
+        $(".MC-pb-container-2").removeClass("d-none");
+      } else {
+        $(".MC-pb-container-2").addClass("d-none");
+        $(".MC-pb-container-1").removeClass("d-none");
+      }
+      isContainer1Visible = !isContainer1Visible;
+    }
+
+    function showProgressBars() {
+      $(".MC-pb-1")
+        .removeClass("d-none")
+        .fadeIn(500)
+        .promise()
+        .done(function () {
+          $(".MC-pb-2, .MC-pb-3").addClass("d-none").fadeOut(500);
+        });
+      setTimeout(() => {
+        $(".MC-pb-2")
+          .removeClass("d-none")
+          .fadeIn(500)
+          .promise()
+          .done(function () {
+            $(".MC-pb-1, .MC-pb-3").addClass("d-none").fadeOut(500);
+          });
+      }, 5000);
+      setTimeout(() => {
+        $(".MC-pb-3")
+          .removeClass("d-none")
+          .fadeIn(500)
+          .promise()
+          .done(function () {
+            $(".MC-pb-1, .MC-pb-2").addClass("d-none").fadeOut(500);
+          });
+      }, 10000);
+      setTimeout(() => {
+        toggleProgressBarContainers();
+        showProgressBars();
+      }, 15000);
+    }
+
+    setTimeout(showProgressBars, 500);
+  });
 }
