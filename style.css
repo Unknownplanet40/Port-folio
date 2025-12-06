@@ -16,6 +16,19 @@ canvas {
   display: block;
 }
 
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 .loading-overlay {
   background-color: rgb(239, 46, 59);
   color: white;
@@ -780,7 +793,7 @@ canvas {
 
 .hint-text-slots {
   font-size: 0.8rem;
-  color: #ffffff0f;
+  color: #ffffffbe;
 }
 
 .counterimg {

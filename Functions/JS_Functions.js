@@ -70,7 +70,7 @@ const redstone_torch = "<img src='https://minecraft.wiki/images/Invicon_Redstone
 const amethyst_shard = "<img src='https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555' alt='Amethyst Shard' class='slot-image' draggable='false' />";
 let isLoadingDone = false;
 
-function AchevementUnlock(achievementName, skilltype = "general") {
+function AchevementUnlock(achievementName, skilltype = "general", forExpiryToast = false) {
   if (localStorage.getItem(`unlockedSkill_${skilltype}`) === "true") {
     $("#mcToast").removeClass("mc-toast-out").addClass("mc-toast-top");
     $("#mc-toast-title").text("");
@@ -79,9 +79,22 @@ function AchevementUnlock(achievementName, skilltype = "general") {
   }
 
   $("#mcToast").addClass("mc-toast-in mc-toast-top");
-  $("#mc-toast-desc").removeClass("d-none").html(`Skill Unlocked: <strong class="text-primary">${achievementName}</strong>`);
+  if (skilltype === "cheatcode") {
+    if (achievementName === "Activated") {
+      $("#mc-toast-desc").removeClass("d-none").html(`You have activated the <strong class="text-warning">Konami Code</strong>!`);
+      $("#mc-toast-title").text("Cheat Activated!").fadeIn(1500);
+    } else {
+      $("#mc-toast-desc").removeClass("d-none").html(`You have deactivated the <strong class="text-warning">Konami Code</strong>.`);
+      $("#mc-toast-title").text("Cheat Deactivated!").fadeIn(1500);
+    }
+  } else {
+    $("#mc-toast-desc")
+      .removeClass("d-none")
+      .html(forExpiryToast ? `Your <strong class="text-danger">${achievementName}</strong> skill has expired.` : `Skill Unlocked: <strong class="text-primary">${achievementName}</strong>`);
+    $("#mc-toast-title").text("Achievement Unlocked!").fadeIn(1500);
+  }
+
   $("#mc-toast-progress-bar").addClass("d-none");
-  $("#mc-toast-title").text("Achievement Unlocked!").fadeIn(1500);
 
   setTimeout(() => {
     $("#mcToast").removeClass("mc-toast-in").addClass("mc-toast-out");
@@ -97,9 +110,12 @@ function AchevementUnlock(achievementName, skilltype = "general") {
   audio.preload = "auto";
   audio.volume = skilltype === "mastery" ? 1 : 0.5;
   audio.playsInline = true;
-  audio.play().catch(() => {
-    console.warn("Achievement sound playback was prevented due to browser restrictions.");
-  });
+
+  if (skilltype !== "cheatcode" && !forExpiryToast) {
+    audio.play().catch(() => {
+      console.warn("Achievement sound playback was prevented due to browser restrictions.");
+    });
+  }
 
   const images = {
     diamond: "https://minecraft.wiki/images/Diamond_JE3_BE3.png?99d00",
@@ -109,6 +125,8 @@ function AchevementUnlock(achievementName, skilltype = "general") {
     redstone_torch: "https://minecraft.wiki/images/Invicon_Redstone_Torch.png?e8629",
     amethyst_shard: "https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555",
     mastery: "https://minecraft.wiki/images/Enchanted_Golden_Apple_JE2_BE2.gif?f4719",
+    clock: "https://minecraft.wiki/images/Clock_JE3_BE3.gif?8eaae",
+    cheatcode: "https://minecraft.wiki/images/Nether_Star.gif?fb01f",
   };
 
   let imageURL = null;
@@ -134,6 +152,12 @@ function AchevementUnlock(achievementName, skilltype = "general") {
       break;
     case "mastery":
       imageURL = images.mastery;
+      break;
+    case "clock":
+      imageURL = images.clock;
+      break;
+    case "cheatcode":
+      imageURL = images.cheatcode;
       break;
     default:
       imageURL = "Assets/unavailable.png";
@@ -1915,24 +1939,36 @@ export function InventorySetup() {
 }
 
 export function hintrecipeData() {
-
-  // check skill expirity and remove hints if expired
-
   const now = Date.now();
-  const skills = [
-    "diamond",
-    "commandblock",
-    "spawnegg",
-    "lever",
-    "redstone_torch",
-    "amethystshard"
-  ];
+  const skills = ["diamond", "commandblock", "spawnegg", "lever", "redstone_torch", "amethystshard"];
 
-  skills.forEach(skill => {
+  skills.forEach((skill) => {
     const expiry = localStorage.getItem(`${skill}Skill_Expirity`);
     if (expiry && now > parseInt(expiry)) {
       localStorage.removeItem(`unlockedSkill_${skill}`);
       localStorage.removeItem(`${skill}Skill_Expirity`);
+      switch (skill) {
+        case "diamond":
+          AchevementRemove("Frontend Development", "clock", true);
+          break;
+        case "commandblock":
+          AchevementRemove("Backend Development", "clock", true);
+          break;
+        case "spawnegg":
+          AchevementRemove("Database Management", "clock", true);
+          break;
+        case "lever":
+          AchevementRemove("Bootstrap Framework", "clock", true);
+          break;
+        case "redstone_torch":
+          AchevementRemove("jQuery Library", "clock", true);
+          break;
+        case "amethystshard":
+          AchevementRemove("Troubleshooting", "clock", true);
+          break;
+        default:
+          break;
+      }
     }
   });
 
@@ -2059,12 +2095,13 @@ export function hintrecipeData() {
     outcome: "amethystshard",
   };
 
-  // create hint boxes dynamically
   const hintContainer = $("#hint-content");
+  //        localStorage.setItem("CheatActivated", "true");
+
+  let cheatActive = localStorage.getItem("CheatActivated") === "true" ? true : false;
 
   function skillProgressStatus() {
     let unlockedCount = 0;
-    // check if any skill is unlocked
     const skills = ["unlockedSkill_diamond", "unlockedSkill_commandblock", "unlockedSkill_spawnegg", "unlockedSkill_redstone_torch", "unlockedSkill_lodestone", "unlockedSkill_amethystshard"];
 
     skills.forEach((skill) => {
@@ -2180,7 +2217,7 @@ export function hintrecipeData() {
       <p class="mb-0 fw-bold">
       <div class="hstack">
         <span class="hint-text-title">${hint.title}</span>
-        <small class="ms-auto hint-text-slots">Slots: ${hint.Slots.join(", ")}</small>
+        <small class="ms-auto hint-text-slots ${cheatActive ? "" : "d-none"}">Slots: ${hint.Slots.join(", ")}</small>
       </div>
       <p class="mb-0 hint-text-desc" style="font-size: 0.9rem">${hint.hint_desc}</p>
       </div>
@@ -2336,7 +2373,7 @@ export function hideshowprogressbar() {
   $(".MC-pb-2, .MC-pb-3").addClass("d-none");
   $(".MC-pb-container-2").addClass("d-none");
   let isContainer1Visible = true;
-  
+
   $(document).on("show.bs.modal", "#Modal-1", function () {
     function toggleProgressBarContainers() {
       if (isContainer1Visible) {
@@ -2382,5 +2419,70 @@ export function hideshowprogressbar() {
     }
 
     setTimeout(showProgressBars, 500);
+  });
+}
+
+export function KonamiCode() {
+  const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+  let konamiIndex = 0;
+  let soundeffect = {
+    Deactivated: new Audio("https://minecraft.wiki/images/transcoded/Beacon_deactivate.ogg/Beacon_deactivate.ogg.mp3"),
+    Activated: new Audio("https://minecraft.wiki/images/transcoded/Beacon_activate.ogg/Beacon_activate.ogg.mp3"),
+    correctKey: new Audio("https://minecraft.wiki/images/transcoded/Amethyst_resonate2.ogg/Amethyst_resonate2.ogg.mp3"),
+    wrongKey: new Audio("https://minecraft.wiki/images/Glass_dig3.ogg?b1e00"),
+  };
+
+  document.addEventListener("keydown", function (e) {
+    if ($("#chestplate-content").hasClass("d-none")) {
+      return;
+    }
+
+    if (e.keyCode === konamiSequence[konamiIndex]) {
+      konamiIndex++;
+      soundeffect.correctKey.preload = "auto";
+      soundeffect.correctKey.volume = 0.1;
+      soundeffect.correctKey.playsInline = true;
+      soundeffect.correctKey.currentTime = 0;
+      soundeffect.correctKey.play().catch((err) => {
+        console.warn("Audio playback failed:", err);
+      });
+
+      if (konamiIndex === konamiSequence.length) {
+        konamiIndex = 0;
+        if (localStorage.getItem("CheatActivated") === "true") {
+          localStorage.removeItem("CheatActivated");
+          soundeffect.Deactivated.preload = "auto";
+          soundeffect.Deactivated.volume = 1.0;
+          soundeffect.Deactivated.playsInline = true;
+          soundeffect.Deactivated.play().catch((err) => {
+            console.warn("Audio playback failed:", err);
+          });
+          hintrecipeData();
+          AchevementUnlock("Deactivated", "cheatcode");
+        } else {
+          AchevementUnlock("Activated", "cheatcode");
+          localStorage.setItem("CheatActivated", "true");
+          hintrecipeData();
+          soundeffect.Activated.preload = "auto";
+          soundeffect.Activated.volume = 1.0;
+          soundeffect.Activated.playsInline = true;
+          soundeffect.Activated.play().catch((err) => {
+            console.warn("Audio playback failed:", err);
+          });
+        }
+      }
+    } else {
+      if (konamiIndex > 0) {
+        soundeffect.wrongKey.preload = "auto";
+        soundeffect.wrongKey.volume = 0.5;
+        soundeffect.wrongKey.playsInline = true;
+        soundeffect.wrongKey.currentTime = 0;
+        soundeffect.wrongKey.play().catch((err) => {
+          console.warn("Audio playback failed:", err);
+        });
+      }
+
+      konamiIndex = 0;
+    }
   });
 }
