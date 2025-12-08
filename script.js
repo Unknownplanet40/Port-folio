@@ -1,5 +1,5 @@
 import { PanoramaBackground, LoadingScreenFadeOut, ServiceWorkerRegister, Splashtext, CopyRightName, TooltipInit, ExternalLinkSetup, handleCharacterViewer } from "./Functions/JS_Functions.js";
-import { BackgroundMusic, SoundEffectSetup, InventorySetup, hintrecipeData, hideshowprogressbar, KonamiCode, fetchGitHubRepoData } from "./Functions/JS_Functions.js";
+import { BackgroundMusic, SoundEffectSetup, InventorySetup, hintrecipeData, hideshowprogressbar, KonamiCode, fetchData } from "./Functions/JS_Functions.js";
 
 if (typeof $ === "undefined") {
   throw new Error("jQuery is required for this script to work. Please include jQuery before this script.");
@@ -44,5 +44,5 @@ $(document).ready(function () {
   hintrecipeData();
   hideshowprogressbar();
   KonamiCode();
-  fetchGitHubRepoData();
+  fetchData("githubRepo");
 });

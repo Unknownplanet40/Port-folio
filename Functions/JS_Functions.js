@@ -2487,18 +2487,29 @@ export function KonamiCode() {
   });
 }
 
-export async function fetchGitHubRepoData() {
-  try {
-    const res = await fetch("/api/serverless");
-    if (!res.ok) {
-      console.error(`HTTP error! status: ${res.status}`);
-      return null;
+export async function fetchData(dataType) {
+    const url = `/api/serverless?data=${dataType}`;
+
+    try {
+        const res = await fetch(url);
+
+        if (!res.ok) {
+            console.error(`HTTP error! Status: ${res.status} - Could not retrieve data for: ${dataType}`);
+            return null;
+        }
+        
+        const data = await res.json();
+        console.log(`Data received for ${dataType}:`, data);
+        
+        if (data && data.ok === false) {
+             console.error(`API reported error: ${data.message}`);
+             return null;
+        }
+
+        return data;
+        
+    } catch (error) {
+        console.error(`Error fetching data for ${dataType}:`, error);
+        return null;
     }
-    const data = await res.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error("Error fetching GitHub repo data:", error);
-    return null;
-  }
 }
