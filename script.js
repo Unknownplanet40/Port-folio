@@ -44,5 +44,5 @@ $(document).ready(function () {
   hintrecipeData();
   hideshowprogressbar();
   KonamiCode();
-  fetchData("githubRepo");
+  fetchData("currentLocation");
 });

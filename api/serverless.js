@@ -19,20 +19,32 @@ export default function handler(req, res) {
   const dataType = requestUrl.searchParams.get('data'); 
 
   switch (dataType) {
-    case 'userdata':
-      return res.status(200).json({
-        ok: true,
-        endpoint: "UserData",
-        data: { user: "Caps", message: "User data loaded from secure API." }
-      });
+    case 'currentLocation':
+      // for getting ip = https://api.ipify.org?format=json
+      // for getting location from ip = https://ipapi.co/{ip}/json/ (use this if not working //http://ip-api.com/json/{ip})
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(ipData => {
+          const ip = ipData.ip;
+          return fetch(`https://ipapi.co/${ip}/json/`);
+        })
+        .then(response => response.json())
+        .then(locationData => {
+          return res.status(200).json({
+            ok: true,
+            endpoint: "CurrentLocation",
+            data: locationData
+          });
+        })
+        .catch(error => {
+          return res.status(500).json({
+            ok: false,
+            message: "Error fetching location data",
+            error: error.message
+          });
+        });
+      break;
 
-    case 'aboutme':
-      return res.status(200).json({
-        ok: true,
-        endpoint: "AboutMe",
-        data: { bio: "My developer bio is loading securely.", version: 1.0 }
-      });
-    
     default:
       return res.status(404).json({
         ok: false,
