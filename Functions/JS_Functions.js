@@ -2488,26 +2488,18 @@ export function KonamiCode() {
 }
 
 export async function fetchData(dataType) {
-    const url = `/api/serverless?data=${dataType}`;
+    const API_BASE_URL = 'https://port-folio-seven-flax.vercel.app';
+    const ENDPOINT = `/api/serverless?data=${dataType}`;
+    const url = API_BASE_URL + ENDPOINT;
 
     try {
         const res = await fetch(url);
-
         if (!res.ok) {
-            console.error(`HTTP error! Status: ${res.status} - Could not retrieve data for: ${dataType}`);
+            console.error(`HTTP error! Status: ${res.status}`);
             return null;
         }
-        
         const data = await res.json();
-        console.log(`Data received for ${dataType}:`, data);
-        
-        if (data && data.ok === false) {
-             console.error(`API reported error: ${data.message}`);
-             return null;
-        }
-
         return data;
-        
     } catch (error) {
         console.error(`Error fetching data for ${dataType}:`, error);
         return null;
