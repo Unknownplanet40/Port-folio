@@ -1,4 +1,4 @@
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const allowedOrigin = 'https://unknownplanet40.github.io'; 
 
   const origin = req.headers.origin;
@@ -20,29 +20,26 @@ export default function handler(req, res) {
 
   switch (dataType) {
     case 'currentLocation':
-      // for getting ip = https://api.ipify.org?format=json
-      // for getting location from ip = https://ipapi.co/{ip}/json/ (use this if not working //http://ip-api.com/json/{ip})
-      fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(ipData => {
-          const ip = ipData.ip;
-          return fetch(`https://ipapi.co/${ip}/json/`);
-        })
-        .then(response => response.json())
-        .then(locationData => {
-          return res.status(200).json({
-            ok: true,
-            endpoint: "CurrentLocation",
-            data: locationData
-          });
-        })
-        .catch(error => {
-          return res.status(500).json({
-            ok: false,
-            message: "Error fetching location data",
-            error: error.message
-          });
-        });
+      try {
+      const ipResponse = await fetch('https://api.ipify.org?format=json');
+      const ipData = await ipResponse.json();
+      const ip = ipData.ip;
+
+      const locationResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+      const locationData = await locationResponse.json();
+
+      return res.status(200).json({
+        ok: true,
+        endpoint: "CurrentLocation",
+        data: locationData
+      });
+      } catch (error) {
+      return res.status(500).json({
+        ok: false,
+        message: "Error fetching location data",
+        error: error.message
+      });
+      }
       break;
 
     default:
