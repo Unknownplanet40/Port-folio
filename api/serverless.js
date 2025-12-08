@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       const ipData = await ipResponse.json();
       const ip = ipData.ip;
 
-      const locationResponse = await fetch(`https://ipapi.co/${ip}/json/`);
+      const locationResponse = await fetch(`http://ip-api.com/json/${ip}`);
       const locationData = await locationResponse.json();
 
       return res.status(200).json({
