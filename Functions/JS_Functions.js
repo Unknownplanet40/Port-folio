@@ -2486,3 +2486,19 @@ export function KonamiCode() {
     }
   });
 }
+
+export async function fetchGitHubRepoData() {
+  try {
+    const res = await fetch("/api/serverless");
+    if (!res.ok) {
+      console.error(`HTTP error! status: ${res.status}`);
+      return null;
+    }
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching GitHub repo data:", error);
+    return null;
+  }
+}
