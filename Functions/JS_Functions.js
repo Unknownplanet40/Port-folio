@@ -2495,13 +2495,13 @@ export async function fetchData(dataType) {
     try {
         const res = await fetch(url);
         if (!res.ok) {
-            console.error(`HTTP error! Status: ${res.status}`);
+            console.warn(`HTTP error! Status: ${res.status}`);
             return null;
         }
         const data = await res.json();
         return data;
     } catch (error) {
-        console.error(`Error fetching data for ${dataType}:`, error);
+        console.warn(`Error fetching data for ${dataType}:`, error);
         return null;
     }
 }
