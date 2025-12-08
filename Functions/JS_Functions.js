@@ -29,7 +29,7 @@ let recipeDatas = {
     title: "Bootstrap Framework",
     body: "Utilizing pre-built, standardized structures for rapid, responsive design implementation.",
     Long_Desc: "We use structural components, documentation, and optimization to deploy a lightweight, ready-made, and responsive layout solution quickly.",
-    itemSrc: "https://minecraft.wiki/images/Wall_Lever_%28S%29_JE5-L3.png?039e0",
+    itemSrc: "https://minecraft.wiki/images/Conduit_Power_JE1_BE1.png?77148",
   },
   jquery: {
     title: "jQuery Library",
@@ -61,6 +61,7 @@ const feather = "<img src='https://minecraft.wiki/images/Feather_JE3_BE2.png?b86
 const book = "<img src='https://minecraft.wiki/images/Book_and_Quill_JE2_BE2.png?2128f' alt='Book' class='slot-image-small' draggable='false' />";
 const quartz = "<img src='https://minecraft.wiki/images/Nether_Quartz_JE2_BE2.png?d0049' alt='Quartz' class='slot-image-small' draggable='false' />";
 const ender_pearl = "<img src='https://minecraft.wiki/images/Ender_Pearl_JE3_BE2.png?829a7' alt='Ender Pearl' class='slot-image-small' draggable='false' />";
+const lever = "<img src='https://minecraft.wiki/images/Conduit_Power_JE1_BE1.png?77148' alt='Lever' class='slot-image' draggable='false' />";
 
 const diamond = "<img src='https://minecraft.wiki/images/Diamond_JE3_BE3.png?99d00' alt='Diamond' class='slot-image' draggable='false' />";
 const command_block = "<img src='https://minecraft.wiki/images/Impulse_Command_Block.gif?fb024' alt='Command Block' class='slot-image' draggable='false' />";
@@ -125,6 +126,7 @@ function AchevementUnlock(achievementName, skilltype = "general", forExpiryToast
     redstone_torch: "https://minecraft.wiki/images/Invicon_Redstone_Torch.png?e8629",
     amethyst_shard: "https://minecraft.wiki/images/Amethyst_Shard_JE2_BE1.png?56555",
     mastery: "https://minecraft.wiki/images/Enchanted_Golden_Apple_JE2_BE2.gif?f4719",
+    lever: "https://minecraft.wiki/images/Conduit_Power_JE1_BE1.png?77148",
     clock: "https://minecraft.wiki/images/Clock_JE3_BE3.gif?8eaae",
     cheatcode: "https://minecraft.wiki/images/Nether_Star.gif?fb01f",
   };
@@ -152,6 +154,9 @@ function AchevementUnlock(achievementName, skilltype = "general", forExpiryToast
       break;
     case "mastery":
       imageURL = images.mastery;
+      break;
+    case "lever":
+      imageURL = images.lever;
       break;
     case "clock":
       imageURL = images.clock;
@@ -744,6 +749,7 @@ export function ExternalLinkSetup() {
     $(this).addClass("slot-selected");
     $(".chestplate-slot, .leggings-slot, .boots-slot").removeClass("slot-selected");
     $(".hint-btn").css("visibility", "hidden");
+    $("#Modal-1-HL").html("");
   });
 
   $(".chestplate-slot").click(function () {
@@ -754,6 +760,7 @@ export function ExternalLinkSetup() {
     $(this).addClass("slot-selected");
     $(".helmet-slot, .leggings-slot, .boots-slot").removeClass("slot-selected");
     $(".hint-btn").css("visibility", "visible");
+    $("#Modal-1-HL").html("<small style='font-size: 12px;' class='text-secondary text-opacity-25'>Need Cheat? use Konami Code!</small>");
   });
 
   $(".leggings-slot").click(function () {
@@ -764,6 +771,7 @@ export function ExternalLinkSetup() {
     $(this).addClass("slot-selected");
     $(".helmet-slot, .chestplate-slot, .boots-slot").removeClass("slot-selected");
     $(".hint-btn").css("visibility", "hidden");
+    $("#Modal-1-HL").html("");
   });
 
   $(".boots-slot").click(function () {
@@ -774,6 +782,7 @@ export function ExternalLinkSetup() {
     $(this).addClass("slot-selected");
     $(".helmet-slot, .chestplate-slot, .leggings-slot").removeClass("slot-selected");
     $(".hint-btn").css("visibility", "hidden");
+    $("#Modal-1-HL").html("");
   });
 
   $(".GH-Click").click(function () {
@@ -1663,6 +1672,20 @@ export function InventorySetup() {
   let itemSlots = document.querySelectorAll(".itm-slot");
   let mainInventorySlot = document.getElementById("inv-slot-MAIN");
 
+  function playLevelUpSound(skillname) {
+    const audio = new Audio("https://minecraft.wiki/images/Random_levelup.ogg?3bb41");
+    audio.preload = "auto";
+    audio.volume = 0.3;
+    audio.playsInline = true;
+
+    if (localStorage.getItem(`unlockedSkill_${skillname}`) === "true") {
+      audio.play().catch((err) => {
+        console.warn("Audio playback failed:", err);
+      });
+    }
+    return;
+  }
+
   // Make any item draggable
   function makeDraggable(el) {
     el.draggable = true;
@@ -1689,6 +1712,17 @@ export function InventorySetup() {
   // Inventory drop handler
   function handleDrop(e, slot) {
     e.preventDefault();
+
+    if (slot.id.startsWith("item-slot-")) {
+      const playaudio = new Audio("https://minecraft.wiki/images/transcoded/Lava_pop.ogg/Lava_pop.ogg.mp3");
+      playaudio.preload = "auto";
+      playaudio.volume = 0.8;
+      playaudio.playsInline = true;
+      playaudio.play().catch((err) => {
+        console.warn("Audio playback failed:", err);
+      });
+      return;
+    }
 
     let dropsound = [
       "https://minecraft.wiki/images/transcoded/End_portal_eye_place1.ogg/End_portal_eye_place1.ogg.mp3",
@@ -1781,23 +1815,13 @@ export function InventorySetup() {
       const data = recipeDatas["frontend"];
       mainInventorySlot.innerHTML = `<img src="${data.itemSrc}" alt="" class="slot-image ms-0" id="FrontEnd-Item" draggable="false"/>`;
       AddTooltipData(mainInventorySlot, "frontend", true);
-
-      if (localStorage.getItem("unlockedSkill_diamond") === "true") {
-        const audio = new Audio("https://minecraft.wiki/images/Random_levelup.ogg?3bb41");
-        audio.preload = "auto";
-        audio.volume = 0.3;
-        audio.playsInline = true;
-        audio.play().catch((err) => {
-          console.warn("Audio playback failed:", err);
-        });
-      }
-
       $("#item-info-box").css("visibility", "visible");
       $("#item-name").text(data.title);
       $("#item-description").text(data.Long_Desc);
       AchevementUnlock("Frontend Development", "diamond");
       localStorage.setItem("unlockedSkill_diamond", "true");
       localStorage.setItem("diamondSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
+      playLevelUpSound("diamond");
       hintrecipeData();
     }
 
@@ -1812,6 +1836,7 @@ export function InventorySetup() {
       AchevementUnlock("Backend Development", "commandblock");
       localStorage.setItem("unlockedSkill_commandblock", "true");
       localStorage.setItem("commandblockSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
+      playLevelUpSound("commandblock");
       hintrecipeData();
     }
 
@@ -1825,7 +1850,9 @@ export function InventorySetup() {
       $("#item-description").text(data.Long_Desc);
       AchevementUnlock("Database Management", "spawnegg");
       localStorage.setItem("unlockedSkill_spawnegg", "true");
-      localStorage.setItem("spawneggSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
+      //localStorage.setItem("spawneggSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
+      localStorage.setItem("spawneggSkill_Expirity", Date.now());
+      playLevelUpSound("spawnegg");
       hintrecipeData();
     }
 
@@ -1840,6 +1867,7 @@ export function InventorySetup() {
       AchevementUnlock("API Integration", "lodestone");
       localStorage.setItem("unlockedSkill_lodestone", "true");
       localStorage.setItem("lodestoneSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
+      playLevelUpSound("lodestone");
       hintrecipeData();
     }
 
@@ -1854,6 +1882,7 @@ export function InventorySetup() {
       AchevementUnlock("Bootstrap Framework", "lever");
       localStorage.setItem("unlockedSkill_lever", "true");
       localStorage.setItem("leverSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
+      playLevelUpSound("lever");
       hintrecipeData();
     }
 
@@ -1868,6 +1897,7 @@ export function InventorySetup() {
       AchevementUnlock("jQuery Library", "redstone_torch");
       localStorage.setItem("unlockedSkill_redstone_torch", "true");
       localStorage.setItem("redstone_torchSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
+      playLevelUpSound("redstone_torch");
       hintrecipeData();
     }
 
@@ -1882,6 +1912,7 @@ export function InventorySetup() {
       AchevementUnlock("Troubleshooting", "amethystshard");
       localStorage.setItem("unlockedSkill_amethystshard", "true");
       localStorage.setItem("amethystshardSkill_Expirity", Date.now() + 7 * 24 * 60 * 60 * 1000);
+      playLevelUpSound("amethystshard");
       hintrecipeData();
     }
   }
@@ -1940,7 +1971,7 @@ export function InventorySetup() {
 
 export function hintrecipeData() {
   const now = Date.now();
-  const skills = ["diamond", "commandblock", "spawnegg", "lever", "redstone_torch", "amethystshard"];
+  const skills = ["diamond", "commandblock", "spawnegg", "lever", "redstone_torch", "amethystshard", "lodestone"];
 
   skills.forEach((skill) => {
     const expiry = localStorage.getItem(`${skill}Skill_Expirity`);
@@ -1990,6 +2021,12 @@ export function hintrecipeData() {
       item_name: "spawnegg",
       hint_desc: "This <b>complex recipe</b> needs five ingredients! Ensure <b>Structure, Logic, Knowledge, Precision, and Connectivity</b> are all present in the <b>top and middle rows</b>.",
       Slots: ["1", "2", "4", "5", "6"],
+    },
+    {
+      title: "Conduit Power",
+      item_name: "lever",
+      hint_desc: "Implement <b>responsive design</b> by placing <b>Structure</b> and <b>Performance</b> in the <b>top row</b>, with <b>Knowledge</b> directly below <b>Structure</b>.",
+      Slots: ["1", "3", "4"],
     },
     {
       title: "Redstone Torch",
@@ -2068,6 +2105,20 @@ export function hintrecipeData() {
   };
 
   // bootstrap skill recipe data
+  const Skill_lever = {
+    slot_1: "iron_ingot",
+    slot_2: null,
+    slot_3: "feather",
+    slot_4: "book",
+    slot_5: null,
+    slot_6: null,
+    slot_7: null,
+    slot_8: null,
+    slot_9: null,
+    outcome: "lever",
+  };
+
+  // api integration skill recipe data
   const Skill_lodestone = {
     slot_1: null,
     slot_2: "redstone_dust",
@@ -2096,13 +2147,20 @@ export function hintrecipeData() {
   };
 
   const hintContainer = $("#hint-content");
-  //        localStorage.setItem("CheatActivated", "true");
 
   let cheatActive = localStorage.getItem("CheatActivated") === "true" ? true : false;
 
   function skillProgressStatus() {
     let unlockedCount = 0;
-    const skills = ["unlockedSkill_diamond", "unlockedSkill_commandblock", "unlockedSkill_spawnegg", "unlockedSkill_redstone_torch", "unlockedSkill_lodestone", "unlockedSkill_amethystshard"];
+    const skills = [
+      "unlockedSkill_diamond",
+      "unlockedSkill_commandblock",
+      "unlockedSkill_spawnegg",
+      "unlockedSkill_redstone_torch",
+      "unlockedSkill_lodestone",
+      "unlockedSkill_amethystshard",
+      "unlockedSkill_lever",
+    ];
 
     skills.forEach((skill) => {
       if (localStorage.getItem(skill) === "true") {
@@ -2140,6 +2198,7 @@ export function hintrecipeData() {
       commandblock: Skill_commandblock,
       spawnegg: Skill_spawnegg,
       redstone_torch: Skill_redstone_torch,
+      lever: Skill_lever,
       lodestone: Skill_lodestone,
       amethystshard: Skill_amethystshard,
     };
@@ -2170,6 +2229,9 @@ export function hintrecipeData() {
         case "ender_pearl":
           itemimage = ender_pearl;
           break;
+        case "lever":
+          itemimage = lever;
+          break;
         default:
           return "";
       }
@@ -2194,6 +2256,9 @@ export function hintrecipeData() {
           break;
         case "amethystshard":
           itemimage = amethyst_shard;
+          break;
+        case "lever":
+          itemimage = lever;
           break;
         default:
           itemimage = "";
@@ -2488,20 +2553,51 @@ export function KonamiCode() {
 }
 
 export async function fetchData(dataType) {
-    const API_BASE_URL = 'https://port-folio-seven-flax.vercel.app';
-    const ENDPOINT = `/api/serverless?data=${dataType}`;
-    const url = API_BASE_URL + ENDPOINT;
+  const API_BASE_URL = "https://port-folio-seven-flax.vercel.app";
+  const ENDPOINT = `/api/serverless?data=${dataType}`;
+  const url = API_BASE_URL + ENDPOINT;
 
-    try {
-        const res = await fetch(url);
-        if (!res.ok) {
-            console.warn(`HTTP error! Status: ${res.status}`);
-            return null;
-        }
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        console.warn(`Error fetching data for ${dataType}:`, error);
-        return null;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.warn(`HTTP error! Status: ${res.status}`);
+      return null;
     }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.warn(`Error fetching data for ${dataType}:`, error);
+    return null;
+  }
 }
+
+export function showInActiveMessage() {
+  localStorage.setItem("DevInactiveMessageShown", "true");
+  if (localStorage.getItem("DevInactiveMessageTimestamp")) {
+    const previousTimestamp = parseInt(localStorage.getItem("DevInactiveMessageTimestamp"));
+    const currentTime = Date.now();
+    const timeDifference = currentTime - previousTimestamp;
+    const twentyFourHours = 24 * 60 * 60 * 1000;
+    if (timeDifference < twentyFourHours) {
+      localStorage.removeItem("DevInactiveMessageTimestamp");
+      return;
+    }
+  } else {
+    localStorage.setItem("DevInactiveMessageTimestamp", Date.now().toString());
+  }
+  
+  Swal.fire({
+    position: "center",
+    title: "Development Inactive",
+    icon: "info",
+    text: "This Portfolio Development is currently inactive and not being actively maintained. Some features may not function as intended.",
+    confirmButtonText: "OK",
+    draggable: true,
+    timer: 8000,
+    timerProgressBar: true,
+    backdrop: `
+    rgba(0, 0, 0, 0.80)
+    `,
+  });
+}
+
