@@ -33,7 +33,7 @@ $(document).ready(function () {
   PanoramaBackground("PanoramaContainer", ENABLE_BACKGROUND_ANIMATION, BACKGROUND_ROTATION_SPEED, isStaticBG);
   LoadingScreenFadeOut(UNDER_DEVELOPMENT, ENABLE_LOADING_SCREEN);
   BackgroundMusic(true, 0.5);
-  ServiceWorkerRegister();
+  //ServiceWorkerRegister();
   Splashtext("MCsplashText", PORTFOLIOVERSION);
   CopyRightName("current-year", "owner-name", PORTFOLIOVERSION);
   TooltipInit();

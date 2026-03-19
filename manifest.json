@@ -7,18 +7,18 @@
   "display": "standalone",
   "orientation": "natural",
   "scope": "/",
-  "start_url": "/index.html",
+  "start_url": "./",
   "theme_color": "#ef2e3b",
   "prefer_related_applications": false,
   "shortcuts": [
     {
       "name": "About me",
       "short_name": "About",
-      "url": "./About.html",
+      "url": "./index.html#aboutMe",
       "description": "Learn more about me, my background, and my skills.",
       "icons": [
         {
-          "src": "../../Assets/Icons/PWA-Icon/Icon-x96.jpeg",
+          "src": "./Assets/Icons/PWA-Icon/Icon-x96.jpeg",
           "sizes": "96x96",
           "type": "image/jpeg",
           "purpose": "any"
@@ -77,19 +77,19 @@
   ],
   "screenshots": [
     {
-      "src": "/Assets/PWA/1.png",
+      "src": "./Assets/PWA/1.png",
       "sizes": "1080x720",
       "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "/Assets/PWA/2.png",
+      "src": "./Assets/PWA/2.png",
       "sizes": "1080x720",
       "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "/Assets/PWA/3.png",
+      "src": "./Assets/PWA/3.png",
       "sizes": "1080x720",
       "type": "image/png",
       "form_factor": "wide"
