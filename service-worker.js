@@ -1,4 +1,4 @@
-const CACHE_NAME = "portfolio-cache-v1";
+/* const CACHE_NAME = "portfolio-cache-v1";
 
 const urltoCache = [
     "service-worker.js",
@@ -132,4 +132,4 @@ self.addEventListener('message', (event) => {
   } catch (e) {
     console.warn('Service worker message handler error', e);
   }
-});
+}); */

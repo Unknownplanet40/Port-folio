@@ -2586,7 +2586,7 @@ export function showInActiveMessage() {
     localStorage.setItem("DevInactiveMessageTimestamp", Date.now().toString());
   }
   
-  Swal.fire({
+/*   Swal.fire({
     position: "center",
     title: "Development Inactive",
     icon: "info",
@@ -2598,6 +2598,38 @@ export function showInActiveMessage() {
     backdrop: `
     rgba(0, 0, 0, 0.80)
     `,
-  });
+  }); */
+
+    Swal.fire({
+      position: "center",
+      title: "Something Went Wrong",
+      icon: "error",
+      text: "We have incountered an issue while loading the data. Please try again later. Sorry for the inconvenience.",
+      confirmButtonText: "OK",
+      showConfirmButton: false,
+      timer: 10000,
+      timerProgressBar: true,
+      allowOutsideClick: false,
+      customClass: {
+      popup: "tooltip-SA2",
+      title: "tooltip-SA2-title",
+      htmlContainer: "tooltip-SA2-text",
+      timerProgressBar: "tooltip-SA2-progressbar",
+      container: "tooltip-SA2-container",
+      },
+      didOpen: () => {
+        const errorSound = new Audio("https://minecraft.wiki/images/End_portal_activation.ogg");
+        errorSound.preload = "auto";
+        errorSound.volume = 0.5;
+        errorSound.playsInline = true;
+        errorSound.currentTime = 0;
+        errorSound.play().catch((err) => {
+          console.warn("Error sound playback failed:", err);
+        });
+      },
+      didClose: () => {
+        location.reload();
+      }
+    });
 }
 
