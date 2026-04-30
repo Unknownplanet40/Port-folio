@@ -2572,7 +2572,7 @@ export async function fetchData(dataType) {
 }
 
 export function showInActiveMessage() {
-  localStorage.setItem("DevInactiveMessageShown", "true");
+  /* localStorage.setItem("DevInactiveMessageShown", "true");
   if (localStorage.getItem("DevInactiveMessageTimestamp")) {
     const previousTimestamp = parseInt(localStorage.getItem("DevInactiveMessageTimestamp"));
     const currentTime = Date.now();
@@ -2584,7 +2584,7 @@ export function showInActiveMessage() {
     }
   } else {
     localStorage.setItem("DevInactiveMessageTimestamp", Date.now().toString());
-  }
+  } */
   
 /*   Swal.fire({
     position: "center",
